@@ -1,0 +1,23 @@
+{
+  "name": "@next/monorepo",
+  "version": "1.0.0",
+  "description": "Federated Modules Production Grade boilerplate for Next",
+  "scripts": {
+    "host:eslint": "npm run lint --workspace='@next/host'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amido/Next.Ecommerce.UI.Federated.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amido/Next.Ecommerce.UI.Federated/issues"
+  },
+  "homepage": "https://github.com/amido/Next.Ecommerce.UI.Federated#readme",
+  "workspaces": [
+    "./apps/*",
+    "./packages/*"
+  ]
+}
