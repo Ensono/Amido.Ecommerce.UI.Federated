@@ -4,55 +4,56 @@ module.exports = {
     browser: true,
     jest: true,
   },
-  parser: "@typescript-eslint/parser",
-  ignorePatterns: ["*.config.js"],
+  parser: '@typescript-eslint/parser',
+  ignorePatterns: ['*.config.js'],
   parserOptions: {
     ecmaVersion: 10,
-    extraFileExtensions: [".mjs"],
-    project: ["./tsconfig.json"],
+    extraFileExtensions: ['.mjs'],
+    project: ['./tsconfig.json'],
   },
-  plugins: ["@typescript-eslint"],
+  plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc'],
   extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
-    "airbnb-base",
-    "airbnb-typescript/base",
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'airbnb-base',
+    'airbnb-typescript/base',
   ],
   rules: {
-    "@typescript-eslint/lines-between-class-members": "off",
-    "@typescript-eslint/no-shadow": "off",
-    "@typescript-eslint/dot-notation": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/quotes": [
-      "error",
-      "single",
+    '@typescript-eslint/lines-between-class-members': 'off',
+    '@typescript-eslint/no-shadow': 'off',
+    '@typescript-eslint/dot-notation': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
+    '@typescript-eslint/quotes': [
+      'error',
+      'single',
       {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true
-      }
-    ]
+        avoidEscape: true,
+        allowTemplateLiterals: true,
+      },
+    ],
+    'tsdoc/syntax': 'warn',
   },
   overrides: [
     {
-      files: ["*.(test|spec).ts?(x)"],
-      plugins: ["jest"],
-      extends: ["plugin:jest/recommended"],
+      files: ['*.(test|spec).ts?(x)'],
+      plugins: ['jest'],
+      extends: ['plugin:jest/recommended'],
     },
     {
-      files: ["*.js"],
+      files: ['*.js'],
       rules: {
-        "@typescript-eslint/no-var-requires": "off",
+        '@typescript-eslint/no-var-requires': 'off',
       },
     },
-    { files: ["*"], extends: "./all" },
+    { files: ['*'], extends: './all' },
   ],
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       typescript: {},
       node: {
-        extensions: [".mjs", ".js", ".ts"],
+        extensions: ['.mjs', '.js', '.ts'],
       },
     },
     jest: {

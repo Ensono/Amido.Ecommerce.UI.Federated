@@ -3,6 +3,24 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+/**
+ * What is the app single responsibility?
+ * @remarks
+ *
+ * * This is an example from CRA typescript
+ *
+ * @example
+ * ```typescript
+ *    ReactDOM.render(
+ *      <React.StrictMode>
+ *        <App />
+ *      </React.StrictMode>,
+ *      document.getElementById('root')
+ *    );
+ * ```
+ *
+ * @alpha
+ */
 const App = () => {
   return (
     <div className="App">
