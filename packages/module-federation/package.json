@@ -1,0 +1,29 @@
+{
+  "name": "@next/federated-modules",
+  "version": "0.1.0",
+  "private": true,
+  "module": "build/federated-modules.bundle.min.js",
+  "scripts": {
+    "build": "webpack --config webpack.base.js",
+    "build-watch": "webpack --config webpack.base.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-loader": "^8.2.2",
+    "html-to-react": "1.4.7",
+    "node-fetch": "2.6.1",
+    "json-stringify-deterministic": "1.0.1",
+    "react": "18.0.0-beta-149b420f6-20211119",
+    "react-dom": "18.0.0-beta-149b420f6-20211119"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "esbuild": "0.12.9",
+    "esbuild-loader": "2.13.1",
+    "webpack": "5.40.0",
+    "webpack-cli": "4.7.2"
+  }
+}
