@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Federated Modules Production Grade boilerplate for Next",
   "scripts": {
-    "host:eslint": "npm run lint --workspace='@next/host'"
+    "host:eslint": "npm run lint --workspace='@next/host'",
+    "remote:eslint": "npm run lint --workspace='@next/remote'",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -19,5 +21,8 @@
   "workspaces": [
     "./apps/*",
     "./packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "husky": "^7.0.4"
+  }
 }
