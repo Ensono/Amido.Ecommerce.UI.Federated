@@ -3,7 +3,26 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const App = () => {
+/**
+ * What is the app single responsibility?
+ * alessio
+ * @remarks
+ *
+ * * This is an example from CRA typescript
+ *
+ * @example
+ * ```typescript
+ *    ReactDOM.render(
+ *      <React.StrictMode>
+ *        <App />
+ *      </React.StrictMode>,
+ *      document.getElementById('root')
+ *    );
+ * ```
+ *
+ * @alpha
+ */
+const App1 = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -24,4 +43,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App1;
