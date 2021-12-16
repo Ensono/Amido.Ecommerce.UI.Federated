@@ -1,0 +1,10 @@
+{
+  "name": "@next/prettier-config",
+  "version": "1.0.0",
+  "description": "Prettier config for Next",
+  "license": "MIT",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  }
+}
