@@ -5,6 +5,8 @@
   "scripts": {
     "host:eslint": "npm run lint --workspace='@next/host'",
     "remote:eslint": "npm run lint --workspace='@next/remote'",
+    "host:test": "npm run test --workspace='@next/host'",
+    "remote:test": "npm run test --workspace='@next/remote'",
     "prepare": "husky install"
   },
   "repository": {
