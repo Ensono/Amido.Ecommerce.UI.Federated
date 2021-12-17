@@ -16,6 +16,7 @@
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -27,9 +28,6 @@ yarn-error.log*
 
 node_modules
 .DS_Store
-<<<<<<< HEAD
-.env
-=======
 yarn-error.log
 coverage
 build
@@ -39,4 +37,3 @@ build
 cypress/screenshots/
 **/.lighthouseci
 docs
->>>>>>> main
