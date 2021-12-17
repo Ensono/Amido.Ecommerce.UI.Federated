@@ -68,4 +68,4 @@ module.exports = {
     'arrow-body-style': 'off',
     curly: ['error', 'all'],
   },
-};
+}

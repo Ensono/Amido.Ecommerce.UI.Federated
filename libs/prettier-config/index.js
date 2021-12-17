@@ -2,7 +2,7 @@ module.exports = {
   printWidth: 90,
   tabWidth: 2,
   useTabs: false,
-  semi: true,
+  semi: false,
   trailingComma: 'all',
   endOfLine: 'lf',
   proseWrap: 'always',
@@ -11,4 +11,4 @@ module.exports = {
   requirePragma: false,
   bracketSameLine: false,
   htmlWhitespaceSensitivity: 'css',
-};
+}

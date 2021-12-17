@@ -18,7 +18,7 @@ module.exports = {
       'warn',
       {
         singleQuote: true,
-        semi: true,
+        semi: false,
       },
     ],
     'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
@@ -70,4 +70,4 @@ module.exports = {
       },
     },
   },
-};
+}

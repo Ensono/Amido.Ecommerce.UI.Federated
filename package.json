@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "description": "Federated Modules Production Grade boilerplate for Next",
   "scripts": {
-    "lint": "npm run lint --ws --if-present",
-    "tsc": "npm run tsc --ws --if-present",
-    "test": "npm run test --ws --if-present",
+    "lint-all": "npm run lint --ws --if-present",
+    "tsc-all": "npm run tsc --ws --if-present",
+    "test-all": "npm run test --ws --if-present",
     "docs": "npm run docs -ws --if-present",
     "app-shell:eslint": "npm run lint -w @next/app-shell",
     "header:eslint": "npm run lint -w @next/header",
     "app-shell:test": "npm run test -w @next/app-shell",
     "header:test": "npm run test -w @next/header",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "node ./tools/CLI/lint.cjs",
+    "tsc": "node ./tools/CLI/tsc.cjs",
+    "test": "node ./tools/CLI/test.cjs"
   },
   "repository": {
     "type": "git",
@@ -31,6 +34,10 @@
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
+    "@lerna/filter-options": "^4.0.0",
+    "@lerna/package-graph": "^4.0.0",
+    "@lerna/project": "^4.0.0",
+    "chalk": "^5.0.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
