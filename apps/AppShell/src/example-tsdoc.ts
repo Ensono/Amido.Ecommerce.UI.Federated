@@ -30,7 +30,7 @@ export class ClassName {
 
   // !Constructor Function
   constructor() {
-    console.log('constructor');
+    console.log('constructor')
   }
 
   // !Getters and Setters

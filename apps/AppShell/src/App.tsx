@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.svg'
+import './App.css'
 
 /**
  * What is the app single responsibility?
@@ -39,7 +39,7 @@ const App = () => {
         </a>
       </header>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

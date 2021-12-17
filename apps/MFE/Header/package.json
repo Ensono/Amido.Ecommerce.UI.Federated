@@ -21,6 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
+    "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}'",
     "docs": "typedoc --out ../../../docs/header src/*.*"
   },
   "eslintConfig": {
