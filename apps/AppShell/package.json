@@ -1,5 +1,5 @@
 {
-  "name": "@next/remote",
+  "name": "@next/app-shell",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,31 +15,6 @@
     "react-scripts": "5.0.0",
     "typescript": "^4.5.4",
     "web-vitals": "^2.1.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --coverage --watchAll=false",
-    "eject": "react-scripts eject",
-    "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}'"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "devDependencies": {
     "@next/eslint-config": "1.0.0",
@@ -59,5 +34,31 @@
     "eslint-plugin-testing-library": "^4.9.0",
     "eslint-plugin-tsdoc": "^0.2.14",
     "prettier": "2.2.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --coverage --watchAll=false",
+    "eject": "react-scripts eject",
+    "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}'",
+    "docs": "typedoc --out ../../docs/app-shell src/*.*"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "Federated Modules Production Grade boilerplate for Next",
   "scripts": {
-    "host:eslint": "npm run lint --workspace='@next/host'",
-    "remote:eslint": "npm run lint --workspace='@next/remote'",
-    "host:test": "npm run test --workspace='@next/host'",
-    "remote:test": "npm run test --workspace='@next/remote'",
-    "build:federated-modules": "npm run build --workspace='@next/federated-modules'",
-    "prepare": "husky install"
+    "lint": "npm run lint --ws --if-present",
+    "tsc": "npm run tsc --ws --if-present",
+    "test": "npm run test --ws --if-present",
+    "docs": "npm run docs -ws --if-present",
+    "app-shell:eslint": "npm run lint -w @next/app-shell",
+    "header:eslint": "npm run lint -w @next/header",
+    "app-shell:test": "npm run test -w @next/app-shell",
+    "header:test": "npm run test -w @next/header",
+    "prepare": "husky install",
+    "build:federated-modules": "npm run build -w @next/federated-modules"
   },
   "repository": {
     "type": "git",
@@ -22,15 +26,16 @@
   },
   "homepage": "https://github.com/amido/Next.Ecommerce.UI.Federated#readme",
   "workspaces": [
-    "./apps/*",
-    "./packages/*"
+    "./apps/**",
+    "./libs/*"
   ],
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^7.0.4"
+    "husky": "^7.0.4",
+    "typedoc": "^0.22.10"
   },
   "config": {
     "commitizen": {
