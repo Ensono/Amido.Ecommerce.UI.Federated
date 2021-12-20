@@ -28,9 +28,11 @@
   },
   "homepage": "https://github.com/amido/Next.Ecommerce.UI.Federated#readme",
   "workspaces": [
-    "./apps/**",
-    "./tools/**",
-    "./libs/**"
+    "./apps/AppShell",
+    "./apps/MFE/Header",
+    "./tools/CLI",
+    "./libs/eslint-config",
+    "./libs/prettier-config"
   ],
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
