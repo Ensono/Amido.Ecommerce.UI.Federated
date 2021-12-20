@@ -1,0 +1,49 @@
+{
+  "name": "@next/federated-modules",
+  "version": "0.1.0",
+  "private": true,
+  "module": "build/federated-modules.bundle.min.js",
+  "scripts": {
+    "build": "webpack --config webpack.base.js",
+    "build-watch": "webpack --config webpack.base.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-loader": "^8.2.2",
+    "html-to-react": "1.4.7",
+    "json-stringify-deterministic": "1.0.1",
+    "node-fetch": "2.6.1"
+  },
+  "peerDependencies": {
+    "react": "18.0.0-beta-149b420f6-20211119",
+    "react-dom": "18.0.0-beta-149b420f6-20211119"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "@next/eslint-config": "1.0.0",
+    "@types/node-fetch": "^3.0.3",
+    "@typescript-eslint/eslint-plugin": "5.4.0",
+    "esbuild": "0.12.9",
+    "esbuild-loader": "2.13.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^16.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.27.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-testing-library": "^4.9.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "prettier": "2.2.1",
+    "webpack": "5.40.0",
+    "webpack-cli": "4.7.2"
+  }
+}
