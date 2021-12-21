@@ -11,4 +11,4 @@ module.exports = {
   requirePragma: false,
   bracketSameLine: false,
   htmlWhitespaceSensitivity: 'css',
-}
+};

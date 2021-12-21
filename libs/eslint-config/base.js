@@ -37,7 +37,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.(test|spec).ts?(x)'],
+      files: ['*.ts', '*.tsx', '*.(test|spec).ts?(x)'],
       plugins: ['jest'],
       extends: ['plugin:jest/recommended'],
     },
