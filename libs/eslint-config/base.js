@@ -33,6 +33,7 @@ module.exports = {
         allowTemplateLiterals: true,
       },
     ],
+    '@typescript-eslint/no-explicit-any': 'off',
     'tsdoc/syntax': 'warn',
   },
   overrides: [

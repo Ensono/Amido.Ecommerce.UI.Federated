@@ -1,7 +1,6 @@
-import path from 'path'
-import { Configuration } from 'webpack'
+const path = require('path'); 
 
-const config: Configuration = {
+module.exports = {
   entry: './src/federated-component.tsx',
   module: {
     rules: [
@@ -23,4 +22,3 @@ const config: Configuration = {
   },
 }
 
-export default config
