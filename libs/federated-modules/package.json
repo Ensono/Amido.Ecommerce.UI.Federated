@@ -4,7 +4,7 @@
   "private": true,
   "module": "build/federated-modules.bundle.min.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode production",
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix"
   },
   "keywords": [],
