@@ -6,9 +6,13 @@
     "lint-all": "npm run lint --ws --if-present",
     "tsc-all": "npm run tsc --ws --if-present",
     "test-all": "npm run test --ws --if-present",
+    "build-all": "npm run build --ws --if-present",
     "docs": "npm run docs -ws --if-present",
     "app-shell:eslint": "npm run lint -w @next/app-shell",
+    "app-shell:build": "npm run build -w @next/app-shell",
+    "federated-modules:build": "npm run build -w @next/federated-modules",
     "header:eslint": "npm run lint -w @next/header",
+    "federated-modules:eslint": "npm run lint -w @next/federated-modules",
     "app-shell:test": "npm run test -w @next/app-shell",
     "header:test": "npm run test -w @next/header",
     "prepare": "husky install",
@@ -28,9 +32,12 @@
   },
   "homepage": "https://github.com/amido/Next.Ecommerce.UI.Federated#readme",
   "workspaces": [
-    "./apps/**",
-    "./tools/**",
-    "./libs/**"
+    "./apps/AppShell",
+    "./apps/MFE/Header",
+    "./tools/CLI",
+    "./libs/eslint-config",
+    "./libs/prettier-config",
+    "./libs/federated-modules"
   ],
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
@@ -38,11 +45,19 @@
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
-    "typedoc": "^0.22.10"
+    "typedoc": "^0.22.10",
+    "@next/eslint-config": "1.0.0",
+    "@next/prettier-config": "1.0.0"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "eslintConfig": {
+    "extends": "@next/eslint-config"
+  },
+  "prettier": {
+    "extends": "@next/prettier-config"
   }
 }

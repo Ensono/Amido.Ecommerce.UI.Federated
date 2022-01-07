@@ -33,11 +33,12 @@ module.exports = {
         allowTemplateLiterals: true,
       },
     ],
+    '@typescript-eslint/no-explicit-any': 'off',
     'tsdoc/syntax': 'warn',
   },
   overrides: [
     {
-      files: ['*.(test|spec).ts?(x)'],
+      files: ['*.ts', '*.tsx', '*.(test|spec).ts?(x)'],
       plugins: ['jest'],
       extends: ['plugin:jest/recommended'],
     },
