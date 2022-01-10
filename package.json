@@ -15,6 +15,8 @@
     "federated-modules:eslint": "npm run lint -w @next/federated-modules",
     "app-shell:test": "npm run test -w @next/app-shell",
     "header:test": "npm run test -w @next/header",
+    "app-shell:ratchet": "npm run jest-ratchet -w @next/app-shell",
+    "header:ratchet": "npm run jest-ratchet -w @next/header",
     "prepare": "husky install",
     "lint": "node ./tools/CLI/diff/lint.cjs",
     "tsc": "node ./tools/CLI/diff/tsc.cjs",
@@ -61,12 +63,5 @@
   },
   "prettier": {
     "extends": "@next/prettier-config"
-  },
-  "lint-staged": {
-    "apps/AppShell/**/*.*": [
-      "app-shell:eslint",
-      "app-shell:test",
-      "app-shell:jest-ratchet"
-    ]
   }
 }
