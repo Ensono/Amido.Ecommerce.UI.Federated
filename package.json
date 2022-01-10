@@ -59,5 +59,10 @@
   },
   "prettier": {
     "extends": "@next/prettier-config"
+  },
+  "lint-staged": {
+    "apps/AppShell/**/*.*": [
+      "app-shell:eslint", "app-shell:test", "app-shell:jest-ratchet"
+    ]
   }
 }

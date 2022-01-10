@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
+    "@next/federated-modules": "^1.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.16.1",
@@ -55,8 +56,7 @@
     "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
-    "workbox-webpack-plugin": "^6.4.1",
-    "@next/federated-modules": "^1.0.0"
+    "workbox-webpack-plugin": "^6.4.1"
   },
   "peerDependencies": {
     "react": "18.0.0-beta-149b420f6-20211119",
@@ -65,12 +65,14 @@
   "devDependencies": {
     "@next/eslint-config": "1.0.0",
     "@next/prettier-config": "1.0.0",
-    "eslint-webpack-plugin": "^3.1.1"
+    "eslint-webpack-plugin": "^3.1.1",
+    "jest-coverage-ratchet": "^0.2.3"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --coverage --watchAll=false",
+    "jest-ratchet": "jest-coverage-ratchet",
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
     "prettier": "prettier 'src/**/*.{jsx,js,tsx,ts}' --write",
     "docs": "typedoc --out ../../docs/app-shell src/*.*"
@@ -142,7 +144,19 @@
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ],
-    "resetMocks": true
+    "resetMocks": true,
+    "coverageReporters": [
+      "json-summary"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 15.38,
+        "statements": 15.38,
+        "functions": 25,
+        "branches": 0,
+        "branchesTrue": 0
+      }
+    }
   },
   "babel": {
     "presets": [
