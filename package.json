@@ -53,6 +53,7 @@
     "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime": "^7.16.7",
     "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-angular": "^16.0.0",
     "@commitlint/config-conventional": "^15.0.0",
     "@next/eslint-config": "1.0.0",
     "@next/prettier-config": "1.0.0",
