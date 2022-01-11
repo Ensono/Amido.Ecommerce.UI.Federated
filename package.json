@@ -11,6 +11,7 @@
     "app-shell:eslint": "npm run lint -w @next/app-shell",
     "app-shell:build": "npm run build -w @next/app-shell",
     "federated-modules:build": "npm run build -w @next/federated-modules",
+    "ui-components:build": "npm run build -w @next/ui-components",
     "header:eslint": "npm run lint -w @next/header",
     "federated-modules:eslint": "npm run lint -w @next/federated-modules",
     "app-shell:test": "npm run test -w @next/app-shell",
@@ -37,12 +38,20 @@
   "workspaces": [
     "./apps/AppShell",
     "./apps/MFE/Header",
+    "./libs/constants",
+    "./libs/ui-components",
     "./tools/CLI",
     "./libs/eslint-config",
     "./libs/prettier-config",
     "./libs/federated-modules"
   ],
   "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.16.8",
+    "@babel/preset-env": "^7.16.8",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@babel/runtime": "^7.16.7",
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
     "@next/eslint-config": "1.0.0",
