@@ -56,19 +56,10 @@
     "@commitlint/config-conventional": "^15.0.0",
     "@next/eslint-config": "1.0.0",
     "@next/prettier-config": "1.0.0",
-    "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.7",
     "typedoc": "^0.22.10"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog",
-      "scope": {
-        "required": true
-      }
-    }
   },
   "eslintConfig": {
     "extends": "@next/eslint-config"
