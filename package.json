@@ -67,5 +67,12 @@
   },
   "prettier": {
     "extends": "@next/prettier-config"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog",
+      "skipScope": false,
+      "defaultScope": "yo"
+    }
   }
 }
