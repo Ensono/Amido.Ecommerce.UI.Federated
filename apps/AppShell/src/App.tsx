@@ -1,5 +1,12 @@
 import React from 'react'
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import test from '@next/constants'
+// eslint-disable-next-line import/no-extraneous-dependencies
+// import Federated from '@next/federated-modules'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Text } from '@next/ui-components'
+
 import logo from './logo.svg'
 import './App.css'
 
@@ -28,13 +35,14 @@ const App: React.FC = () => (
       <p>
         Edit <code>src/App.tsx</code> and save to reload.
       </p>
+      <Text />
       <a
         className="App-link"
         href="https://reactjs.org"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Learn React
+        {test}
       </a>
     </header>
   </div>

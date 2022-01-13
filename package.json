@@ -11,14 +11,18 @@
     "app-shell:eslint": "npm run lint -w @next/app-shell",
     "app-shell:build": "npm run build -w @next/app-shell",
     "federated-modules:build": "npm run build -w @next/federated-modules",
+    "ui-components:build": "npm run build -w @next/ui-components",
     "header:eslint": "npm run lint -w @next/header",
     "federated-modules:eslint": "npm run lint -w @next/federated-modules",
     "app-shell:test": "npm run test -w @next/app-shell",
     "header:test": "npm run test -w @next/header",
+    "app-shell:ratchet": "npm run jest-ratchet -w @next/app-shell",
+    "header:ratchet": "npm run jest-ratchet -w @next/header",
     "prepare": "husky install",
     "lint": "node ./tools/CLI/diff/lint.cjs",
     "tsc": "node ./tools/CLI/diff/tsc.cjs",
-    "test": "node ./tools/CLI/diff/test.cjs"
+    "test": "node ./tools/CLI/diff/test.cjs",
+    "lint-staged": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -34,30 +38,41 @@
   "workspaces": [
     "./apps/AppShell",
     "./apps/MFE/Header",
+    "./libs/constants",
+    "./libs/ui-components",
     "./tools/CLI",
     "./libs/eslint-config",
     "./libs/prettier-config",
     "./libs/federated-modules"
   ],
   "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.16.8",
+    "@babel/preset-env": "^7.16.8",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@babel/runtime": "^7.16.7",
     "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-angular": "^16.0.0",
     "@commitlint/config-conventional": "^15.0.0",
-    "commitizen": "^4.2.4",
+    "@next/eslint-config": "1.0.0",
+    "@next/prettier-config": "1.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
-    "typedoc": "^0.22.10",
-    "@next/eslint-config": "1.0.0",
-    "@next/prettier-config": "1.0.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+    "lint-staged": "^12.1.7",
+    "typedoc": "^0.22.10"
   },
   "eslintConfig": {
     "extends": "@next/eslint-config"
   },
   "prettier": {
     "extends": "@next/prettier-config"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog",
+      "skipScope": false,
+      "defaultScope": "yo"
+    }
   }
 }

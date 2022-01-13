@@ -63,7 +63,8 @@
   },
   "devDependencies": {
     "@next/eslint-config": "1.0.0",
-    "@next/prettier-config": "1.0.0"
+    "@next/prettier-config": "1.0.0",
+    "jest-coverage-ratchet": "^0.2.3"
   },
   "prettier": {
     "extends": "@next/prettier-config"
@@ -72,6 +73,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --coverage --watchAll=false",
+    "jest-ratchet": "jest-coverage-ratchet",
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
     "docs": "typedoc --out ../../../docs/header src/*.*"
   },
@@ -139,7 +141,19 @@
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ],
-    "resetMocks": true
+    "resetMocks": true,
+    "coverageReporters": [
+      "json-summary"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 16.66,
+        "statements": 16.66,
+        "functions": 33.33,
+        "branches": 0,
+        "branchesTrue": 0
+      }
+    }
   },
   "babel": {
     "presets": [

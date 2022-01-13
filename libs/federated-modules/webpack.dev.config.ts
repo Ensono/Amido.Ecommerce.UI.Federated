@@ -1,19 +1,23 @@
 import path from 'path'
 
-import { Configuration } from 'webpack'
-import nodeExternals from 'webpack-node-externals'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { Configuration, HotModuleReplacementPlugin } from 'webpack'
 
 const config: Configuration = {
-  entry: './src/index.tsx',
   target: 'node',
-  externals: [nodeExternals()],
-  externalsPresets: {
-    node: true,
+  mode: 'development',
+  output: {
+    publicPath: '/',
+    filename: 'federated-modules.bundle.min.js',
+    path: path.resolve(__dirname, 'build'),
+    library: 'nextFederatedModules',
+    libraryTarget: 'umd',
   },
+  entry: './src/index.tsx',
   module: {
     rules: [
       {
-        test: /\.(ts|js)x?$/,
+        test: /\.(ts|js)x?$/i,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -31,10 +35,8 @@ const config: Configuration = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
-  output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
-  },
+  plugins: [new HotModuleReplacementPlugin()],
+  devtool: 'inline-source-map',
 }
 
 export default config
