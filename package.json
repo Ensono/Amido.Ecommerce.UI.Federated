@@ -11,6 +11,7 @@
     "app-shell:eslint": "npm run lint -w @next/app-shell",
     "app-shell:build": "npm run build -w @next/app-shell",
     "federated-modules:build": "npm run build -w @next/federated-modules",
+    "federated-modules:build-watch": "npm run build-watch -w @next/federated-modules",
     "ui-components:build": "npm run build -w @next/ui-components",
     "header:eslint": "npm run lint -w @next/header",
     "federated-modules:eslint": "npm run lint -w @next/federated-modules",

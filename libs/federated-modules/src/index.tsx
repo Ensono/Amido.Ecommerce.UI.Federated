@@ -1,6 +1,6 @@
 import React, { lazy } from 'react'
+import ReactHtmlParser from 'react-html-parser'
 
-import { Parser, ProcessNodeDefinitions } from 'html-to-react'
 import stringify from 'json-stringify-deterministic'
 import fetch from 'node-fetch'
 
@@ -85,72 +85,30 @@ function getServerComponent(
         .then((res) => res.json())
         .then((jsonRes: any) => {
           const { chunks, html } = jsonRes as PrerenderedModule
-          // Create an instance of the html->react parser
-          const processNodeDefinitions = new ProcessNodeDefinitions(React)
-          const parser = new Parser()
 
           return {
-            default: ({ children }: { children: typeof React.Children }) => {
-              const parseInstructions = [
-                {
-                  shouldProcessNode: (node: { type: string; data: string }) => {
-                    // If the pre-rendered component rendered a children placeholder,
-                    // we will process this ourselves.
-                    if (
-                      node?.type === 'text' &&
-                      node.data === '\u200Cchildren\u200C'
-                    ) {
-                      return true
-                    }
-                    return false
-                  },
-                  processNode: (_: any, __: any, index: number) => {
-                    // Instead of retaining the children placeholder, render out
-                    // the children components. This even allows for recursive
-                    // federated components!
-                    return (
-                      <React.Fragment key={index}>{children}</React.Fragment>
-                    )
-                  },
-                },
-                {
-                  // Process all other nodes with the lib defaults.
-                  shouldProcessNode: () => true,
-                  processNode: processNodeDefinitions.processDefaultNode,
-                },
-              ]
-
-              // Turn the pre-rendered HTML string into a react element
-              // while rendering out the children.
-              const reactElement = parser.parseWithInstructions(
-                html,
-                () => true,
-                parseInstructions
-              )
-
-              return (
-                <>
-                  {/* Add style chunks and async script tags for the script chunks. */}
-                  {chunks.map((chunk) =>
-                    chunk.endsWith('.css') ? (
-                      <link
-                        key={chunk}
-                        rel="stylesheet"
-                        href={`${remoteUrls[remote]}/build/${chunk}`}
-                      />
-                    ) : (
-                      <script
-                        key={chunk}
-                        async
-                        src={`${remoteUrls[remote]}/build/${chunk}`}
-                      />
-                    )
-                  )}
-                  {/* Render the re-constructed react element */}
-                  {reactElement}
-                </>
-              )
-            },
+            default: () => (
+              <>
+                {/* Add style chunks and async script tags for the script chunks. */}
+                {chunks.map((chunk) =>
+                  chunk.endsWith('.css') ? (
+                    <link
+                      key={chunk}
+                      rel="stylesheet"
+                      href={`${remoteUrls[remote]}/build/${chunk}`}
+                    />
+                  ) : (
+                    <script
+                      key={chunk}
+                      async
+                      src={`${remoteUrls[remote]}/build/${chunk}`}
+                    />
+                  )
+                )}
+                {/* Render the re-constructed react element */}
+                {ReactHtmlParser(html)}
+              </>
+            ),
           }
         })
     )

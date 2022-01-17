@@ -33,7 +33,7 @@ const config: Configuration = {
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   plugins: [new HotModuleReplacementPlugin()],
   devtool: 'inline-source-map',

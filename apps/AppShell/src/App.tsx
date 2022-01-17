@@ -3,8 +3,6 @@ import React from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import test from '@next/constants'
 // eslint-disable-next-line import/no-extraneous-dependencies
-// import Federated from '@next/federated-modules'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Text } from '@next/ui-components'
 
 import logo from './logo.svg'
