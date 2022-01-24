@@ -16,6 +16,7 @@
     "header:eslint": "npm run lint -w @next/header",
     "federated-modules:eslint": "npm run lint -w @next/federated-modules",
     "app-shell:test": "npm run test -w @next/app-shell",
+    "app-shell:start-server": "npm run start-server -w @next/app-shell",
     "header:test": "npm run test -w @next/header",
     "app-shell:ratchet": "npm run jest-ratchet -w @next/app-shell",
     "header:ratchet": "npm run jest-ratchet -w @next/header",
@@ -70,7 +71,7 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog",
       "skipScope": false,
-      "defaultScope": "yo"
+      "defaultScope": "*"
     }
   }
 }

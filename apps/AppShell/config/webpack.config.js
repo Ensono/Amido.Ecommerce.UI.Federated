@@ -28,6 +28,9 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 
+const nodeExternals = require("webpack-node-externals");
+const packageJsonDeps = require("../package.json").peerDependencies;
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
@@ -102,6 +105,14 @@ module.exports = function (webpackEnv) {
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
   const shouldUseReactRefresh = env.raw.FAST_REFRESH;
+
+  const REMOTE_URLS = JSON.parse(env.raw.REACT_APP_REMOTE_URLS);
+
+  const REMOTES = Object.entries(REMOTE_URLS)
+    .map(([name, entry]) => ({
+      [name]: `${entry}/static/container.js`,
+    }))
+  .reduce((acc, n) => ({ ...acc, ...n }), {});
 
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
@@ -185,7 +196,7 @@ module.exports = function (webpackEnv) {
     return loaders;
   };
 
-  return {
+  const baseConfig = {
     target: ['browserslist'],
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
@@ -330,7 +341,7 @@ module.exports = function (webpackEnv) {
           babelRuntimeEntry,
           babelRuntimeEntryHelpers,
           babelRuntimeRegenerator,
-        ]),
+        ])
       ],
     },
     module: {
@@ -719,9 +730,63 @@ module.exports = function (webpackEnv) {
             infrastructure: 'silent',
           },
         }),
+        new webpack.EnvironmentPlugin({
+          REMOTE_URLS,
+        }),
     ].filter(Boolean),
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
   };
+
+  const clientConfig = {
+    ...baseConfig,
+    plugins: baseConfig.plugins.concat([
+      new webpack.container.ModuleFederationPlugin({
+        name: "webpackHost",
+        filename: "remote-entry.js",
+        remotes: REMOTES,
+        shared: {
+          react: {
+            singleton: true,
+            eager: true,
+            requiredVersion: packageJsonDeps.react,
+          },
+          "react-dom": {
+            singleton: true,
+            eager: true,
+            requiredVersion: packageJsonDeps["react-dom"],
+          },
+        },
+      }),
+    ])
+  };
+
+  const serverConfig = {
+    ...baseConfig,
+    target: "node",
+    entry: paths.appIndexJsx,
+    output: {
+      ...baseConfig.output,
+      path: paths.appDist,
+    },
+    externals: [nodeExternals()],
+    externalsPresets: { node: true },
+    plugins: baseConfig.plugins.concat([
+      new webpack.container.ModuleFederationPlugin({
+        name: "appShell",
+        filename: "remote-entry.js",
+        remotes: REMOTES,
+        shared: {
+          react: {
+            singleton: true,
+            eager: true,
+            requiredVersion: packageJsonDeps.react,
+          },
+        },
+      }),
+    ])
+  };
+
+  return [clientConfig, serverConfig];
 };
