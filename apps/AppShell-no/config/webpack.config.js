@@ -765,7 +765,7 @@ module.exports = function (webpackEnv) {
   const serverConfig = {
     ...baseConfig,
     target: "node",
-    entry: paths.appIndexJsx,
+    entry: paths.appTsx,
     output: {
       ...baseConfig.output,
       path: paths.appDist,

@@ -53,8 +53,8 @@
     "web-vitals": "^2.1.2",
     "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
-    "webpack-manifest-plugin": "^4.0.2",
     "webpack-federated-stats-plugin": "2.0.5",
+    "webpack-manifest-plugin": "^4.0.2",
     "webpack-node-externals": "3.0.0",
     "webpack-stats-plugin": "1.0.3",
     "workbox-webpack-plugin": "^6.4.1"
@@ -70,7 +70,8 @@
     "@types/react-dom": "^17.0.11",
     "eslint-webpack-plugin": "^3.1.1",
     "jest-coverage-ratchet": "^0.2.3",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
