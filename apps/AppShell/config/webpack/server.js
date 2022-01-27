@@ -3,6 +3,7 @@ const postCssPresetEnv = require('postcss-preset-env')
 const getCSSModuleLocalIdent = require('react-ssr-dev-utils/getCSSModuleLocalIdent')
 const nodeExternals = require('webpack-node-externals')
 
+const modules = require('../modules')
 const paths = require('../paths')
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -194,18 +195,13 @@ module.exports = function (webpackEnv) {
     },
     externals: [nodeExternals()],
     resolve: {
-      modules: ['node_modules'],
-      extensions: ['.ts', '.js'],
+      modules: ['node_modules', paths.appNodeModules].concat(
+        modules.additionalModulePaths || []
+      ),
+      extensions: paths.moduleFileExtensions.map((ext) => `.${ext}`),
     },
     module: {
       rules: [
-        {
-          test: /\.(js|mjs|ts)$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-          },
-        },
         {
           oneOf: [...baseLoaders(webpackEnv), ...serverLoaders(webpackEnv)],
         },
