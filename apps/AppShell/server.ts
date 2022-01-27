@@ -5,8 +5,7 @@ import express from 'express'
 // @ts-ignore
 import { renderToPipeableStream } from 'react-dom/server'
 
-// @ts-ignore
-import App from './dist/app'
+import App from './src/App'
 
 interface Configuration {
   PORT: string

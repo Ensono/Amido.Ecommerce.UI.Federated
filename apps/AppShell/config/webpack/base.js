@@ -110,12 +110,6 @@ module.exports = function (webpackEnv) {
 
   const REMOTE_URLS = JSON.parse(env.raw.REACT_APP_REMOTE_URLS)
 
-  const REMOTES = Object.entries(REMOTE_URLS)
-    .map(([name, entry]) => ({
-      [name]: `${entry}/static/container.js`,
-    }))
-    .reduce((acc, n) => ({ ...acc, ...n }), {})
-
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [

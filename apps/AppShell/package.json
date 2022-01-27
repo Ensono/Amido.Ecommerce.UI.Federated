@@ -24,6 +24,7 @@
     "css-minimizer-webpack-plugin": "^3.2.0",
     "dotenv": "^14.1.0",
     "dotenv-expand": "^5.1.0",
+    "express": "^4.17.2",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
@@ -81,7 +82,7 @@
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
     "prettier": "prettier 'src/**/*.{jsx,js,tsx,ts}' --write",
     "docs": "typedoc --out ../../docs/app-shell src/*.*",
-    "start-server": "nodemon server.ts"
+    "start-server": "nodemon build/server.js"
   },
   "eslintConfig": {
     "extends": "@next/eslint-config"

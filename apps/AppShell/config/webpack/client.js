@@ -1,10 +1,10 @@
 const webpack = require('webpack')
 
+const getClientEnvironment = require('../env')
 const paths = require('../paths')
 const getBaseConfig = require('./base')
-
-const getClientEnvironment = require('../env')
 const packageJsonDeps = require('../../package.json').peerDependencies
+const nodeExternals = require("webpack-node-externals");
 
 module.exports = function (webpackEnv) {
   const baseConfig = getBaseConfig(webpackEnv)
@@ -21,7 +21,20 @@ module.exports = function (webpackEnv) {
 
   return {
     ...baseConfig,
-    entry: paths.appIndexJs,
+    target: 'node',
+    entry: {
+      main: paths.appIndexJs,
+      app: paths.appTsx,
+    },
+    externals: [nodeExternals()],
+    externalsPresets: { node: true },
+    output: {
+      ...baseConfig.output,
+      path: paths.appBuild,
+      filename: '[name].js',
+      publicPath: '/',
+      library: { type: "commonjs" },
+    },
     plugins: baseConfig.plugins.concat([
       new webpack.container.ModuleFederationPlugin({
         name: 'webpackHost',

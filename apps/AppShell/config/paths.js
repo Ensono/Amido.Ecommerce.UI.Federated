@@ -61,6 +61,7 @@ module.exports = {
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveModule(resolveApp, 'src/index'),
   appTsx: resolveModule(resolveApp, 'src/App'),
+  serverTs: resolveModule(resolveApp, 'server'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
