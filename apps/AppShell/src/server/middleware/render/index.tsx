@@ -1,38 +1,44 @@
-import { createElement } from "react"
-import { renderToPipeableStream } from 'react-dom/server'
-import App from '../../../App'
+import React from 'react'
+
+import { Handler } from 'express'
 // @ts-ignore
-export const renderMiddleware = (req, res) => {
-  if (req.path !== "/") {
-    res.status(404);
-    res.send();
-    return;
+import { renderToPipeableStream } from 'react-dom/server'
+
+import App from '../../../App'
+
+type AbortRenderToPipe = () => void
+
+const AppTyped = App as any
+
+export const renderMiddleware: Handler = (req, res) => {
+  if (req.path !== '/') {
+    res.status(404)
+    res.send()
+    return
   }
 
-  let didError = false;
-  const ctx = {};
+  let didError = false
+  const ctx = {}
   const { pipe, abort } = renderToPipeableStream(
-    .createElement(
-      App.context.Provider,
+    React.createElement(
+      AppTyped.context.Provider,
       { value: ctx },
-      .createElement(App.default)
+      React.createElement(AppTyped.default)
     ),
     {
       onCompleteAll() {
         // If something errored before we started streaming, we set the error code appropriately.
-        res.statusCode = didError ? 500 : 200;
-        res.contentType("html");
-        res.write("<!DOCTYPE html>");
-        pipe(res);
+        res.statusCode = didError ? 500 : 200
+        res.contentType('html')
+        res.write('<!DOCTYPE html>')
+        pipe(res)
       },
-      onError(x: string) {
-        didError = true;
-        console.error(x);
+      onError(x: Error) {
+        didError = true
+        console.error(x)
       },
     }
-  );
+  )
 
-  setTimeout(abort as AbortRenderToPipe, 5000);
-};
-
-type AbortRenderToPipe = () => void
+  setTimeout(abort as AbortRenderToPipe, 5000)
+}
