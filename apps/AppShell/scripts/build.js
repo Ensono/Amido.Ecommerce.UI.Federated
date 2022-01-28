@@ -136,6 +136,7 @@ function build(previousFileSizes) {
   const serverCompiler = webpack(serverConfig)
 
   return new Promise((resolve, reject) => {
+    console.log("Compiling client...")
     clientCompiler.run((err, clientStats) => {
       let clientMessages
       if (err) {
@@ -189,6 +190,7 @@ function build(previousFileSizes) {
       }
 
       serverCompiler.run((err, serverStats) => {
+        console.log("Compiling server...")
         let serverMessages
         if (err) {
           if (!err.message) {

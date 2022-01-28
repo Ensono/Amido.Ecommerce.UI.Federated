@@ -55,17 +55,10 @@
     "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime": "^7.16.7",
     "@next/eslint-config": "1.0.0",
-    "@next/prettier-config": "1.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.7",
     "typedoc": "^0.22.10"
-  },
-  "eslintConfig": {
-    "extends": "@next/eslint-config"
-  },
-  "prettier": {
-    "extends": "@next/prettier-config"
   },
   "config": {
     "commitizen": {

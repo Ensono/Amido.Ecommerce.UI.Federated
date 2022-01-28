@@ -67,12 +67,8 @@
   },
   "devDependencies": {
     "@next/eslint-config": "1.0.0",
-    "@next/prettier-config": "1.0.0",
     "@types/cors": "^2.8.12",
     "jest-coverage-ratchet": "^0.2.3"
-  },
-  "prettier": {
-    "extends": "@next/prettier-config"
   },
   "scripts": {
     "start": "node scripts/start.js",

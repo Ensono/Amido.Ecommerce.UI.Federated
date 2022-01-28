@@ -66,7 +66,6 @@
   },
   "devDependencies": {
     "@next/eslint-config": "1.0.0",
-    "@next/prettier-config": "1.0.0",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "babel-plugin-styled-components": "^2.0.2",
@@ -85,13 +84,10 @@
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
     "prettier": "prettier 'src/**/*.{jsx,js,tsx,ts}' --write",
     "docs": "typedoc --out ../../docs/app-shell src/*.*",
-    "start-server": "nodemon build/server.js"
+    "start-server": "node build/server.js"
   },
   "eslintConfig": {
     "extends": "@next/eslint-config"
-  },
-  "prettier": {
-    "extends": "@next/prettier-config"
   },
   "browserslist": {
     "production": [

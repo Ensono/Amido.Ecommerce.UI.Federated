@@ -3,8 +3,9 @@ const webpack = require('webpack')
 const getClientEnvironment = require('../env')
 const paths = require('../paths')
 const getBaseConfig = require('./base')
-const packageJsonDeps = require('../../package.json').peerDependencies
+const {packageJsonDeps, version} = require('../../package.json')
 const nodeExternals = require("webpack-node-externals");
+
 
 module.exports = function (webpackEnv) {
   const baseConfig = getBaseConfig(webpackEnv)
@@ -22,37 +23,26 @@ module.exports = function (webpackEnv) {
   return {
     ...baseConfig,
     target: 'node',
-    entry: {
-      main: paths.appIndexJs,
-      app: paths.appTsx,
-    },
     externals: [nodeExternals()],
     externalsPresets: { node: true },
-    output: {
-      ...baseConfig.output,
-      path: paths.appBuild,
-      filename: '[name].js',
-      publicPath: '/',
-      library: { type: "commonjs" },
-    },
-    plugins: baseConfig.plugins.concat([
-      new webpack.container.ModuleFederationPlugin({
-        name: 'webpackHost',
-        filename: 'remote-entry.js',
-        remotes: REMOTES,
-        shared: {
-          react: {
-            singleton: true,
-            eager: true,
-            requiredVersion: packageJsonDeps.react,
-          },
-          'react-dom': {
-            singleton: true,
-            eager: true,
-            requiredVersion: packageJsonDeps['react-dom'],
-          },
-        },
-      }),
-    ]),
+    // plugins: baseConfig.plugins.concat([
+    //   new webpack.container.ModuleFederationPlugin({
+    //     name: 'webpackHost',
+    //     filename: 'remote-entry.js',
+    //     remotes: REMOTES,
+    //     shared: {
+    //       react: {
+    //         singleton: true,
+    //         eager: true,
+    //         requiredVersion: packageJsonDeps.react,
+    //       },
+    //       'react-dom': {
+    //         singleton: true,
+    //         eager: true,
+    //         requiredVersion: packageJsonDeps['react-dom'],
+    //       },
+    //     },
+    //   }),
+    // ]),
   }
 }
