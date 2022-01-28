@@ -9,10 +9,10 @@ module.exports = function (webpackEnv) {
     target: 'node',
     entry: paths.serverTs,
     output: {
-      globalObject: 'self',
+      globalObject: 'this',
       path: paths.appBuild,
       filename: 'server.js',
-      library: {type: 'commonjs2'},
+      // library: {type: 'commonjs2'},
     },
     externals: [
       nodeExternals({

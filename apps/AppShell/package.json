@@ -33,6 +33,7 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "node-self": "^1.0.0-d",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -84,7 +85,8 @@
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
     "prettier": "prettier 'src/**/*.{jsx,js,tsx,ts}' --write",
     "docs": "typedoc --out ../../docs/app-shell src/*.*",
-    "start-server": "node build/server.js"
+    "start-server": "node build/server.js",
+    "tsc": "tsc"
   },
   "eslintConfig": {
     "extends": "@next/eslint-config"
@@ -156,11 +158,11 @@
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 15.38,
-        "statements": 15.38,
-        "functions": 25,
+        "lines": 5.55,
+        "statements": 5.4,
+        "functions": 12.5,
         "branches": 0,
-        "branchesTrue": 0
+        "branchesTrue": 100
       }
     }
   },

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Handler } from 'express'
+import {Handler} from 'express'
 // @ts-ignore
-import { renderToPipeableStream } from 'react-dom/server'
+import {renderToPipeableStream} from 'react-dom/server'
 
 import App from '../../../App'
 
@@ -19,12 +19,8 @@ export const renderMiddleware: Handler = (req, res) => {
 
   let didError = false
   const ctx = {}
-  const { pipe, abort } = renderToPipeableStream(
-    React.createElement(
-      AppTyped.context.Provider,
-      { value: ctx },
-      React.createElement(AppTyped.default)
-    ),
+  const {pipe, abort} = renderToPipeableStream(
+    React.createElement(AppTyped.context.Provider, {value: ctx}, React.createElement(AppTyped.default)),
     {
       onCompleteAll() {
         // If something errored before we started streaming, we set the error code appropriately.
@@ -37,7 +33,7 @@ export const renderMiddleware: Handler = (req, res) => {
         didError = true
         console.error(x)
       },
-    }
+    },
   )
 
   setTimeout(abort as AbortRenderToPipe, 5000)
