@@ -4,7 +4,7 @@ import {Handler} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
 
-import App from '../../../App'
+import App, {ReduxProvider, ThemeProvider} from '../../../App'
 
 type AbortRenderToPipe = () => void
 
@@ -18,9 +18,14 @@ export const renderMiddleware: Handler = (req, res) => {
   }
 
   let didError = false
-  const ctx = {}
+  const theme = {}
+  const data = {}
   const {pipe, abort} = renderToPipeableStream(
-    React.createElement(AppTyped.context.Provider, {value: ctx}, React.createElement(AppTyped.default)),
+    <ReduxProvider value={theme}>
+      <ThemeProvider value={data}>
+        <AppTyped />
+      </ThemeProvider>
+    </ReduxProvider>,
     {
       onCompleteAll() {
         // If something errored before we started streaming, we set the error code appropriately.

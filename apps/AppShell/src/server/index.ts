@@ -7,6 +7,6 @@ const app = express()
 
 app.use('/', express.static('./public'))
 
-app.use('/', renderMiddleware)
+app.use('/app', renderMiddleware)
 
 export default app
