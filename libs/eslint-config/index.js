@@ -21,7 +21,7 @@ module.exports = {
         semi: false,
       },
     ],
-    'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
+    'react/jsx-filename-extension': [1, {extensions: ['.jsx', '.tsx']}],
     'react/jsx-props-no-spreading': 'off',
     'react/no-array-index-key': 'off',
     'react/require-default-props': 'off',
@@ -35,10 +35,7 @@ module.exports = {
     'react/state-in-constructor': 'off',
     'react/destructuring-assignment': 'off',
     'react/no-children-prop': 'off',
-    'react/function-component-definition': [
-      'error',
-      { namedComponents: 'arrow-function' },
-    ],
+    'react/function-component-definition': ['error', {namedComponents: 'arrow-function'}],
     'jsx-a11y/no-autofocus': 'off',
     'jsx-a11y/anchor-is-valid': [
       'error',
@@ -48,6 +45,8 @@ module.exports = {
       },
     ],
     'jsx-a11y/label-has-associated-control': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
   overrides: [
     {

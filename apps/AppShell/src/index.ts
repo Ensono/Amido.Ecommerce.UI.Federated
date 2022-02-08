@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 
-import app from './server'
+import server from './server'
 
 interface Configuration {
   PORT: string
@@ -8,4 +8,4 @@ interface Configuration {
 }
 const config = dotenv.config() as Configuration
 const PORT = config.PORT || '3002'
-app.listen(PORT, () => console.log(`webpack host: started at http://localhost:${PORT}`))
+server.listen(PORT, () => console.log(`webpack host: started at http://localhost:${PORT}`))

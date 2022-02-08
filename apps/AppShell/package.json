@@ -59,9 +59,7 @@
     "webpack-manifest-plugin": "^4.0.2",
     "webpack-node-externals": "3.0.0",
     "webpack-stats-plugin": "1.0.3",
-    "workbox-webpack-plugin": "^6.4.1"
-  },
-  "peerDependencies": {
+    "workbox-webpack-plugin": "^6.4.1",
     "react": "18.0.0-beta-149b420f6-20211119",
     "react-dom": "18.0.0-beta-149b420f6-20211119"
   },
@@ -169,6 +167,14 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-transform-react-jsx",
+        {
+          "runtime": "automatic"
+        }
+      ]
     ]
   }
 }

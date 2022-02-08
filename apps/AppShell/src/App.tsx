@@ -1,4 +1,4 @@
-import React, {createContext} from 'react'
+import {createContext} from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import test from '@next/constants'

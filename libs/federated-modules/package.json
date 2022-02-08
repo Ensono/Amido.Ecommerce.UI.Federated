@@ -26,6 +26,7 @@
     "@next/eslint-config": "1.0.0",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
+    "@types/react-html-parser": "^2.0.2",
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^4.7.2",
     "@types/webpack-node-externals": "^2.5.3",
