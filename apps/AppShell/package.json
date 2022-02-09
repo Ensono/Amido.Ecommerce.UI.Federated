@@ -9,10 +9,9 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^13.0.0-alpha.5",
     "@testing-library/user-event": "^14.0.0-alpha.18",
+    "@types/express": "^4.17.13",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.13",
-    "@types/react": "^17.0.37",
-    "@types/react-dom": "^17.0.11",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",
@@ -23,8 +22,9 @@
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
-    "dotenv": "^10.0.0",
+    "dotenv": "^14.1.0",
     "dotenv-expand": "^5.1.0",
+    "express": "^4.17.2",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
@@ -33,6 +33,7 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "node-self": "^1.0.0-d",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -54,18 +55,25 @@
     "web-vitals": "^2.1.2",
     "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
+    "webpack-federated-stats-plugin": "2.0.5",
     "webpack-manifest-plugin": "^4.0.2",
-    "workbox-webpack-plugin": "^6.4.1"
-  },
-  "peerDependencies": {
+    "webpack-node-externals": "3.0.0",
+    "webpack-stats-plugin": "1.0.3",
+    "workbox-webpack-plugin": "^6.4.1",
     "react": "18.0.0-beta-149b420f6-20211119",
     "react-dom": "18.0.0-beta-149b420f6-20211119"
   },
   "devDependencies": {
     "@next/eslint-config": "1.0.0",
-    "@next/prettier-config": "1.0.0",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "babel-plugin-styled-components": "^2.0.2",
     "eslint-webpack-plugin": "^3.1.1",
-    "jest-coverage-ratchet": "^0.2.3"
+    "jest-coverage-ratchet": "^0.2.3",
+    "nodemon": "^2.0.15",
+    "react-ssr-dev-utils": "^2.2.1",
+    "ts-node": "^10.4.0",
+    "url-loader": "^4.1.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -74,13 +82,12 @@
     "jest-ratchet": "jest-coverage-ratchet",
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
     "prettier": "prettier 'src/**/*.{jsx,js,tsx,ts}' --write",
-    "docs": "typedoc --out ../../docs/app-shell src/*.*"
+    "docs": "typedoc --out ../../docs/app-shell src/*.*",
+    "start-server": "node build/server.js",
+    "tsc": "tsc"
   },
   "eslintConfig": {
     "extends": "@next/eslint-config"
-  },
-  "prettier": {
-    "extends": "@next/prettier-config"
   },
   "browserslist": {
     "production": [
@@ -149,17 +156,25 @@
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 15.38,
-        "statements": 15.38,
-        "functions": 25,
+        "lines": 14.28,
+        "statements": 13.95,
+        "functions": 10,
         "branches": 0,
-        "branchesTrue": 0
+        "branchesTrue": 100
       }
     }
   },
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-transform-react-jsx",
+        {
+          "runtime": "automatic"
+        }
+      ]
     ]
   }
 }

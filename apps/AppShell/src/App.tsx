@@ -1,14 +1,23 @@
-import React from 'react'
+import {createContext} from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import test from '@next/constants'
 // eslint-disable-next-line import/no-extraneous-dependencies
-// import Federated from '@next/federated-modules'
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Text } from '@next/ui-components'
+import {Text} from '@next/ui-components'
 
 import logo from './logo.svg'
 import './App.css'
+
+const ThemeContext = createContext(null)
+const ReduxContext = createContext(null)
+
+export const ThemeProvider = ({children, data}: any) => {
+  return <ThemeContext.Provider value={data}>{children}</ThemeContext.Provider>
+}
+
+export const ReduxProvider = ({children, data}: any) => {
+  return <ReduxContext.Provider value={data}>{children}</ReduxContext.Provider>
+}
 
 /**
  * What is the app single responsibility?
@@ -36,12 +45,7 @@ const App: React.FC = () => (
         Edit <code>src/App.tsx</code> and save to reload.
       </p>
       <Text />
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
         {test}
       </a>
     </header>

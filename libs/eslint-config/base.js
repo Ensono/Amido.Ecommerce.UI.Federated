@@ -48,7 +48,7 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
       },
     },
-    { files: ['*'], extends: './all' },
+    {files: ['*'], extends: './all'},
   ],
   settings: {
     'import/resolver': {

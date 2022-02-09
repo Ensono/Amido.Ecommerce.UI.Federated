@@ -14,17 +14,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "html-react-parser": "^1.4.5",
     "html-to-react": "1.4.7",
     "json-stringify-deterministic": "1.0.1",
     "node-fetch": "^3.1.0",
     "react": "18.0.0-beta-149b420f6-20211119",
-    "react-dom": "18.0.0-beta-149b420f6-20211119"
+    "react-dom": "18.0.0-beta-149b420f6-20211119",
+    "react-html-parser": "^2.0.2"
   },
   "devDependencies": {
     "@next/eslint-config": "1.0.0",
-    "@next/prettier-config": "1.0.0",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
+    "@types/react-html-parser": "^2.0.2",
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^4.7.2",
     "@types/webpack-node-externals": "^2.5.3",

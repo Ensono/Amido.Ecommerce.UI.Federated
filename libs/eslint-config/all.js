@@ -17,7 +17,16 @@ module.exports = {
     'no-bitwise': 'off',
     'no-redeclare': 'off',
     'import/prefer-default-export': 'off',
-    'import/extensions': ['error', 'always'],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+   ],
     'import/no-extraneous-dependencies': [
       'error',
       {

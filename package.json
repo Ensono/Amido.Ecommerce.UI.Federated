@@ -11,10 +11,12 @@
     "app-shell:eslint": "npm run lint -w @next/app-shell",
     "app-shell:build": "npm run build -w @next/app-shell",
     "federated-modules:build": "npm run build -w @next/federated-modules",
+    "federated-modules:build-watch": "npm run build-watch -w @next/federated-modules",
     "ui-components:build": "npm run build -w @next/ui-components",
     "header:eslint": "npm run lint -w @next/header",
     "federated-modules:eslint": "npm run lint -w @next/federated-modules",
     "app-shell:test": "npm run test -w @next/app-shell",
+    "app-shell:start-server": "npm run start-server -w @next/app-shell",
     "header:test": "npm run test -w @next/header",
     "app-shell:ratchet": "npm run jest-ratchet -w @next/app-shell",
     "header:ratchet": "npm run jest-ratchet -w @next/header",
@@ -53,23 +55,16 @@
     "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime": "^7.16.7",
     "@next/eslint-config": "1.0.0",
-    "@next/prettier-config": "1.0.0",
-    "cz-conventional-changelog": "^3.3.0",
+    "cz-conventional-changelog": "^3.0.1",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.7",
     "typedoc": "^0.22.10"
-  },
-  "eslintConfig": {
-    "extends": "@next/eslint-config"
-  },
-  "prettier": {
-    "extends": "@next/prettier-config"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog",
       "skipScope": false,
-      "defaultScope": "yo"
+      "defaultScope": "*"
     }
   }
 }
