@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react';
 
 import { json } from 'body-parser'
 import cors from 'cors'

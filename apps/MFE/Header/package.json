@@ -80,8 +80,8 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --coverage --watchAll=false",
     "jest-ratchet": "jest-coverage-ratchet",
-    "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
-    "prettier": "prettier 'src/**/*.{jsx,js,tsx,ts}' --write",
+    "lint": "eslint 'src/*.{jsx,js,tsx,ts}' --fix",
+    "prettier": "prettier 'src/*.{jsx,js,tsx,ts}' --write",
     "docs": "typedoc --out ../../docs/app-shell src/*.*",
     "start-server": "node build/server.js",
     "tsc": "tsc"

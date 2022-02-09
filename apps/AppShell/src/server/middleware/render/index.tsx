@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {Handler} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'

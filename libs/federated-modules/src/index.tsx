@@ -1,4 +1,5 @@
-import React, {lazy} from 'react'
+import {lazy} from 'react'
+import * as React from 'react'
 import ReactHtmlParser from 'react-html-parser'
 
 import stringify from 'json-stringify-deterministic'
