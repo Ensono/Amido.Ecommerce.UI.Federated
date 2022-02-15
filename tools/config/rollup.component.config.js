@@ -1,6 +1,6 @@
 const typescript = require("rollup-plugin-typescript2")
 const localtypescript = require("typescript")
-const resolve = require("@rollup/plugin-node-resolve")
+const {nodeResolve} = require("@rollup/plugin-node-resolve")
 const commonjs = require("@rollup/plugin-commonjs")
 const externals = require("rollup-plugin-node-externals")
 const createStyledComponentsTransformer = require("typescript-plugin-styled-components").default
@@ -15,7 +15,7 @@ const styledComponentsTransformer = pkg =>
     })
 
 module.exports = (pkg, isProd = false) => ({
-    input: "src/index.tsx",
+    input: "src/index.ts",
     output: [
         {
             file: pkg.main,
@@ -34,14 +34,14 @@ module.exports = (pkg, isProd = false) => ({
         typescript({
             clean: true,
             typescript: localtypescript,
-            tsconfig: "./tsconfig.build.json",
+            tsconfig: "./tsconfig.json",
             transformers: [
                 () => ({
                     before: [styledComponentsTransformer(pkg)],
                 }),
             ],
         }),
-        resolve(),
+        nodeResolve(),
         commonjs(),
     ],
 })
