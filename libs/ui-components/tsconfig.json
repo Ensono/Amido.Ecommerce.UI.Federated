@@ -16,7 +16,7 @@
         "isolatedModules": true,
         "noEmit": true,
         "declaration": true,
-        "outDir": "./build",
+        "outDir": "./lib",
     },
     "exclude": ["node_modules"],
     "include": ["src"]

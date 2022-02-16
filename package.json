@@ -22,9 +22,6 @@
     "app-shell:ratchet": "npm run jest-ratchet -w @next/app-shell",
     "header:ratchet": "npm run jest-ratchet -w @next/header",
     "prepare": "husky install",
-    "lint": "node ./tools/CLI/diff/lint.cjs",
-    "tsc": "node ./tools/CLI/diff/tsc.cjs",
-    "test": "node ./tools/CLI/diff/test.cjs",
     "lint-staged": "lint-staged"
   },
   "repository": {
