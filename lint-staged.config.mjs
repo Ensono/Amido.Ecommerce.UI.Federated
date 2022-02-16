@@ -1,10 +1,10 @@
 export default {
-  'apps/AppShell/**/*.*': () => ['npm run app-shell:eslint', 'npm run app-shell:test', 'npm run app-shell:ratchet'],
-  'apps/MFE/Header/**/*.*': () => ['npm run header:eslint', 'npm run header:test', 'npm run header:ratchet'],
-  'libs/federated-modules/**/*.*': () => ['npm run federated-modules:eslint'],
-  'libs/ui-components/**/*.*': () => [
-    'npm run ui-components:lint',
-    'npm run ui-components:test',
-    'npm run ui-components:ratchet',
+  'apps/AppShell/**/*.*': () => ['npm run app-shell:lint', 'npm run app-shell:test', 'npm run app-shell:ratchet'],
+  'apps/MFE/Header/**/*.*': () => ['npm run header:lint', 'npm run header:test', 'npm run header:ratchet'],
+  'libs/framework/federated-modules/**/*.*': () => ['npm run federated-modules:lint'],
+  'libs/ui-components/text/**/*.*': () => [
+    'npm run next-ui-components/text:lint',
+    'npm run next-ui-components/text:test',
+    'npm run next-ui-components/text:ratchet',
   ],
 }

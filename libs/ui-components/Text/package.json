@@ -1,6 +1,6 @@
 {
-  "name": "@next/ui-components",
-  "version": "1.0.1",
+  "name": "@next-ui-components/text",
+  "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

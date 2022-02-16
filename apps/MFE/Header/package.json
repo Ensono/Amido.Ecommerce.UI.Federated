@@ -86,9 +86,6 @@
     "start-server": "node build/server.js",
     "tsc": "tsc"
   },
-  "eslintConfig": {
-    "extends": "@next/eslint-config"
-  },
   "browserslist": {
     "production": [
       ">0.2%",

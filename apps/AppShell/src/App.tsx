@@ -1,9 +1,8 @@
 import {createContext} from 'react'
 
+import {Text} from '@next-ui-components/Text'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import test from '@next/constants'
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {Text} from '@next/ui-components'
 
 import logo from './logo.svg'
 import './App.css'
