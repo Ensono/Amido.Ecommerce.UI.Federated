@@ -1,2 +1,2 @@
-const conf = require("./libs/prettier-config") 
+const conf = require("./libs/framework/prettier-config") 
 module.exports = {...conf}

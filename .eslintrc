@@ -1,3 +1,3 @@
 {
-  "extends": "./libs/eslint-config"
+  "extends": "./libs/framework/eslint-config"
 }

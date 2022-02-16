@@ -13,6 +13,7 @@
 
 # production
 /build
+/lib
 
 # misc
 .DS_Store
@@ -30,6 +31,7 @@ node_modules
 yarn-error.log
 coverage
 build
+lib
 .vscode
 .next
 .vs
