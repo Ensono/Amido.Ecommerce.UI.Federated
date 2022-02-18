@@ -1,6 +1,6 @@
 const externals = require("rollup-plugin-node-externals")
 
-module.exports = (pkg, isProd = false) => ({
+module.exports = (pkg) => ({
     input: "src/index.ts",
     output: [
         {
@@ -10,7 +10,7 @@ module.exports = (pkg, isProd = false) => ({
     ],
     plugins: [
         externals({
-            deps: isProd,
+            deps: true,
             peerDeps: true,
         }),
     ],
