@@ -40,7 +40,7 @@ const styledComponentsTransformer = pkg =>
  * @alpha @beta @eventProperty @experimental @internal @override @packageDocumentation @public @readonly @sealed @virtual
  */
 module.exports = (pkg, isProd = false) => ({
-    input: "src/index.ts",
+    input: "src/index.tsx",
     output: [
         {
             file: pkg.main,

@@ -1,9 +1,8 @@
-import {lazy} from 'react'
-import * as React from 'react'
+import React, {lazy} from 'react'
 import ReactHtmlParser from 'react-html-parser'
 
+import axios from 'axios'
 import stringify from 'json-stringify-deterministic'
-import fetch from 'node-fetch'
 
 type Module = React.LazyExoticComponent<any>
 type ModuleFactory = () => {default: Module}
@@ -31,7 +30,7 @@ interface RemoteUrls {
   [name: string]: string
 }
 
-function getClientComponent(ctx: RemotesContext, remote: string, module: string, shareScope: string) {
+export const getClientComponent = (ctx: RemotesContext, remote: string, module: string, shareScope: string) => {
   ctx[remote] = ctx[remote] || {}
   const modules = ctx[remote] as Modules
 
@@ -50,13 +49,13 @@ function getClientComponent(ctx: RemotesContext, remote: string, module: string,
   return Component
 }
 
-function getServerComponent(
+const getServerComponent = (
   ctx: RemotesContext,
   remote: string,
   module: string,
   props: {[key: string]: any},
   remoteUrls: RemoteUrls,
-) {
+) => {
   // We cache based on properties. This allows us to only
   // do one fetch for multiple references of a remote component.
   const id = stringify({remote, module, props})
@@ -66,19 +65,18 @@ function getServerComponent(
   if (!Component) {
     Component = lazy(() =>
       // Do the post request to pre-render the federated component
-      fetch(`${remoteUrls[remote]}/prerender`, {
-        method: 'post',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: stringify({
-          module,
-          props,
-        }),
-      })
-        .then(res => res.json())
-        .then((jsonRes: any) => {
-          const {chunks, html} = jsonRes as PrerenderedModule
+      axios
+        .post(`${remoteUrls[remote]}/prerender`, {
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: stringify({
+            module,
+            props,
+          }),
+        })
+        .then((res: any) => {
+          const {chunks, html} = res as PrerenderedModule
 
           return {
             default: () => (
@@ -104,12 +102,7 @@ function getServerComponent(
   return Component
 }
 
-export default function federatedComponent(
-  remote: string,
-  module: string,
-  remoteUrls: RemoteUrls,
-  shareScope = 'default',
-) {
+export const federateComponent = (remote: string, module: string, remoteUrls: RemoteUrls, shareScope = 'default') => {
   const FederatedComponent: React.FC = ({children, ...props}) => {
     let Component: React.FC
 

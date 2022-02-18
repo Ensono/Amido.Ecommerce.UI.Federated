@@ -16,11 +16,6 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "@next/eslint-config": "1.0.0",
-    "react": "18.0.0-beta-149b420f6-20211119",
-    "react-dom": "18.0.0-beta-149b420f6-20211119"
-  },
-  "dependencies": {
     "react": "18.0.0-beta-149b420f6-20211119",
     "react-dom": "18.0.0-beta-149b420f6-20211119"
   },
@@ -31,6 +26,7 @@
     "@babel/preset-react": "^7.16.5",
     "@babel/preset-typescript": "^7.16.5",
     "@babel/runtime": "^7.16.5",
+    "@next/eslint-config": "1.0.0",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.2.1",
     "@rollup/plugin-babel": "^5.3.0",
