@@ -2,7 +2,9 @@ import {createContext} from 'react'
 
 import {Text} from '@next-ui-components/Text'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import test from '@next/constants'
+import {version} from '@next/constants'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {federateComponent} from '@next/federate-component'
 
 import logo from './logo.svg'
 import './App.css'
@@ -11,6 +13,7 @@ const ThemeContext = createContext(null)
 const ReduxContext = createContext(null)
 
 export const ThemeProvider = ({children, data}: any) => {
+  console.log(federateComponent)
   return <ThemeContext.Provider value={data}>{children}</ThemeContext.Provider>
 }
 
@@ -45,7 +48,7 @@ const App: React.FC = () => (
       </p>
       <Text />
       <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-        {test}
+        {version.version}
       </a>
     </header>
   </div>

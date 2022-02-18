@@ -1,6 +1,8 @@
 const flexbugsPlugin = require('postcss-flexbugs-fixes')
 const postCssPresetEnv = require('postcss-preset-env')
+// eslint-disable-next-line import/no-extraneous-dependencies
 const getCSSModuleLocalIdent = require('react-ssr-dev-utils/getCSSModuleLocalIdent')
+
 const paths = require('../paths')
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.

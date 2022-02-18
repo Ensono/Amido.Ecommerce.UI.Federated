@@ -39,8 +39,8 @@ const styledComponentsTransformer = pkg =>
  *
  * @alpha @beta @eventProperty @experimental @internal @override @packageDocumentation @public @readonly @sealed @virtual
  */
-module.exports = (pkg, isProd = false) => ({
-    input: "src/index.ts",
+module.exports = (pkg) => ({
+    input: "src/index.tsx",
     output: [
         {
             file: pkg.main,
@@ -53,7 +53,7 @@ module.exports = (pkg, isProd = false) => ({
     ],
     plugins: [
         externals({
-            deps: isProd,
+            deps: true,
             peerDeps: true,
         }),
         typescript({
