@@ -8,10 +8,8 @@
 # testing
 /coverage
 
-# development
+# output folders
 /dist
-
-# production
 /build
 /lib
 
@@ -31,6 +29,7 @@ node_modules
 yarn-error.log
 coverage
 build
+dist
 lib
 .vscode
 .next
