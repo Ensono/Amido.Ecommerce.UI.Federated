@@ -7,7 +7,7 @@ module.exports = function (webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development'
   return {
     target: 'node',
-    entry: paths.serverTs,
+    entry: paths.appServerIndexTs,
     output: {
       globalObject: 'this',
       path: paths.appBuild,
