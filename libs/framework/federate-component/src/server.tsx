@@ -2,55 +2,11 @@ import React, {lazy} from 'react'
 
 import axios from 'axios'
 import {Parser, ProcessNodeDefinitions} from 'html-to-react'
-// import ReactHtmlParser from 'react-html-parser'
 import stringify from 'json-stringify-deterministic'
 
-type Module = React.LazyExoticComponent<any>
-type ModuleFactory = () => {default: Module}
-interface ModulesContainer {
-  init(shareScope: string): Promise<void>
-  get(module: string): Promise<ModuleFactory>
-}
+import {Module, PrerenderedModule, RemoteUrls, RemotesContext} from './types'
 
-interface Modules {
-  [module: string]: Module
-}
-
-interface RemotesContext {
-  [remote: string]: Module | Modules
-}
-
-export const context: RemotesContext = {}
-
-interface PrerenderedModule {
-  chunks: string[]
-  html: string
-}
-
-interface RemoteUrls {
-  [name: string]: string
-}
-
-export const getClientComponent = (ctx: RemotesContext, remote: string, module: string, shareScope: string) => {
-  ctx[remote] = ctx[remote] || {}
-  const modules = ctx[remote] as Modules
-
-  let Component = modules[module]
-
-  if (!Component) {
-    Component = lazy(async () => {
-      const modulesContainer = (window as {[key: string]: any})[remote] as ModulesContainer
-      await __webpack_init_sharing__(shareScope)
-      await modulesContainer.init(__webpack_share_scopes__.default)
-      const factory = await modulesContainer.get(module)
-      return factory()
-    })
-    modules[module] = Component
-  }
-  return Component
-}
-
-const getServerComponent = (
+export const getServerComponent = (
   ctx: RemotesContext,
   remote: string,
   module: string,
@@ -135,22 +91,4 @@ const getServerComponent = (
   }
 
   return Component
-}
-
-export const federateComponent = (remote: string, module: string, remoteUrls: RemoteUrls, shareScope = 'default') => {
-  const FederatedComponent: React.FC = ({children, ...props}) => {
-    let Component: React.FC
-
-    if (typeof window !== 'undefined') {
-      Component = getClientComponent(context, remote, module, shareScope)
-    } else if (typeof window === 'undefined') {
-      Component = getServerComponent(context, remote, module, props, remoteUrls)
-    } else {
-      return null
-    }
-
-    return <Component {...props}>{children}</Component>
-  }
-
-  return FederatedComponent
 }
