@@ -205,7 +205,7 @@ module.exports = function (webpackEnv) {
       chunkFilename: isEnvProduction
         ? `static/js/[name].${version}.[contenthash:8].chunk.js`
         : isEnvDevelopment && 'static/js/[name].chunk.js',
-      assetModuleFilename: 'static/media/[name].[hash][ext]',
+      assetModuleFilename: 'static/media/[name].[contenthash:8][ext]',
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.
@@ -378,7 +378,7 @@ module.exports = function (webpackEnv) {
                 {
                   loader: require.resolve('file-loader'),
                   options: {
-                    name: 'static/media/[name].[hash].[ext]',
+                    name: 'static/media/[name].[contenthash:8].[ext]',
                   },
                 },
               ],
@@ -538,6 +538,7 @@ module.exports = function (webpackEnv) {
           {
             inject: true,
             template: paths.appHtml,
+            filename: 'app.html',
           },
           isEnvProduction
             ? {

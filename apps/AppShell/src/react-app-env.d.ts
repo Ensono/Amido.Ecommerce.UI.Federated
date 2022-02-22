@@ -1,6 +1,21 @@
+/* eslint-disable @typescript-eslint/triple-slash-reference */
 /// <reference types="node" />
 /// <reference types="react" />
 /// <reference types="react-dom" />
+declare namespace Express {
+  interface Request {
+      siteUrl: {
+          url: string
+          token: string
+      }
+      themeVersion: string
+      theme: Theme
+      html: string
+  }
+  interface Response{
+      html:  string
+  }
+}
 
 declare namespace NodeJS {
   interface ProcessEnv {
@@ -68,4 +83,8 @@ declare module '*.module.scss' {
 declare module '*.module.sass' {
   const classes: { readonly [key: string]: string }
   export default classes
+}
+
+interface StringMap {
+  [s: string]: string
 }
