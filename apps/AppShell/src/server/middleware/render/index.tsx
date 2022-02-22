@@ -2,27 +2,18 @@ import {Handler} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
 
-import App, {ReduxProvider, ThemeProvider} from '../../../App'
+import App, {ReduxProvider} from '../../../App'
 
 type AbortRenderToPipe = () => void
 
 const AppTyped = App as any
 
-export const renderMiddleware: Handler = (req, res) => {
-  if (req.path !== '/') {
-    res.status(404)
-    res.send()
-    return
-  }
-
+export const renderMiddleware: Handler = (_req, res) => {
   let didError = false
   const theme = {}
-  const data = {}
   const {pipe, abort} = renderToPipeableStream(
     <ReduxProvider value={theme}>
-      <ThemeProvider value={data}>
-        <AppTyped />
-      </ThemeProvider>
+      <AppTyped />
     </ReduxProvider>,
     {
       onCompleteAll() {

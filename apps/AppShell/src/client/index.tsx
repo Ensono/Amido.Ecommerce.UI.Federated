@@ -1,9 +1,25 @@
 import {StrictMode} from 'react'
 import ReactDOM from 'react-dom'
+// import {hydrateRoot} from 'react-dom'
 
-import './index.css'
 import App from '../App'
 import reportWebVitals from '../reportWebVitals'
+
+// const links: any = document.body.getElementsByTagName('link')
+// for (const link of links) {
+//   document.head.appendChild(link)
+// }
+// console.log('yayy')
+// hydrateRoot(
+//   document,
+//   <StrictMode>
+//     <App />
+//   </StrictMode>,
+// )
+
+// const root = createRoot(document, { hydrate: true });
+
+// root.render(<App />);
 
 ReactDOM.render(
   <StrictMode>

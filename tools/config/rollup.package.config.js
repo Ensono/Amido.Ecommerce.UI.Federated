@@ -3,6 +3,7 @@ const localtypescript = require('typescript')
 const {nodeResolve} = require('@rollup/plugin-node-resolve')
 const commonjs = require('@rollup/plugin-commonjs')
 const externals = require('rollup-plugin-node-externals')
+const del = require('rollup-plugin-delete')
 
 /**
  * What is the class's single responsibility?
@@ -29,7 +30,7 @@ const externals = require('rollup-plugin-node-externals')
  *
  * @alpha @beta @eventProperty @experimental @internal @override @packageDocumentation @public @readonly @sealed @virtual
  */
-module.exports = (pkg) => ({
+module.exports = pkg => ({
   input: 'src/index.ts',
   output: [
     {
@@ -42,6 +43,7 @@ module.exports = (pkg) => ({
     },
   ],
   plugins: [
+    del({targets: 'lib/*'}),
     externals({
       deps: true,
       peerDeps: true,

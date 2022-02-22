@@ -10,10 +10,11 @@
     "docs": "npm run docs -ws --if-present",
     "prepare": "husky install",
     "lint-staged": "lint-staged",
-    "app-shell:lint": "npm run lint -w @next/app-shell --if-present",
-    "app-shell:build": "npm run build -w @next/app-shell --if-present",
-    "app-shell:test": "npm run test -w @next/app-shell --if-present",
-    "app-shell:start-server": "npm run start-server -w @next/app-shell",
+    "app-shell:lint": "npm run lint -w @next/app-shell --if-present", 
+    "app-shell:build": "npm run build -w @next/app-shell --if-present", 
+    "app-shell:test": "npm run test -w @next/app-shell --if-present", 
+    "app-shell:serve": "npm run serve -w @next/app-shell",  
+    "app-shell:dev": "npm run dev -w @next/app-shell", 
     "app-shell:ratchet": "npm run jest-ratchet -w @next/app-shell",
     "header:build": "npm run build -w @next/header --if-present",
     "header:lint": "npm run lint -w @next/header --if-present",
@@ -64,6 +65,7 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.1.7",
     "prettier-eslint": "^13.0.0",
+    "rollup-plugin-delete": "^2.0.0",
     "typedoc": "^0.22.10"
   },
   "config": {

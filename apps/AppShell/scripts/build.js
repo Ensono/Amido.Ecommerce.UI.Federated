@@ -38,7 +38,7 @@ const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024
 const isInteractive = process.stdout.isTTY
 
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs, paths.appTsx])) {
+if (!checkRequiredFiles([paths.appHtml, paths.appClientIndexTsx, paths.appTsx])) {
   process.exit(1)
 }
 
@@ -52,12 +52,12 @@ checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // First, read the current file sizes in build directory.
     // This lets us display how much they changed later.
-    return measureFileSizesBeforeBuild(paths.appBuild)
+    return measureFileSizesBeforeBuild(paths.appBuildPublic)
   })
   .then(previousFileSizes => {
     // Remove all content but keep the directory so that
     // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appBuild)
+    fs.emptyDirSync(paths.appBuildPublic)
     // Merge with the public folder
     copyPublicFolder()
     // Start the webpack build
@@ -78,7 +78,7 @@ checkBrowsers(paths.appPath, isInteractive)
       printFileSizesAfterBuild(
         stats,
         previousFileSizes,
-        paths.appBuild,
+        paths.appBuildPublic,
         WARN_AFTER_BUNDLE_GZIP_SIZE,
         WARN_AFTER_CHUNK_GZIP_SIZE,
       )
@@ -87,7 +87,7 @@ checkBrowsers(paths.appPath, isInteractive)
       const publicUrl = paths.publicUrlOrPath
       const publicPath = clientConfig.output.publicPath
       console.log('publicPath', publicPath)
-      const buildFolder = path.relative(process.cwd(), paths.appBuild)
+      const buildFolder = path.relative(process.cwd(), paths.appBuildPublic)
       printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder, useYarn)
     },
     err => {
@@ -228,7 +228,7 @@ function build(previousFileSizes) {
 }
 
 function copyPublicFolder() {
-  fs.copySync(paths.appPublic, paths.appBuild, {
+  fs.copySync(paths.appPublic, paths.appBuildPublic, {
     dereference: true,
     filter: file => file !== paths.appHtml,
   })

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {createContext} from 'react'
 
 import {Text} from '@next-ui-components/Text'
@@ -39,19 +41,23 @@ export const ReduxProvider = ({children, data}: any) => {
  *
  * @alpha
  */
-const App: React.FC = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <Text />
-      <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-        {version.version}
-      </a>
-    </header>
-  </div>
-)
+const App: React.FC = () => {
+  return (
+    <ThemeProvider value={{}}>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p onClick={() => console.log('lallero')}>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p>
+          <Text />
+          <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
+            {version.version}
+          </a>
+        </header>
+      </div>
+    </ThemeProvider>
+  )
+}
 
 export default App

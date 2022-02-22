@@ -38,7 +38,7 @@ const PORT = config.PORT || '3001'
 
 const remoteModule = (
   federationStats.federatedModules as FederatedModule[]
-).find((m) => m.remote === 'webpackRemote')
+).find((m) => m.remote === 'mfe_header')
 
 const exposes = remoteModule ? remoteModule.exposes : {}
 

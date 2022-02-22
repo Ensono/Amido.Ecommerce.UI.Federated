@@ -18,6 +18,7 @@ const {WebpackManifestPlugin} = require('webpack-manifest-plugin')
 // const nodeExternals = require('webpack-node-externals')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 
+const {version} = require('../../package.json')
 const getClientEnvironment = require('../env')
 const modules = require('../modules')
 const paths = require('../paths')
@@ -189,24 +190,27 @@ module.exports = function (webpackEnv) {
       : isEnvDevelopment && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
-    entry: paths.appIndexJs,
+    entry: paths.appClientIndexTsx,
     output: {
       // The build folder.
-      path: paths.appBuild,
+      path: isEnvDevelopment ? paths.appDistPublic : paths.appBuildPublic,
       // Add /* filename */ comments to generated require()s in the output.
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: isEnvProduction ? 'static/js/[name].[contenthash:8].js' : isEnvDevelopment && 'static/js/bundle.js',
+      filename: isEnvProduction
+        ? `static/js/[name].${version}.[contenthash:8].js`
+        : isEnvDevelopment && 'static/js/bundle.js',
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
-        ? 'static/js/[name].[contenthash:8].chunk.js'
+        ? `static/js/[name].${version}.[contenthash:8].chunk.js`
         : isEnvDevelopment && 'static/js/[name].chunk.js',
       assetModuleFilename: 'static/media/[name].[hash][ext]',
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.
-      publicPath: paths.publicUrlOrPath,
+      // publicPath: paths.publicUrlOrPath,
+      publicPath: `${env.raw.ASSETS_PATH}/`,
       // Point sourcemap entries to original disk location (format as URL on Windows)
       devtoolModuleFilenameTemplate: isEnvProduction
         ? info => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
@@ -272,6 +276,10 @@ module.exports = function (webpackEnv) {
         // This is only used in production mode
         new CssMinimizerPlugin(),
       ],
+      splitChunks: isEnvProduction && {
+        chunks: 'all',
+        name: false,
+      },
     },
     resolve: {
       // This allows you to set a fallback for where webpack should look for modules.
