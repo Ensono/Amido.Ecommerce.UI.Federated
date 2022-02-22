@@ -1,8 +1,8 @@
 // import ReactDOM from 'react-dom'
 import {hydrateRoot} from 'react-dom'
 
-import App from '../App'
 import reportWebVitals from '../reportWebVitals'
+import App from './client_app'
 
 const links: any = document.body.getElementsByTagName('link')
 for (const link of links) {
