@@ -276,7 +276,7 @@ module.exports = function (webpackEnv) {
         // This is only used in production mode
         new CssMinimizerPlugin(),
       ],
-      splitChunks: {
+      splitChunks: isEnvProduction && {
         chunks: 'all',
         name: false,
       },
