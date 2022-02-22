@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "serve": "node build/server.js",
+    "serve": " node build/server.js",
     "dev": "nodemon --watch ./src --exec \"npm run build && npm run serve\" -e ts,tsx --ignore build/",
     "test": "node scripts/test.js --coverage --watchAll=false",
     "jest-ratchet": "jest-coverage-ratchet",
