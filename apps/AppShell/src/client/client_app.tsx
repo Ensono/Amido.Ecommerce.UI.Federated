@@ -5,13 +5,13 @@ import 'custom-event-polyfill'
 import logger from '@next/core-logger'
 
 // eslint-disable-next-line import/no-named-as-default
-import App from '../App'
+import App, {ReduxProvider} from '../App'
 // import {BASELINECSS_MATERIALUI, JSS_SERVERSIDE, BASELINECSS_CUSTOM} from '../config/constants'
 
 // const removeJssServerSide = (elementId: string) => {
 //   const element = document.getElementById(elementId)
 //   if (element) {
-//     element.parentNode!.removeChild(element)
+//     element.parentNode!.removeChild(element)Î
 //   }
 // }
 
@@ -48,7 +48,11 @@ export class ClientApp extends Component<any, {hasError: boolean}> {
     if (this.state.hasError) {
       return <div data-testid="client-error" className="x-next-plat-mod" />
     }
-    return <App {...this.props} />
+    return (
+      <ReduxProvider value={{}}>
+        <App {...this.props} />
+      </ReduxProvider>
+    )
   }
 }
 
