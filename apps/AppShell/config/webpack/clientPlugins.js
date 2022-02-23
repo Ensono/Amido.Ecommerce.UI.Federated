@@ -202,6 +202,23 @@ const clientPlugins = webpackEnv => {
     new webpack.EnvironmentPlugin({
       REMOTE_URLS,
     }),
+    // new webpack.container.ModuleFederationPlugin({
+    //   name: 'webpackHost',
+    //   filename: 'remote-entry.js',
+    //   remotes: REMOTES,
+    //   shared: {
+    //     react: {
+    //       singleton: true,
+    //       eager: true,
+    //       requiredVersion: packageJsonDeps.react,
+    //     },
+    //     'react-dom': {
+    //       singleton: true,
+    //       eager: true,
+    //       requiredVersion: packageJsonDeps['react-dom'],
+    //     },
+    //   },
+    // }),
   ]
 }
 

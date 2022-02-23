@@ -6,7 +6,6 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const {merge} = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
-// const nodeExternals = require('webpack-node-externals')
 
 const {version} = require('../../package.json')
 const getClientEnvironment = require('../env')
@@ -16,9 +15,6 @@ const getBaseConfig = require('./base')
 const {clientLoaders} = require('./clientLoaders')
 const {clientPlugins} = require('./clientPlugins')
 const createEnvironmentHash = require('./persistentCache/createEnvironmentHash')
-
-// const {baseLoaders} = require('./baseLoaders')
-// const packageJsonDeps = require('../../package.json').peerDependencies
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
@@ -36,8 +32,6 @@ const babelRuntimeRegenerator = require.resolve('@babel/runtime/regenerator', {
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig)
 
-// const {packageJsonDeps, version} = require('../../package.json')
-
 module.exports = webpackEnv => {
   const baseConfig = getBaseConfig(webpackEnv, 'client')
 
@@ -54,10 +48,7 @@ module.exports = webpackEnv => {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
-  // const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
-
   // const REMOTE_URLS = JSON.parse(env.raw.REACT_APP_REMOTE_URLS)
-
   // const REMOTES = Object.entries(REMOTE_URLS)
   //   .map(([name, entry]) => ({
   //     [name]: `${entry}/static/container.js`,
@@ -205,20 +196,6 @@ module.exports = webpackEnv => {
         ]),
       ],
     },
-    // TODO: Make base config load the baseLoaders, and not inside the client and server
-    // module: {
-    //   strictExportPresence: true,
-    //   rules: [
-    //     {
-    //       // "oneOf" will traverse all following loaders until one will
-    //       // match the requirements. When no loader matches it will fall
-    //       // back to the "file" loader at the end of the loader list.
-    //       oneOf: [
-    //         ...baseLoaders(webpackEnv, 'client'),
-    //       ],
-    //     },
-    //   ].filter(Boolean),
-    // },
     plugins: [...clientPlugins(webpackEnv)].filter(Boolean),
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
@@ -243,25 +220,6 @@ module.exports = webpackEnv => {
         },
       ],
     },
-    // plugins: baseConfig.plugins.concat([
-    //   new webpack.container.ModuleFederationPlugin({
-    //     name: 'webpackHost',
-    //     filename: 'remote-entry.js',
-    //     remotes: REMOTES,
-    //     shared: {
-    //       react: {
-    //         singleton: true,
-    //         eager: true,
-    //         requiredVersion: packageJsonDeps.react,
-    //       },
-    //       'react-dom': {
-    //         singleton: true,
-    //         eager: true,
-    //         requiredVersion: packageJsonDeps['react-dom'],
-    //       },
-    //     },
-    //   }),
-    // ]),
   }
 
   return merge(baseConfig, clientConfig)
