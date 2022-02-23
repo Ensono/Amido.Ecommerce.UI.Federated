@@ -1,12 +1,15 @@
+const {merge} = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
 
-const modules = require('../modules')
 const paths = require('../paths')
-const {baseLoaders, serverLoaders} = require('./serverLoaders')
+const getBaseConfig = require('./base')
+const {serverLoaders} = require('./serverLoaders')
 
-module.exports = function (webpackEnv) {
+module.exports = webpackEnv => {
+  const baseConfig = getBaseConfig(webpackEnv, 'server')
+
   const isEnvDevelopment = webpackEnv === 'development'
-  return {
+  const serverConfig = {
     target: 'node',
     entry: paths.appServerIndexTs,
     output: {
@@ -26,16 +29,14 @@ module.exports = function (webpackEnv) {
         ].filter(Boolean),
       }),
     ],
-    resolve: {
-      modules: ['node_modules', paths.appNodeModules].concat(modules.additionalModulePaths || []),
-      extensions: paths.moduleFileExtensions.map(ext => `.${ext}`),
-    },
     module: {
       rules: [
         {
-          oneOf: [...baseLoaders(webpackEnv), ...serverLoaders(webpackEnv)],
+          oneOf: [...serverLoaders(webpackEnv)].filter(Boolean),
         },
       ],
     },
   }
+
+  return merge(baseConfig, serverConfig)
 }
