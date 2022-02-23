@@ -77,7 +77,7 @@
     "url-loader": "^4.1.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "watch": "nodemon --watch ./src scripts/start.js --ext ts,tsx,css",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --coverage --watchAll=false",
     "jest-ratchet": "jest-coverage-ratchet",
