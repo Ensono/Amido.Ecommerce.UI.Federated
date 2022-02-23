@@ -10,7 +10,7 @@ process.on('unhandledRejection', err => {
 
 // Ensure environment variables are read.
 require('../config/env')
-const {exec} = require('child_process')
+const {execSync} = require('child_process')
 const path = require('path')
 
 // const bfj = require('bfj')
@@ -90,14 +90,7 @@ checkBrowsers(paths.appPath, isInteractive)
       const buildFolder = path.relative(process.cwd(), paths.appBuild)
       printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder, useYarn)
 
-      exec(`node ${paths.appBuild}/server.js`, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`exec error: ${error}`)
-          return
-        }
-        console.log(`stdout: ${stdout}`)
-        console.error(`stderr: ${stderr}`)
-      })
+      execSync(`node ${paths.appBuild}/server.js`, {stdio: 'inherit'})
     },
     err => {
       const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true'
@@ -122,7 +115,7 @@ checkBrowsers(paths.appPath, isInteractive)
     process.exit(1)
   })
 
-// Create the production build and print the deployment instructions.
+// Create the development build and print the deployment instructions.
 function build(previousFileSizes) {
   console.log('Running the DEVELOPMENT build of the application.')
 
