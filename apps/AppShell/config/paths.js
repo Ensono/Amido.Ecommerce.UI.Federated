@@ -1,13 +1,14 @@
-'use strict';
+'use strict'
 
-const path = require('path');
-const fs = require('fs');
-const getPublicUrlOrPath = require('react-dev-utils/getPublicUrlOrPath');
+const fs = require('fs')
+const path = require('path')
+
+const getPublicUrlOrPath = require('react-dev-utils/getPublicUrlOrPath')
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637
-const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+const appDirectory = fs.realpathSync(process.cwd())
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
 
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
 // "public path" at which the app is served.
@@ -17,12 +18,13 @@ const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
 const publicUrlOrPath = getPublicUrlOrPath(
   process.env.NODE_ENV === 'development',
+  // eslint-disable-next-line import/no-dynamic-require
   require(resolveApp('package.json')).homepage,
-  process.env.PUBLIC_URL
-);
+  process.env.PUBLIC_URL,
+)
 
-const buildPath = process.env.BUILD_PATH || 'build';
-const distPath = process.env.DIST_PATH || 'dist';
+const buildPath = process.env.BUILD_PATH || 'build'
+const distPath = process.env.DIST_PATH || 'dist'
 
 const moduleFileExtensions = [
   'web.mjs',
@@ -36,32 +38,32 @@ const moduleFileExtensions = [
   'json',
   'web.jsx',
   'jsx',
-];
+]
 
 // Resolve file paths in the same order as webpack
 const resolveModule = (resolveFn, filePath) => {
-  const extension = moduleFileExtensions.find(extension =>
-    fs.existsSync(resolveFn(`${filePath}.${extension}`))
-  );
+  const extension = moduleFileExtensions.find(ext => fs.existsSync(resolveFn(`${filePath}.${ext}`)))
 
   if (extension) {
-    return resolveFn(`${filePath}.${extension}`);
+    return resolveFn(`${filePath}.${extension}`)
   }
 
-  return resolveFn(`${filePath}.js`);
-};
+  return resolveFn(`${filePath}.js`)
+}
 
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
-  appBuild: resolveApp(buildPath),
   appDist: resolveApp(distPath),
+  appDistPublic: resolveApp(`${distPath}/public`),
+  appBuild: resolveApp(buildPath),
+  appBuildPublic: resolveApp(`${buildPath}/public`),
   appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveModule(resolveApp, 'src/index'),
+  appHtml: resolveApp('public/app.html'),
+  appClientIndexTsx: resolveModule(resolveApp, 'src/client/index'),
+  appServerIndexTs: resolveModule(resolveApp, 'src/index'),
   appTsx: resolveModule(resolveApp, 'src/App'),
-  serverTs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
@@ -74,8 +76,6 @@ module.exports = {
   appTsBuildInfoFile: resolveApp('node_modules/.cache/tsconfig.tsbuildinfo'),
   swSrc: resolveModule(resolveApp, 'src/service-worker'),
   publicUrlOrPath,
-};
+}
 
-
-
-module.exports.moduleFileExtensions = moduleFileExtensions;
+module.exports.moduleFileExtensions = moduleFileExtensions

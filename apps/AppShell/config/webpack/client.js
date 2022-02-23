@@ -22,7 +22,7 @@ module.exports = webpackEnv => {
 
   return {
     ...baseConfig,
-    target: 'node',
+    target: 'web',
     externals: [nodeExternals()],
     externalsPresets: {node: true},
     // plugins: baseConfig.plugins.concat([

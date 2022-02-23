@@ -82,7 +82,7 @@
     "jest-ratchet": "jest-coverage-ratchet",
     "lint": "eslint 'src/*.{jsx,js,tsx,ts}' --fix",
     "prettier": "prettier 'src/*.{jsx,js,tsx,ts}' --write",
-    "docs": "typedoc --out ../../docs/app-shell src/*.*",
+    "docs": "typedoc --out ../../docs/header src/*.*",
     "start-server": "node build/server.js",
     "tsc": "tsc"
   },

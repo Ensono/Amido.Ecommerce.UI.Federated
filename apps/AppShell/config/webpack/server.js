@@ -1,16 +1,17 @@
 const nodeExternals = require('webpack-node-externals')
-const {baseLoaders, serverLoaders} = require("./serverLoaders")
+const {baseLoaders, serverLoaders} = require('./serverLoaders')
 const modules = require('../modules')
 const paths = require('../paths')
+const path = require('path/posix')
 
 module.exports = function (webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development'
   return {
     target: 'node',
-    entry: paths.serverTs,
+    entry: paths.appServerIndexTs,
     output: {
       globalObject: 'this',
-      path: paths.appBuild,
+      path: isEnvDevelopment ? paths.appDist : paths.appBuild,
       filename: 'server.js',
       // library: {type: 'commonjs2'},
     },
