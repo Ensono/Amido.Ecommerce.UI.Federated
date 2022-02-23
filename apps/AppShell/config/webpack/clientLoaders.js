@@ -1,4 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const flexbugsPlugin = require('postcss-flexbugs-fixes')
+const postCssPresetEnv = require('postcss-preset-env')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 
 const paths = require('../paths')
@@ -43,17 +45,14 @@ const clientLoaders = webpackEnv => {
             // https://github.com/facebook/create-react-app/issues/2677
             ident: 'postcss',
             config: false,
-            plugins: [
-              'postcss-flexbugs-fixes',
-              [
-                'postcss-preset-env',
-                {
-                  autoprefixer: {
-                    flexbox: 'no-2009',
-                  },
-                  stage: 3,
+            plugins: () => [
+              flexbugsPlugin,
+              postCssPresetEnv({
+                autoprefixer: {
+                  flexbox: 'no-2009',
                 },
-              ],
+                stage: 3,
+              }),
               // Adds PostCSS Normalize as the reset css with default options,
               // so that it honors browserslist config in package.json
               // which in turn let's users customize the target behavior as per their needs.

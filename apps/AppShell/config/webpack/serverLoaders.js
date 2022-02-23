@@ -27,16 +27,18 @@ const serverLoaders = webpackEnv => {
       {
         loader: require.resolve('postcss-loader'),
         options: {
-          ident: 'postcss',
-          plugins: () => [
-            flexbugsPlugin,
-            postCssPresetEnv({
-              autoprefixer: {
-                flexbox: 'no-2009',
-              },
-              stage: 3,
-            }),
-          ],
+          postcssOptions: {
+            ident: 'postcss',
+            plugins: () => [
+              flexbugsPlugin,
+              postCssPresetEnv({
+                autoprefixer: {
+                  flexbox: 'no-2009',
+                },
+                stage: 3,
+              }),
+            ],
+          },
         },
       },
     ].filter(Boolean)
@@ -77,8 +79,10 @@ const serverLoaders = webpackEnv => {
       test: cssModuleRegex,
       use: getStyleLoaders({
         importLoaders: 1,
-        modules: true,
-        getLocalIdent: getCSSModuleLocalIdent,
+        modules: {
+          mode: 'local',
+          getLocalIdent: getCSSModuleLocalIdent,
+        },
       }),
     },
     {
