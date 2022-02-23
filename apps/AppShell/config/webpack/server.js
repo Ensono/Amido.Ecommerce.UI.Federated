@@ -1,8 +1,8 @@
 const nodeExternals = require('webpack-node-externals')
-const {baseLoaders, serverLoaders} = require('./serverLoaders')
+
 const modules = require('../modules')
 const paths = require('../paths')
-const path = require('path/posix')
+const {baseLoaders, serverLoaders} = require('./serverLoaders')
 
 module.exports = function (webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development'
