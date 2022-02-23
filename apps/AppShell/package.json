@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node scripts/start.js",
-    "watch": "nodemon --watch ./src scripts/start.js --ext ts,tsx,css",
+    "dev": "nodemon --watch ./src scripts/start.js --ext ts,tsx,css",
     "build": "node scripts/build.js",
     "serve": " node build/server.js",
-    "dev": "nodemon --watch ./src --exec \"npm run build && npm run serve\" -e ts,tsx --ignore build/",
+    "watch": "nodemon --watch ./src --exec \"npm run build && npm run serve\" -e ts,tsx --ignore build/",
     "test": "node scripts/test.js --coverage --watchAll=false",
     "jest-ratchet_DISABLED": "jest-coverage-ratchet",
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",

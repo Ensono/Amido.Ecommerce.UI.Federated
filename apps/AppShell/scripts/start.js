@@ -1,3 +1,5 @@
+'use strict'
+
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'development'
 process.env.NODE_ENV = 'development'
@@ -13,7 +15,6 @@ require('../config/env')
 const {execSync} = require('child_process')
 const path = require('path')
 
-// const bfj = require('bfj')
 const fs = require('fs-extra')
 const {checkBrowsers} = require('react-dev-utils/browsersHelper')
 const chalk = require('react-dev-utils/chalk')
@@ -38,7 +39,7 @@ const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024
 const isInteractive = process.stdout.isTTY
 
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs, paths.appTsx])) {
+if (!checkRequiredFiles([paths.appHtml, paths.appClientIndexTsx, paths.appServerIndexTs, paths.appTsx])) {
   process.exit(1)
 }
 
@@ -52,7 +53,7 @@ checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // First, read the current file sizes in build directory.
     // This lets us display how much they changed later.
-    return measureFileSizesBeforeBuild(paths.appDist)
+    return measureFileSizesBeforeBuild(paths.appDistPublic)
   })
   .then(previousFileSizes => {
     // Remove all content but keep the directory so that
@@ -89,6 +90,19 @@ checkBrowsers(paths.appPath, isInteractive)
       console.log('publicPath', publicPath)
       const buildFolder = path.relative(process.cwd(), paths.appDist)
       printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder, useYarn)
+      ;['SIGINT', 'SIGTERM'].forEach(function (sig) {
+        process.on(sig, function () {
+          process.exit()
+        })
+      })
+
+      // TODO: See if this is still needed in CI (it normally conflicts with the call above for SIGINT and SIGTERM)
+      // if (process.env.CI !== 'true') {
+      //   // Gracefully exit when stdin ends
+      //   process.stdin.on('end', function () {
+      //     process.exit()
+      //   })
+      // }
 
       execSync(`node ${paths.appDist}/server.js`, {stdio: 'inherit'})
     },
