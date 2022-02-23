@@ -52,12 +52,12 @@ checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // First, read the current file sizes in build directory.
     // This lets us display how much they changed later.
-    return measureFileSizesBeforeBuild(paths.appBuild)
+    return measureFileSizesBeforeBuild(paths.appDist)
   })
   .then(previousFileSizes => {
     // Remove all content but keep the directory so that
     // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appBuild)
+    fs.emptyDirSync(paths.appDist)
     // Merge with the public folder
     copyPublicFolder()
     // Start the webpack build
@@ -78,7 +78,7 @@ checkBrowsers(paths.appPath, isInteractive)
       printFileSizesAfterBuild(
         stats,
         previousFileSizes,
-        paths.appBuild,
+        paths.appDistPublic,
         WARN_AFTER_BUNDLE_GZIP_SIZE,
         WARN_AFTER_CHUNK_GZIP_SIZE,
       )
@@ -87,10 +87,10 @@ checkBrowsers(paths.appPath, isInteractive)
       const publicUrl = paths.publicUrlOrPath
       const publicPath = clientConfig.output.publicPath
       console.log('publicPath', publicPath)
-      const buildFolder = path.relative(process.cwd(), paths.appBuild)
+      const buildFolder = path.relative(process.cwd(), paths.appDist)
       printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder, useYarn)
 
-      execSync(`node ${paths.appBuild}/server.js`, {stdio: 'inherit'})
+      execSync(`node ${paths.appDist}/server.js`, {stdio: 'inherit'})
     },
     err => {
       const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true'
@@ -230,7 +230,7 @@ function build(previousFileSizes) {
 }
 
 function copyPublicFolder() {
-  fs.copySync(paths.appPublic, paths.appBuild, {
+  fs.copySync(paths.appPublic, paths.appDist, {
     dereference: true,
     filter: file => file !== paths.appHtml,
   })
