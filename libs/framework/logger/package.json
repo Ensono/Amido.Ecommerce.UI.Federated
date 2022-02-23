@@ -1,0 +1,24 @@
+{
+  "name": "@next/core-logger",
+  "version": "7.3.1",
+  "description": "Shared eventing service for communication between front end components",
+  "author": "Next Plc",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.es.js",
+  "files": [
+    "lib/**/*"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
+    "test": "jest src/",
+    "tsc": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.13",
+    "jest": "^27.4.3",
+    "typescript": "^4.5.4"
+  }
+}

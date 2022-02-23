@@ -60,7 +60,7 @@ module.exports = {
   appBuild: resolveApp(buildPath),
   appBuildPublic: resolveApp(`${buildPath}/public`),
   appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
+  appHtml: resolveApp('public/app.html'),
   appClientIndexTsx: resolveModule(resolveApp, 'src/client/index'),
   appServerIndexTs: resolveModule(resolveApp, 'src/index'),
   appTsx: resolveModule(resolveApp, 'src/App'),

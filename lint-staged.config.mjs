@@ -6,6 +6,8 @@ export default {
     'npm run federate-component:test',
     'npm run federate-component:ratchet',
   ],
+  'libs/framework/logger/**/*.*': () => ['npm run logger:lint', 'npm run logger:test'],
+  'libs/framework/middlewares/**/*.*': () => ['npm run middlewares:lint', 'npm run middlewares:test'],
   'libs/ui-components/text/**/*.*': () => [
     'npm run next-ui-components/text:lint',
     'npm run next-ui-components/text:test',

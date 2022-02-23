@@ -15,34 +15,30 @@ const styledComponentsTransformer = pkg =>
   })
 
 /**
- * What is the class's single responsibility?
+ * This is the rollup configuration to package up UI components in cjs and esm format,
+ * from typescript source files. it refers to an explicit UI component.
  * @remarks
  *
- * When should use use the class? What performance benefits, functionality, or other magical power does it confer upon you?
+ * This should be used when bundling a package which source files are .tsx 
+ * 
+ * * This should be used for explicit UI components only.
  *
- * * When shouldn't you use the class?
  *
- * * What states does this class furnish?
+ * please note that we need to build esm and cjs (plus types) for the following reason:
+ * * esm to import in your consumer application's source code
+ * * types to support typescript consumers
+ * * cjs to support Jest runs (which do support only cjs)
+ * 
  *
- * * What behaviors does this class furnish?
- *
- * * Can you inject dependencies into this class?
- *
- * * Are there any situations where it makes sense to extend this class, rather than inject dependencies into it?
- *
- * * How does the code in this class work?
- *
- * @example
- * ```typescript
- *    //example of how to use this class here
- * ```
- *
- * @alpha @beta @eventProperty @experimental @internal @override @packageDocumentation @public @readonly @sealed @virtual
+ * @internal
  */
 module.exports = pkg => ({
+  // the mounting pointt of the package
   input: 'src/index.tsx',
+  // the output formats
   output: [
     {
+      // the actual file as per package.json description
       file: pkg.main,
       format: 'cjs',
     },
@@ -52,8 +48,12 @@ module.exports = pkg => ({
     },
   ],
   plugins: [
+    // this line is for deleting the output folder before any build.
     del({targets: 'lib/*'}),
+    // 
     externals({
+      // we always want the deps and peerDeps not to be bundled in, 
+      // the consumer will import at build time and npm will install all the deps from the consumer's build
       deps: true,
       peerDeps: true,
     }),
@@ -61,13 +61,10 @@ module.exports = pkg => ({
       clean: true,
       typescript: localtypescript,
       tsconfig: './tsconfig.json',
-      transformers: [
-        () => ({
-          before: [styledComponentsTransformer(pkg)],
-        }),
-      ],
     }),
+    // nodeResolve will traverse the node_modules tree and bundle all deps that are not external (see above)
     nodeResolve(),
+    // commonjs will transpile cjs dependencies into esm for sharing purposes 
     commonjs(),
   ],
 })
