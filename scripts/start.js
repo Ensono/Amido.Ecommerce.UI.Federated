@@ -97,12 +97,12 @@ checkBrowsers(paths.appPath, isInteractive)
       })
 
       // TODO: See if this is still needed in CI (it normally conflicts with the call above for SIGINT and SIGTERM)
-      // if (process.env.CI !== 'true') {
-      //   // Gracefully exit when stdin ends
-      //   process.stdin.on('end', function () {
-      //     process.exit()
-      //   })
-      // }
+      if (process.env.CI !== 'true') {
+        // Gracefully exit when stdin ends
+        process.stdin.on('end', function () {
+          process.exit()
+        })
+      }
 
       execSync(`node ${paths.appDist}/server.js`, {stdio: 'inherit'})
     },
