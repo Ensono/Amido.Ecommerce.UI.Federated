@@ -142,6 +142,7 @@
     "webpack": "^5.64.4",
     "webpack-federated-stats-plugin": "2.0.5",
     "webpack-manifest-plugin": "^4.0.2",
+    "webpack-merge": "^5.8.0",
     "webpack-node-externals": "3.0.0",
     "webpack-stats-plugin": "1.0.3",
     "workbox-webpack-plugin": "^6.4.1"
