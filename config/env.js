@@ -88,6 +88,7 @@ function getClientEnvironment(publicUrl) {
         // It is defined here so it is available in the webpackHotDevClient.
         FAST_REFRESH: process.env.FAST_REFRESH !== 'false',
         ASSETS_PATH: process.env.ASSETS_PATH,
+        PORT: process.env.PORT,
       },
     )
   // Stringify all values so we can feed into webpack DefinePlugin
