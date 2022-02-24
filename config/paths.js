@@ -23,6 +23,19 @@ const publicUrlOrPath = getPublicUrlOrPath(
 
 const buildPath = process.env.BUILD_PATH || 'build'
 const distPath = process.env.DIST_PATH || 'dist'
+const buildPublicPath = `${buildPath}/public`
+const distPublicPath = `${distPath}/public`
+
+const getRelativePaths = () =>
+  process.env.NODE_ENV === 'development'
+    ? {
+        path: distPath,
+        publicPath: distPublicPath,
+      }
+    : {
+        path: buildPath,
+        publicPath: buildPublicPath,
+      }
 
 const moduleFileExtensions = [
   'web.mjs',
@@ -51,6 +64,7 @@ const resolveModule = (resolveFn, filePath) => {
 
 // config after eject: we're in ./config/
 module.exports = {
+  getRelativePaths,
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   appDist: resolveApp(distPath),

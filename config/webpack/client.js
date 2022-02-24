@@ -48,13 +48,6 @@ module.exports = webpackEnv => {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
-  // const REMOTE_URLS = JSON.parse(env.raw.REMOTE_URLS)
-  // const REMOTES = Object.entries(REMOTE_URLS)
-  //   .map(([name, entry]) => ({
-  //     [name]: `${entry}/static/container.js`,
-  //   }))
-  //   .reduce((acc, n) => ({...acc, ...n}), {})
-
   const clientConfig = {
     target: 'web',
     externals: [nodeExternals()],

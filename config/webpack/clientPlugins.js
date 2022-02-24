@@ -19,6 +19,7 @@ const ForkTsCheckerWebpackPlugin =
 
 const getClientEnvironment = require('../env')
 const paths = require('../paths')
+const getFederationConfig = require('<rootdir>/config/client')
 
 // Get the path to the uncompiled service worker (if it exists).
 const swSrc = paths.swSrc
@@ -38,7 +39,13 @@ const clientPlugins = webpackEnv => {
 
   const shouldUseReactRefresh = env.raw.FAST_REFRESH
 
-  // const REMOTE_URLS = JSON.parse(env.raw.REMOTE_URLS)
+  const REMOTE_URLS = JSON.parse(env.raw.REMOTE_URLS)
+
+  const REMOTES = Object.entries(REMOTE_URLS)
+    .map(([name, entry]) => ({
+      [name]: `${entry}${paths.getRelativePaths().path}/remote-entry.js`,
+    }))
+    .reduce((acc, n) => ({...acc, ...n}), {})
 
   // Some apps do not need the benefits of saving a web request, so not inlining the chunk
   // makes for a smoother build process.
@@ -199,26 +206,7 @@ const clientPlugins = webpackEnv => {
           infrastructure: 'silent',
         },
       }),
-    // new webpack.EnvironmentPlugin({
-    //   REMOTE_URLS,
-    // }),
-    // new webpack.container.ModuleFederationPlugin({
-    //   name: 'webpackHost',
-    //   filename: 'remote-entry.js',
-    //   remotes: REMOTES,
-    //   shared: {
-    //     react: {
-    //       singleton: true,
-    //       eager: true,
-    //       requiredVersion: packageJsonDeps.react,
-    //     },
-    //     'react-dom': {
-    //       singleton: true,
-    //       eager: true,
-    //       requiredVersion: packageJsonDeps['react-dom'],
-    //     },
-    //   },
-    // }),
+    // getFederationConfig(REMOTES)
   ]
 }
 
