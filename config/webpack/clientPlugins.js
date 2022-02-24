@@ -38,7 +38,7 @@ const clientPlugins = webpackEnv => {
 
   const shouldUseReactRefresh = env.raw.FAST_REFRESH
 
-  const REMOTE_URLS = JSON.parse(env.raw.REACT_APP_REMOTE_URLS)
+  // const REMOTE_URLS = JSON.parse(env.raw.REMOTE_URLS)
 
   // Some apps do not need the benefits of saving a web request, so not inlining the chunk
   // makes for a smoother build process.
@@ -199,9 +199,9 @@ const clientPlugins = webpackEnv => {
           infrastructure: 'silent',
         },
       }),
-    new webpack.EnvironmentPlugin({
-      REMOTE_URLS,
-    }),
+    // new webpack.EnvironmentPlugin({
+    //   REMOTE_URLS,
+    // }),
     // new webpack.container.ModuleFederationPlugin({
     //   name: 'webpackHost',
     //   filename: 'remote-entry.js',

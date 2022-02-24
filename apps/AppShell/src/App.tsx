@@ -1,15 +1,19 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import {StrictMode, createContext} from 'react'
+import {FC, StrictMode, Suspense, createContext} from 'react'
 
 import {Text} from '@next-ui-components/Text'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {version} from '@next/constants'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {federateComponent} from '@next/federate-component'
+import {context, federateComponent} from '@next/federate-component'
 
+import {REMOTE_URLS} from './config/remotes'
 import logo from './logo.svg'
 import './App.css'
+
+// TODO: what is this?
+export {context}
 
 const ThemeContext = createContext(null)
 const ReduxContext = createContext(null)
@@ -23,6 +27,9 @@ export const ReduxProvider = ({children, data}: any) => {
   return <ReduxContext.Provider value={data}>{children}</ReduxContext.Provider>
 }
 
+const Header = federateComponent('mfe_header', './header', REMOTE_URLS().mfe_header)
+const Footer = federateComponent('mfe_footer', './footer', REMOTE_URLS().mfe_footer)
+
 /**
  * What is the app single responsibility?
  * @remarks
@@ -32,21 +39,27 @@ export const ReduxProvider = ({children, data}: any) => {
  * @example
  * ```typescript
  *    ReactDOM.render(
- *      <React.StrictMode>
+ *      <StrictMode>
  *        <App />
- *      </React.StrictMode>,
+ *      </StrictMode>,
  *      document.getElementById('root')
  *    );
  * ```
  *
  * @alpha
  */
-const App: React.FC = () => {
+const App: FC = () => {
   return (
     <StrictMode>
       <ThemeProvider value={{}}>
+        <Suspense fallback={<div>Fallback header</div>}>
+          <Header>
+            <h1>Header</h1>
+            <p>Federated from a webpack build</p>
+          </Header>
+        </Suspense>
         <div className="App">
-          <header className="App-header">
+          <section className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <p onClick={() => console.log('lallero')}>
               Edit <code>src/App.tsx</code> and save to reload.
@@ -55,8 +68,11 @@ const App: React.FC = () => {
             <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
               {version.version}
             </a>
-          </header>
+          </section>
         </div>
+        <Suspense fallback={<div>Fallback footer</div>}>
+          <Footer />
+        </Suspense>
       </ThemeProvider>
     </StrictMode>
   )

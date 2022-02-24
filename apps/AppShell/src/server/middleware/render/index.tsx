@@ -6,6 +6,7 @@ import {Handler} from 'express'
 import {renderToPipeableStream} from 'react-dom/server'
 
 import App, {ReduxProvider} from '../../../App'
+import {REMOTE_URLS} from '../../../config/remotes'
 import {getViewportMetaTag, getViewportMetaTagScript} from '../../../utils/getForceDesktopLayout'
 
 type AbortRenderToPipe = () => void
@@ -22,10 +23,13 @@ export const renderMiddleware: Handler = (_req, res) => {
     INITIAL_STATE: JSON.stringify({}),
     APP_PROPS: JSON.stringify({}),
     DIRECTION: 'ltr',
-    FAV_ICON_PATH: FAV_ICON_PATH(env.REACT_APP_BLOB_STORAGE_PATH || '/static-content', 'next'),
+    FAV_ICON_PATH: FAV_ICON_PATH(env.NEXT_BLOB_STORAGE_PATH || '/static-content', 'next'),
     lang: 'lang=en',
     VIEWPORT: getViewportMetaTag(res.locals.configuration),
     VIEWPORT_FORCE_DESKTOP: getViewportMetaTagScript(res.locals.configuration),
+    REMOTE_ENTRIES_JS: Object.entries(REMOTE_URLS())
+      .map(([name, entry]) => `<script key="${name}_url" src="${entry}/build/remote-entry.js"></script>`)
+      .join(''),
   }
 
   Object.keys(htmlReplacements).forEach(key => {

@@ -4,14 +4,14 @@ import axios from 'axios'
 import {Parser, ProcessNodeDefinitions} from 'html-to-react'
 import stringify from 'json-stringify-deterministic'
 
-import {Module, PrerenderedModule, RemoteUrls, RemotesContext} from './types'
+import {Module, PrerenderedModule, RemotesContext} from './types'
 
 export const getServerComponent = (
   ctx: RemotesContext,
   remote: string,
   module: string,
   props: {[key: string]: any},
-  remoteUrls: RemoteUrls,
+  remoteUrl: string,
 ) => {
   // We cache based on properties. This allows us to only
   // do one fetch for multiple references of a remote component.
@@ -23,7 +23,7 @@ export const getServerComponent = (
     Component = lazy(() =>
       // Do the post request to pre-render the federated component
       axios
-        .post(`${remoteUrls[remote]}/prerender`, {
+        .post(`${remoteUrl}/prerender`, {
           headers: {
             'content-type': 'application/json',
           },
@@ -73,9 +73,9 @@ export const getServerComponent = (
                     {/* Add style chunks and async script tags for the script chunks. */}
                     {chunks.map(chunk =>
                       chunk.endsWith('.css') ? (
-                        <link key={chunk} rel="stylesheet" href={`${remoteUrls[remote]}/build/${chunk}`} />
+                        <link key={chunk} rel="stylesheet" href={`${remoteUrl}/build/${chunk}`} />
                       ) : (
-                        <script key={chunk} async src={`${remoteUrls[remote]}/build/${chunk}`} />
+                        <script key={chunk} async src={`${remoteUrl}/build/${chunk}`} />
                       ),
                     )}
                     {/* Render the re-constructed react element */}

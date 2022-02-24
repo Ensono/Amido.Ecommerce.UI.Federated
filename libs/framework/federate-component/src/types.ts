@@ -19,7 +19,3 @@ export interface PrerenderedModule {
   chunks: string[]
   html: string
 }
-
-export interface RemoteUrls {
-  [name: string]: string
-}
