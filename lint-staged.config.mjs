@@ -1,6 +1,8 @@
 export default {
   'apps/AppShell/**/*.*': () => ['npm run app-shell:lint', 'npm run app-shell:test', 'npm run app-shell:ratchet'],
   'apps/MFE/Header/**/*.*': () => ['npm run header:lint', 'npm run header:test', 'npm run header:ratchet'],
+  'apps/MFE/Meganav/**/*.*': () => ['npm run meganav:lint', 'npm run meganav:test', 'npm run meganav:ratchet'],
+  'apps/MFE/Footer/**/*.*': () => ['npm run footer:lint', 'npm run footer:test', 'npm run footer:ratchet'],
   'libs/framework/federate-component/**/*.*': () => [
     'npm run federate-component:lint',
     'npm run federate-component:test',

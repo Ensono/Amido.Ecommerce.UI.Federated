@@ -48,13 +48,6 @@ module.exports = webpackEnv => {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
-  // const REMOTE_URLS = JSON.parse(env.raw.REACT_APP_REMOTE_URLS)
-  // const REMOTES = Object.entries(REMOTE_URLS)
-  //   .map(([name, entry]) => ({
-  //     [name]: `${entry}/static/container.js`,
-  //   }))
-  //   .reduce((acc, n) => ({...acc, ...n}), {})
-
   const clientConfig = {
     target: 'web',
     externals: [nodeExternals()],
@@ -89,8 +82,8 @@ module.exports = webpackEnv => {
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.
-      // publicPath: paths.publicUrlOrPath,
-      publicPath: `${env.raw.ASSETS_PATH}/`,
+      publicPath: paths.publicUrlOrPath,
+      // publicPath: `${env.raw.ASSETS_PATH}/`,
       // Point sourcemap entries to original disk location (format as URL on Windows)
       devtoolModuleFilenameTemplate: isEnvProduction
         ? info => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')

@@ -4,6 +4,7 @@ const nodeExternals = require('webpack-node-externals')
 const paths = require('../paths')
 const getBaseConfig = require('./base')
 const {serverLoaders} = require('./serverLoaders')
+const {serverPlugins} = require('./serverPlugins')
 
 module.exports = webpackEnv => {
   const baseConfig = getBaseConfig(webpackEnv, 'server')
@@ -36,6 +37,7 @@ module.exports = webpackEnv => {
         },
       ],
     },
+    plugins: [...serverPlugins(webpackEnv)].filter(Boolean),
   }
 
   return merge(baseConfig, serverConfig)

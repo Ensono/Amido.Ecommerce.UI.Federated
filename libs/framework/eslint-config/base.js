@@ -35,6 +35,7 @@ module.exports = {
     ],
     '@typescript-eslint/no-explicit-any': 'off',
     'tsdoc/syntax': 'warn',
+    'no-trailing-spaces': 'error',
   },
   overrides: [
     {

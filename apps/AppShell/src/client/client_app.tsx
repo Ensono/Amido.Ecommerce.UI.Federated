@@ -46,7 +46,12 @@ export class ClientApp extends Component<any, {hasError: boolean}> {
 
   render() {
     if (this.state.hasError) {
-      return <div data-testid="client-error" className="x-next-plat-mod" />
+      return (
+        <div data-testid="client-error" className="x-next-plat-mod">
+          {' '}
+          ERROR
+        </div>
+      )
     }
     return (
       <ReduxProvider value={{}}>

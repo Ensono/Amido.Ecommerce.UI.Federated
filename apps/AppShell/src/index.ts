@@ -1,8 +1,6 @@
-import dotenv from 'dotenv'
+import {env} from 'process'
 
 import server from './server'
-import {Configuration} from './server/models'
 
-const config = dotenv.config({path: `./.env.${process.env.NODE_ENV}`}) as Configuration
-const PORT = config.PORT || '3000'
+const PORT = env.PORT || '3000'
 server.listen(PORT, () => console.log(`webpack host: started at http://localhost:${PORT}`))
