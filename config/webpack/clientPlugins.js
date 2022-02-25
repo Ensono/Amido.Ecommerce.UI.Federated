@@ -19,7 +19,8 @@ const ForkTsCheckerWebpackPlugin =
 
 const getClientEnvironment = require('../env')
 const paths = require('../paths')
-const getFederationConfig = require('<rootdir>/config/client')
+// eslint-disable-next-line import/no-dynamic-require
+const {getFederationConfig} = require(`${paths.federationConfigPath}/client`)
 
 // Get the path to the uncompiled service worker (if it exists).
 const swSrc = paths.swSrc
@@ -43,10 +44,12 @@ const clientPlugins = webpackEnv => {
 
   const REMOTES = Object.entries(REMOTE_URLS)
     .map(([name, entry]) => ({
-      [name]: `${entry}${paths.getRelativePaths().path}/remote-entry.js`,
+      [name]: `${entry}/remote-entry.js`,
     }))
     .reduce((acc, n) => ({...acc, ...n}), {})
 
+  const federationConfig = getFederationConfig(REMOTES)
+  console.log({federationConfig})
   // Some apps do not need the benefits of saving a web request, so not inlining the chunk
   // makes for a smoother build process.
   const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false'
@@ -206,7 +209,10 @@ const clientPlugins = webpackEnv => {
           infrastructure: 'silent',
         },
       }),
-    // getFederationConfig(REMOTES)
+    new webpack.EnvironmentPlugin({
+      REMOTE_URLS,
+    }),
+    new webpack.container.ModuleFederationPlugin(federationConfig),
   ]
 }
 

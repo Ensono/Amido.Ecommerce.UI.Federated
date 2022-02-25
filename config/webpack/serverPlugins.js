@@ -12,7 +12,8 @@ const ForkTsCheckerWebpackPlugin =
 
 const getClientEnvironment = require('../env')
 const paths = require('../paths')
-const getFederationConfig = require('<rootdir>/config/server')
+// eslint-disable-next-line import/no-dynamic-require
+const {getFederationConfig} = require(`${paths.federationConfigPath}/server`)
 
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig)
@@ -31,9 +32,12 @@ const serverPlugins = webpackEnv => {
 
   const REMOTES = Object.entries(REMOTE_URLS)
     .map(([name, entry]) => ({
-      [name]: `${entry}${paths.getRelativePaths().path}/remote-entry.js`,
+      [name]: `${entry}/remote-entry.js`,
     }))
     .reduce((acc, n) => ({...acc, ...n}), {})
+
+  const federationConfig = getFederationConfig(REMOTES)
+  console.log({federationConfig})
 
   // Source maps are resource heavy and can cause out of memory issue for large source files.
   const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
@@ -102,7 +106,10 @@ const serverPlugins = webpackEnv => {
           infrastructure: 'silent',
         },
       }),
-    // getFederationConfig(REMOTES)
+    new webpack.EnvironmentPlugin({
+      REMOTE_URLS,
+    }),
+    new webpack.container.ModuleFederationPlugin(federationConfig),
   ]
 }
 

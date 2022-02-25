@@ -8,7 +8,7 @@ import {version} from '@next/constants'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {context, federateComponent} from '@next/federate-component'
 
-import {REMOTE_URLS} from './config/remotes'
+// import {REMOTE_URLS} from './config/remotes'
 import logo from './logo.svg'
 import './App.css'
 
@@ -27,8 +27,9 @@ export const ReduxProvider = ({children, data}: any) => {
   return <ReduxContext.Provider value={data}>{children}</ReduxContext.Provider>
 }
 
-const Header = federateComponent('mfe_header', './header', REMOTE_URLS().mfe_header)
-const Footer = federateComponent('mfe_footer', './footer', REMOTE_URLS().mfe_footer)
+// const Header = federateComponent('mfe_header', './header', REMOTE_URLS().mfe_header)
+const REMOTES = JSON.parse(process.env.REMOTE_URLS)
+const Footer = federateComponent('mfe_footer', './footer', REMOTES.mfe_footer)
 
 /**
  * What is the app single responsibility?
@@ -52,12 +53,12 @@ const App: FC = () => {
   return (
     <StrictMode>
       <ThemeProvider value={{}}>
-        <Suspense fallback={<div>Fallback header</div>}>
+        {/* <Suspense fallback={<div>Fallback header</div>}>
           <Header>
             <h1>Header</h1>
             <p>Federated from a webpack build</p>
           </Header>
-        </Suspense>
+        </Suspense> */}
         <div className="App">
           <section className="App-header">
             <img src={logo} className="App-logo" alt="logo" />

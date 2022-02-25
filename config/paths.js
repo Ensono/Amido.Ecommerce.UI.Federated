@@ -31,10 +31,12 @@ const getRelativePaths = () =>
     ? {
         path: distPath,
         publicPath: distPublicPath,
+        publicStaticPath: `${distPublicPath}/static/js`,
       }
     : {
         path: buildPath,
         publicPath: buildPublicPath,
+        publicStaticPath: `${buildPublicPath}/static/js`,
       }
 
 const moduleFileExtensions = [
@@ -67,6 +69,7 @@ module.exports = {
   getRelativePaths,
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
+  federationConfigPath: resolveApp('config'),
   appDist: resolveApp(distPath),
   appDistPublic: resolveApp(`${distPath}/public`),
   appBuild: resolveApp(buildPath),
