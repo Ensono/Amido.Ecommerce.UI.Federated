@@ -7,7 +7,8 @@
   "module": "./lib/index.es.js",
   "scripts": {
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "build-ci": "rollup -c rollup.prod.config.js"
   },
   "keywords": [],
   "author": "",

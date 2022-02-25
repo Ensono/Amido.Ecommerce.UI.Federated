@@ -19,7 +19,6 @@ const ThemeContext = createContext(null)
 const ReduxContext = createContext(null)
 
 export const ThemeProvider = ({children, data}: any) => {
-  console.log(federateComponent)
   return <ThemeContext.Provider value={data}>{children}</ThemeContext.Provider>
 }
 
@@ -72,7 +71,7 @@ const App: FC = () => {
           </section>
         </div>
         <Suspense fallback={<div>Fallback footer</div>}>
-          <Footer />
+          <Footer>THIS IS THE FOOTER YAYYY</Footer>
         </Suspense>
       </ThemeProvider>
     </StrictMode>

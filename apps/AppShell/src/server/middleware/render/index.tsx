@@ -23,7 +23,7 @@ export const renderMiddleware: Handler = (_req, res) => {
     INITIAL_STATE: JSON.stringify({}),
     APP_PROPS: JSON.stringify({}),
     DIRECTION: 'ltr',
-    FAV_ICON_PATH: FAV_ICON_PATH(env.NEXT_BLOB_STORAGE_PATH || '/static-content', 'next'),
+    FAV_ICON_PATH: FAV_ICON_PATH(env.ASSETS_PATH || '/static-content', 'next'),
     lang: 'lang=en',
     VIEWPORT: getViewportMetaTag(res.locals.configuration),
     VIEWPORT_FORCE_DESKTOP: getViewportMetaTagScript(res.locals.configuration),
