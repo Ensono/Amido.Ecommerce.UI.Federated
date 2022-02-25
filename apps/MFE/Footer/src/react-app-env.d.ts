@@ -11,9 +11,15 @@ declare namespace Express {
     themeVersion: string
     theme: Theme
     html: string
+    lallero:string
+    body: {
+      module: string
+      props: {[key: string]: any}
+    }
   }
   interface Response {
     html: string
+    send: any
   }
 }
 

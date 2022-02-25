@@ -4,14 +4,12 @@ const path = require('path')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const {merge} = require('webpack-merge')
-const nodeExternals = require('webpack-node-externals')
+// const nodeExternals = require('webpack-node-externals')
 
 const {version} = require('../../package.json')
 const getClientEnvironment = require('../env')
 const modules = require('../modules')
 const paths = require('../paths')
-const getBaseConfig = require('./base')
 const {clientLoaders} = require('./clientLoaders')
 const {clientPlugins} = require('./clientPlugins')
 const createEnvironmentHash = require('./persistentCache/createEnvironmentHash')
@@ -33,8 +31,6 @@ const babelRuntimeRegenerator = require.resolve('@babel/runtime/regenerator', {
 const useTypeScript = fs.existsSync(paths.appTsConfig)
 
 module.exports = webpackEnv => {
-  const baseConfig = getBaseConfig(webpackEnv, 'client')
-
   const isEnvDevelopment = webpackEnv === 'development'
   const isEnvProduction = webpackEnv === 'production'
 
@@ -50,7 +46,7 @@ module.exports = webpackEnv => {
 
   const clientConfig = {
     target: 'web',
-    externals: [nodeExternals()],
+    // externals: [nodeExternals()],
     externalsPresets: {node: true},
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
@@ -215,5 +211,5 @@ module.exports = webpackEnv => {
     },
   }
 
-  return merge(baseConfig, clientConfig)
+  return clientConfig
 }
