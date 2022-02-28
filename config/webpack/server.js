@@ -24,17 +24,7 @@ module.exports = webpackEnv => {
       modules: ['node_modules', paths.appNodeModules].concat(modules.additionalModulePaths || []),
       extensions: paths.moduleFileExtensions.map(ext => `.${ext}`),
     },
-    externals: [
-      nodeExternals({
-        allowlist: [
-          isEnvDevelopment && 'webpack/hot/poll?100',
-          /\.(eot|woff|woff2|ttf|otf)$/,
-          /\.(svg|png|jpg|jpeg|gif|ico)$/,
-          /\.(mp4|mp3|ogg|swf|webp)$/,
-          /\.(css|scss|sass|sss|less)$/,
-        ].filter(Boolean),
-      }),
-    ],
+    externals: [nodeExternals()],
     externalsPresets: {node: true},
     module: {
       rules: [
