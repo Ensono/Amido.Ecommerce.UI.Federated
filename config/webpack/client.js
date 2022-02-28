@@ -17,8 +17,6 @@ const createEnvironmentHash = require('./persistentCache/createEnvironmentHash')
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
 
-const reactRefreshRuntimeEntry = require.resolve('react-refresh/runtime')
-const reactRefreshWebpackPluginRuntimeEntry = require.resolve('@pmmmwh/react-refresh-webpack-plugin')
 const babelRuntimeEntry = require.resolve('babel-preset-react-app')
 const babelRuntimeEntryHelpers = require.resolve('@babel/runtime/helpers/esm/assertThisInitialized', {
   paths: [babelRuntimeEntry],
@@ -47,7 +45,7 @@ module.exports = webpackEnv => {
   const clientConfig = {
     target: 'web',
     // externals: [nodeExternals()],
-    externalsPresets: {node: true},
+    // externalsPresets: {node: true},
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
@@ -61,6 +59,7 @@ module.exports = webpackEnv => {
     // This means they will be the "root" imports that are included in JS bundle.
     entry: paths.appClientIndexTsx,
     output: {
+      // library: {type: 'commonjs'},
       // The build folder.
       path: isEnvDevelopment ? paths.appDistPublic : paths.appBuildPublic,
       // Add /* filename */ comments to generated require()s in the output.
@@ -101,7 +100,7 @@ module.exports = webpackEnv => {
     },
     optimization: {
       // TODO needs further investigation as if set to true it breaks remote-entry
-      minimize: false,
+      minimize: true,
       minimizer: [
         // This is only used in production mode
         new TerserPlugin({
@@ -178,8 +177,7 @@ module.exports = webpackEnv => {
         // Make sure your source files are compiled, as they will not be processed in any way.
         new ModuleScopePlugin(paths.appSrc, [
           paths.appPackageJson,
-          reactRefreshRuntimeEntry,
-          reactRefreshWebpackPluginRuntimeEntry,
+
           babelRuntimeEntry,
           babelRuntimeEntryHelpers,
           babelRuntimeRegenerator,

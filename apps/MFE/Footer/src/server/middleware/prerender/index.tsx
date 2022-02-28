@@ -1,31 +1,37 @@
 // @ts-ignore
+import path from 'path'
+
 import React from 'react'
 
 import {NextFunction} from 'express'
 import {renderToStaticMarkup} from 'react-dom/server'
 
-import federationStats from '../../../../build/public/federation-stats.json'
-import remoteEntry from '../../../../build/public/remote-entry'
 import {ExposedModule} from './models'
 
-const exposes = federationStats.federatedModules.find(m => m.remote === 'mfe_footer')!.exposes
-
-function getChunksForExposed(exposed: string) {
-  return exposes[exposed].reduce((p: Array<any>, c: ExposedModule) => {
-    p.push(...c.chunks)
-    return p
-  }, [])
-}
-
-const remoteInitPromise = (remoteEntry as any).init({
-  react: {
-    [React.version]: {
-      get: () => () => React,
-    },
-  },
-})
+const publicPath = path.join(__dirname, '/public')
 
 export const prerenderMiddleware = async (req: any, res: any, next: NextFunction) => {
+  console.log(__dirname)
+  const remoteEntry = await import('../../../../build/remote-entry')
+  const federationStats = await import('../../../../dist/public/federation-stats.json')
+
+  const remoteInitPromise = (remoteEntry as any).init({
+    react: {
+      [React.version]: {
+        get: () => () => React,
+      },
+    },
+  })
+
+  const exposes = federationStats.federatedModules.find(m => m.remote === 'mfe_footer')!.exposes
+
+  const getChunksForExposed = (exposed: string) => {
+    return exposes[exposed].reduce((p: Array<any>, c: ExposedModule) => {
+      p.push(...c.chunks)
+      return p
+    }, [])
+  }
+
   const {module, props} = req?.body as any
   if (!module) {
     next()
