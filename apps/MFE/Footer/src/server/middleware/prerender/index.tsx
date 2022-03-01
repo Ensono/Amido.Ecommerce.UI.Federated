@@ -8,8 +8,8 @@ import {renderToStaticMarkup} from 'react-dom/server'
 
 // const publicPath = path.join(__dirname, '/public')
 
-import federationStats from '../../../../build/public/remote/federation-stats.json'
-import remoteEntry from '../../../../build/public/remote/remote-entry'
+import federationStats from '../../../../dist/public/remote/federation-stats.json'
+import remoteEntry from '../../../../dist/public/remote/remote-entry'
 import {ExposedModule} from './models'
 
 const remoteInitPromise = (remoteEntry as any).init({
