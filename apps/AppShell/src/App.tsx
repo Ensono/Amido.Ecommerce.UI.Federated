@@ -71,7 +71,7 @@ const App: FC = () => {
           </section>
         </div>
         <Suspense fallback={<div>Fallback footer</div>}>
-          <Footer>THIS IS THE FOOTER YAYYY</Footer>
+          <Footer><div>THIS IS THE FOOTER YAYYY</div></Footer>
         </Suspense>
       </ThemeProvider>
     </StrictMode>
