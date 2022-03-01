@@ -39,8 +39,6 @@ const clientPlugins = webpackEnv => {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
-  const shouldUseReactRefresh = env.raw.FAST_REFRESH
-
   const REMOTE_URLS = JSON.parse(env.raw.REMOTE_URLS)
 
   const REMOTES = Object.entries(REMOTE_URLS)

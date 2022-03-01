@@ -44,7 +44,7 @@ if (!checkRequiredFiles([paths.appHtml, paths.appClientIndexTsx, paths.appServer
 }
 
 // Generate configuration
-const [clientConfig, serverConfig] = configFactory('development')
+const [clientConfig, remoteConfig, serverConfig] = configFactory('development')
 
 // We require that you explicitly set browsers and do not fall back to
 // browserslist defaults.
@@ -134,6 +134,7 @@ function build(previousFileSizes) {
   console.log('Running the DEVELOPMENT build of the application.')
 
   const clientCompiler = webpack(clientConfig)
+  const remoteCompiler = webpack(remoteConfig)
   const serverCompiler = webpack(serverConfig)
 
   return new Promise((resolve, reject) => {
@@ -184,6 +185,61 @@ function build(previousFileSizes) {
           return reject(new Error(filteredWarnings.join('\n\n')))
         }
       }
+
+      remoteCompiler.run((err, serverStats) => {
+        console.log('Compiling remote-entry.js files...')
+        let serverMessages
+        if (err) {
+          if (!err.message) {
+            return reject(err)
+          }
+
+          let errMessage = err.message
+
+          // Add additional information for postcss errors
+          if (Object.prototype.hasOwnProperty.call(err, 'postcssNode')) {
+            errMessage += `\nCompileError: Begins at CSS selector ${err.postcssNode.selector}`
+          }
+
+          serverMessages = formatWebpackMessages({
+            errors: [errMessage],
+            warnings: [],
+          })
+        } else {
+          serverMessages = formatWebpackMessages(serverStats.toJson({all: false, warnings: true, errors: true}))
+        }
+        if (serverMessages.errors.length) {
+          // Only keep the first error. Others are often indicative
+          // of the same problem, but confuse the reader with noise.
+          if (serverMessages.errors.length > 1) {
+            serverMessages.errors.length = 1
+          }
+          return reject(new Error(serverMessages.errors.join('\n\n')))
+        }
+        if (
+          process.env.CI &&
+          (typeof process.env.CI !== 'string' || process.env.CI.toLowerCase() !== 'false') &&
+          serverMessages.warnings.length
+        ) {
+          // Ignore sourcemap warnings in CI builds. See #8227 for more info.
+          const filteredWarnings = serverMessages.warnings.filter(w => !/Failed to parse source map/.test(w))
+          if (filteredWarnings.length) {
+            console.log(
+              chalk.yellow(
+                '\nTreating warnings as errors because process.env.CI = true.\n' +
+                  'Most CI servers set it automatically.\n',
+              ),
+            )
+            return reject(new Error(filteredWarnings.join('\n\n')))
+          }
+        }
+
+        return resolve({
+          stats: clientStats,
+          previousFileSizes,
+          warnings: Object.assign({}, clientMessages.warnings, serverMessages.warnings),
+        })
+      })
 
       serverCompiler.run((err, serverStats) => {
         console.log('Compiling server...')

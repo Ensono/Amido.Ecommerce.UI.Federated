@@ -4,7 +4,7 @@ const path = require('path')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const TerserPlugin = require('terser-webpack-plugin')
-// const nodeExternals = require('webpack-node-externals')
+const nodeExternals = require('webpack-node-externals')
 
 const {version} = require('../../package.json')
 const getClientEnvironment = require('../env')
@@ -42,9 +42,9 @@ module.exports = webpackEnv => {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
-  const clientConfig = {
-    target: 'web',
-    // externals: [nodeExternals()],
+  const remoteConfig = {
+    target: 'node',
+    externals: [nodeExternals()],
     externalsPresets: {node: true},
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
@@ -59,9 +59,9 @@ module.exports = webpackEnv => {
     // This means they will be the "root" imports that are included in JS bundle.
     entry: paths.appClientIndexTsx,
     output: {
-      // library: {type: 'commonjs'},
+      library: {type: 'commonjs'},
       // The build folder.
-      path: isEnvDevelopment ? paths.appDistPublic : paths.appBuildPublic,
+      path: isEnvDevelopment ? `${paths.appDistPublic}/remote` : `${paths.appBuildPublic}/remote`,
       // Add /* filename */ comments to generated require()s in the output.
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
@@ -100,7 +100,7 @@ module.exports = webpackEnv => {
     },
     optimization: {
       // TODO needs further investigation as if set to true it breaks remote-entry
-      minimize: isEnvProduction,
+      minimize: false,
       minimizer: [
         // This is only used in production mode
         new TerserPlugin({
@@ -210,5 +210,5 @@ module.exports = webpackEnv => {
     },
   }
 
-  return clientConfig
+  return remoteConfig
 }

@@ -40,8 +40,6 @@ const clientLoaders = webpackEnv => {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
-  const shouldUseReactRefresh = env.raw.FAST_REFRESH
-
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
@@ -138,7 +136,6 @@ const clientLoaders = webpackEnv => {
               },
             },
           ],
-          isEnvDevelopment && shouldUseReactRefresh && require.resolve('react-refresh/babel'),
         ].filter(Boolean),
         // This is a feature of `babel-loader` for webpack (not Babel itself).
         // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -167,18 +164,6 @@ const clientLoaders = webpackEnv => {
         // debugger to show the original code. Instead, the code
         // being evaluated would be much more helpful.
         sourceMaps: false,
-      },
-    },
-    // TODO: Merge this config once `image/avif` is in the mime-db
-    // https://github.com/jshttp/mime-db
-    {
-      test: [/\.avif$/],
-      type: 'asset',
-      mimetype: 'image/avif',
-      parser: {
-        dataUrlCondition: {
-          maxSize: imageInlineSizeLimit,
-        },
       },
     },
     // "url" loader works like "file" loader except that it embeds assets
@@ -219,7 +204,7 @@ const clientLoaders = webpackEnv => {
         and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
       },
     },
-    // Process application JS with Babel.
+    // Process application JS/TS with Babel.
     // The preset includes JSX, Flow, TypeScript, and some ESnext features.
     {
       test: /\.(js|mjs|jsx|ts|tsx)$/,
