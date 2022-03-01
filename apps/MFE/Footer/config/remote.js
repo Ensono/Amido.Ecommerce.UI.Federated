@@ -1,8 +1,7 @@
-// const {dependencies} = require('../package.json')
-
 const getFederationConfig = REMOTES => ({
   name: 'mfe_footer',
   filename: 'remote-entry.js',
+  library: {type: 'commonjs'},
   remotes: REMOTES,
   exposes: {
     './footer': './src/Footer.tsx',

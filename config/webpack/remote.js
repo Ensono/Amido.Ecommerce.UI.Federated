@@ -11,8 +11,8 @@ const getClientEnvironment = require('../env')
 const modules = require('../modules')
 const paths = require('../paths')
 const {clientLoaders} = require('./clientLoaders')
-const {clientPlugins} = require('./clientPlugins')
 const createEnvironmentHash = require('./persistentCache/createEnvironmentHash')
+const {remotePlugins} = require('./remotePlugins')
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
@@ -184,7 +184,7 @@ module.exports = webpackEnv => {
         ]),
       ],
     },
-    plugins: [...clientPlugins(webpackEnv)].filter(Boolean),
+    plugins: [...remotePlugins(webpackEnv)].filter(Boolean),
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,

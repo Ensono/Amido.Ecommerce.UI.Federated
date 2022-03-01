@@ -82,7 +82,6 @@ export const getServerComponent = (
                   // Instead of retaining the children placeholder, render out
                   // the children components. This even allows for recursive
                   // federated components!
-                  console.log({children})
                   return <React.Fragment key={index}>{children}</React.Fragment>
                 },
               },
@@ -97,22 +96,20 @@ export const getServerComponent = (
             // while rendering out the children.
             const reactElement = parser.parseWithInstructions(html, () => true, parseInstructions)
 
-            return {
-              default: () => (
-                <>
-                  {/* Add style chunks and async script tags for the script chunks. */}
-                  {chunks.map(chunk =>
-                    chunk.endsWith('.css') ? (
-                      <link key={chunk} rel="stylesheet" href={`${remoteUrl}/build/${chunk}`} />
-                    ) : (
-                      <script key={chunk} async src={`${remoteUrl}/build/${chunk}`} />
-                    ),
-                  )}
-                  {/* Render the re-constructed react element */}
-                  {reactElement}
-                </>
-              ),
-            }
+            return (
+              <>
+                {/* Add style chunks and async script tags for the script chunks. */}
+                {chunks.map(chunk =>
+                  chunk.endsWith('.css') ? (
+                    <link key={chunk} rel="stylesheet" href={`${remoteUrl}/build/${chunk}`} />
+                  ) : (
+                    <script key={chunk} async src={`${remoteUrl}/build/${chunk}`} />
+                  ),
+                )}
+                {/* Render the re-constructed react element */}
+                {reactElement}
+              </>
+            )
           },
         }
       }),
