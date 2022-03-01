@@ -101,9 +101,9 @@ export const getServerComponent = (
                 {/* Add style chunks and async script tags for the script chunks. */}
                 {chunks.map(chunk =>
                   chunk.endsWith('.css') ? (
-                    <link key={chunk} rel="stylesheet" href={`${remoteUrl}/build/${chunk}`} />
+                    <link key={chunk} rel="stylesheet" href={chunk} />
                   ) : (
-                    <script key={chunk} async src={`${remoteUrl}/build/${chunk}`} />
+                    <script key={chunk} async src={chunk} />
                   ),
                 )}
                 {/* Render the re-constructed react element */}
