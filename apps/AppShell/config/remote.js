@@ -1,8 +1,9 @@
-const {dependencies,} = require('../package.json')
+const {dependencies} = require('../package.json')
 
 const getFederationConfig = REMOTES => ({
   name: 'app-shell',
   filename: 'remote-entry.js',
+  library: {type: 'commonjs'},
   remotes: REMOTES,
   shared: {
     react: {

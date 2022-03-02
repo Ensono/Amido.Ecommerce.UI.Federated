@@ -1,14 +1,11 @@
-const {merge} = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
 
+const modules = require('../modules')
 const paths = require('../paths')
-const getBaseConfig = require('./base')
 const {serverLoaders} = require('./serverLoaders')
 const {serverPlugins} = require('./serverPlugins')
 
 module.exports = webpackEnv => {
-  const baseConfig = getBaseConfig(webpackEnv, 'server')
-
   const isEnvDevelopment = webpackEnv === 'development'
   const serverConfig = {
     target: 'node',
@@ -17,19 +14,18 @@ module.exports = webpackEnv => {
       globalObject: 'this',
       path: isEnvDevelopment ? paths.appDist : paths.appBuild,
       filename: 'server.js',
-      // library: {type: 'commonjs2'},
+      library: {type: 'commonjs'},
     },
-    externals: [
-      nodeExternals({
-        allowlist: [
-          isEnvDevelopment && 'webpack/hot/poll?100',
-          /\.(eot|woff|woff2|ttf|otf)$/,
-          /\.(svg|png|jpg|jpeg|gif|ico)$/,
-          /\.(mp4|mp3|ogg|swf|webp)$/,
-          /\.(css|scss|sass|sss|less)$/,
-        ].filter(Boolean),
-      }),
-    ],
+    resolve: {
+      // This allows you to set a fallback for where webpack should look for modules.
+      // We placed these paths second because we want `node_modules` to "win"
+      // if there are any conflicts. This matches Node resolution mechanism.
+      // https://github.com/facebook/create-react-app/issues/253
+      modules: ['node_modules', paths.appNodeModules].concat(modules.additionalModulePaths || []),
+      extensions: paths.moduleFileExtensions.map(ext => `.${ext}`),
+    },
+    externals: [nodeExternals()],
+    externalsPresets: {node: true},
     module: {
       rules: [
         {
@@ -40,5 +36,5 @@ module.exports = webpackEnv => {
     plugins: [...serverPlugins(webpackEnv)].filter(Boolean),
   }
 
-  return merge(baseConfig, serverConfig)
+  return serverConfig
 }

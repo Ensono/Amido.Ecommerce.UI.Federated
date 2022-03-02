@@ -1,9 +1,9 @@
 {
   "name": "@next/app-shell",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "nodemon --watch ./src ../../scripts/start.js --ext ts,tsx,css",
+    "dev": "nodemon --watch ./src ../../scripts/dev.js --ext ts,tsx,css",
     "build": "node ../../scripts/build.js",
     "serve": " node build/server.js",
     "watch": "nodemon --watch ./src --exec \"npm run build && npm run serve\" -e ts,tsx --ignore build/",

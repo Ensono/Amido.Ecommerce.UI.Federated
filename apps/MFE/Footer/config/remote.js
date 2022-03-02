@@ -1,5 +1,3 @@
-const {dependencies} = require('../package.json')
-
 const getFederationConfig = REMOTES => ({
   name: 'mfe_footer',
   filename: 'remote-entry.js',
@@ -8,14 +6,7 @@ const getFederationConfig = REMOTES => ({
   exposes: {
     './footer': './src/Footer.tsx',
   },
-  shared: {
-    react: {
-      singleton: true,
-      eager: true,
-      requiredVersion: dependencies.react,
-      shareScope: 'default',
-    },
-  },
+  shared: ['react', 'react-dom'],
 })
 
 module.exports = {getFederationConfig}

@@ -1,10 +1,10 @@
 const fs = require('fs')
-const path = require('path')
+// const path = require('path')
 
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const TerserPlugin = require('terser-webpack-plugin')
-// const nodeExternals = require('webpack-node-externals')
+const nodeExternals = require('webpack-node-externals')
 
 const getClientEnvironment = require('../env')
 const modules = require('../modules')
@@ -12,8 +12,8 @@ const paths = require('../paths')
 // eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 const {clientLoaders} = require('./clientLoaders')
-const {clientPlugins} = require('./clientPlugins')
 const createEnvironmentHash = require('./persistentCache/createEnvironmentHash')
+const {remotePlugins} = require('./remotePlugins')
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
@@ -43,26 +43,20 @@ module.exports = webpackEnv => {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
-  const clientConfig = {
-    target: 'web',
-    // externals: [nodeExternals()],
+  const remoteConfig = {
+    target: 'node',
+    externals: [nodeExternals()],
     externalsPresets: {node: true},
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
-    // eslint-disable-next-line no-nested-ternary
-    devtool: isEnvProduction
-      ? shouldUseSourceMap
-        ? 'source-map'
-        : false
-      : isEnvDevelopment && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     entry: paths.appClientIndexTsx,
     output: {
-      // library: {type: 'commonjs'},
+      library: {type: 'commonjs'},
       // The build folder.
-      path: isEnvDevelopment ? paths.appDistPublic : paths.appBuildPublic,
+      path: `${paths.appSrc}/remote-entry`,
       // Add /* filename */ comments to generated require()s in the output.
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
@@ -78,10 +72,6 @@ module.exports = webpackEnv => {
       // We inferred the "public path" (such as / or /my-project) from homepage.
       publicPath: paths.publicUrlOrPath,
       // publicPath: `${env.raw.ASSETS_PATH}/`,
-      // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: isEnvProduction
-        ? info => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
-        : isEnvDevelopment && (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
     },
     cache: {
       type: 'filesystem',
@@ -99,7 +89,7 @@ module.exports = webpackEnv => {
     },
     optimization: {
       // TODO needs further investigation as if set to true it breaks remote-entry
-      minimize: isEnvProduction,
+      minimize: false,
       minimizer: [
         // This is only used in production mode
         new TerserPlugin({
@@ -144,10 +134,7 @@ module.exports = webpackEnv => {
         // This is only used in production mode
         new CssMinimizerPlugin(),
       ],
-      splitChunks: isEnvProduction && {
-        chunks: 'all',
-        name: false,
-      },
+      splitChunks: false,
     },
     resolve: {
       // These are the reasonable defaults supported by the Node ecosystem.
@@ -183,7 +170,7 @@ module.exports = webpackEnv => {
         ]),
       ],
     },
-    plugins: [...clientPlugins(webpackEnv)].filter(Boolean),
+    plugins: [...remotePlugins(webpackEnv)].filter(Boolean),
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
@@ -209,5 +196,5 @@ module.exports = webpackEnv => {
     },
   }
 
-  return clientConfig
+  return remoteConfig
 }

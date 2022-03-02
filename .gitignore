@@ -12,7 +12,8 @@
 /dist
 /build
 /lib
-
+/src/remote-entry/static
+/src/remote-entry/app.html
 # misc
 .DS_Store
 .env.local
@@ -31,6 +32,8 @@ coverage
 build
 dist
 lib
+src/remote-entry/static
+src/remote-entry/app.html
 .vscode
 .next
 .vs

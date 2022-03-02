@@ -4,7 +4,6 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const resolve = require('resolve')
 const webpack = require('webpack')
-
 const ForkTsCheckerWebpackPlugin =
   process.env.TSC_COMPILE_ON_ERROR === 'true'
     ? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
@@ -12,6 +11,8 @@ const ForkTsCheckerWebpackPlugin =
 
 const getClientEnvironment = require('../env')
 const paths = require('../paths')
+// eslint-disable-next-line import/no-dynamic-require
+const {version} = require(paths.appPackageJson)
 // eslint-disable-next-line import/no-dynamic-require
 const {getFederationConfig} = require(`${paths.federationConfigPath}/server`)
 
@@ -51,8 +52,8 @@ const serverPlugins = webpackEnv => {
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
-        filename: 'static/css/[name].[contenthash:8].css',
-        chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+        filename: `static/css/[name].${version}.css`,
+        chunkFilename: `static/css/[name].${version}.chunk.css`,
       }),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how webpack interprets its code. This is a practical
