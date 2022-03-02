@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "//localhost:3003/static/css/main.6070a357.css",
-    "main.js": "//localhost:3003/static/js/main.1.0.0.09e16ff5.js",
+    "main.css": "//localhost:3003/static/css/main.0.1.0.css",
+    "main.js": "//localhost:3003/static/js/main.0.1.0.js",
     "mfe_footer.js": "//localhost:3003/remote-entry.js",
-    "static/js/262.1.0.0.5c7542ec.chunk.js": "//localhost:3003/static/js/262.1.0.0.5c7542ec.chunk.js",
-    "static/js/89.1.0.0.c107419e.chunk.js": "//localhost:3003/static/js/89.1.0.0.c107419e.chunk.js",
-    "static/js/157.1.0.0.4b68fae7.chunk.js": "//localhost:3003/static/js/157.1.0.0.4b68fae7.chunk.js",
-    "static/js/268.1.0.0.b98a7293.chunk.js": "//localhost:3003/static/js/268.1.0.0.b98a7293.chunk.js",
-    "static/js/233.1.0.0.34209078.chunk.js": "//localhost:3003/static/js/233.1.0.0.34209078.chunk.js",
-    "static/js/576.1.0.0.72ec6f12.chunk.js": "//localhost:3003/static/js/576.1.0.0.72ec6f12.chunk.js",
-    "static/js/136.1.0.0.07a53e73.chunk.js": "//localhost:3003/static/js/136.1.0.0.07a53e73.chunk.js",
-    "static/js/646.1.0.0.581d86f2.chunk.js": "//localhost:3003/static/js/646.1.0.0.581d86f2.chunk.js",
+    "static/js/262.0.1.0.chunk.js": "//localhost:3003/static/js/262.0.1.0.chunk.js",
+    "static/js/89.0.1.0.chunk.js": "//localhost:3003/static/js/89.0.1.0.chunk.js",
+    "static/js/157.0.1.0.chunk.js": "//localhost:3003/static/js/157.0.1.0.chunk.js",
+    "static/js/268.0.1.0.chunk.js": "//localhost:3003/static/js/268.0.1.0.chunk.js",
+    "static/js/233.0.1.0.chunk.js": "//localhost:3003/static/js/233.0.1.0.chunk.js",
+    "static/js/576.0.1.0.chunk.js": "//localhost:3003/static/js/576.0.1.0.chunk.js",
+    "static/js/136.0.1.0.chunk.js": "//localhost:3003/static/js/136.0.1.0.chunk.js",
+    "static/js/646.0.1.0.chunk.js": "//localhost:3003/static/js/646.0.1.0.chunk.js",
     "stats.json": "//localhost:3003/stats.json",
-    "static/media/logo.svg": "//localhost:3003/static/media/logo.6ce24c58.svg",
+    "static/media/logo.0.1.0.svg": "//localhost:3003/static/media/logo.0.1.0.svg",
     "federation-stats.json": "//localhost:3003/federation-stats.json",
     "app.html": "//localhost:3003/app.html"
   },
   "entrypoints": [
-    "static/css/main.6070a357.css",
-    "static/js/main.1.0.0.09e16ff5.js"
+    "static/css/main.0.1.0.css",
+    "static/js/main.0.1.0.js"
   ]
 }

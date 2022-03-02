@@ -1,4 +1,4 @@
-const {dependencies} = require('../package.json')
+const {dependencies,} = require('../package.json')
 
 const getFederationConfig = REMOTES => ({
   name: 'app-shell',

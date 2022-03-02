@@ -6,10 +6,10 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const TerserPlugin = require('terser-webpack-plugin')
 // const nodeExternals = require('webpack-node-externals')
 
-const {version} = require('../../package.json')
 const getClientEnvironment = require('../env')
 const modules = require('../modules')
 const paths = require('../paths')
+const {version} = require(paths.appPackageJson)
 const {clientLoaders} = require('./clientLoaders')
 const {clientPlugins} = require('./clientPlugins')
 const createEnvironmentHash = require('./persistentCache/createEnvironmentHash')
@@ -67,13 +67,13 @@ module.exports = webpackEnv => {
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
       filename: isEnvProduction
-        ? `static/js/[name].${version}.[contenthash:8].js`
+        ? `static/js/[name].${version}.js`
         : isEnvDevelopment && 'static/js/bundle.js',
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
-        ? `static/js/[name].${version}.[contenthash:8].chunk.js`
+        ? `static/js/[name].${version}.chunk.js`
         : isEnvDevelopment && 'static/js/[name].chunk.js',
-      assetModuleFilename: 'static/media/[name].[contenthash:8][ext]',
+      assetModuleFilename: 'static/media/[name][ext]',
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.

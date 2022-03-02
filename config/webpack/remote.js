@@ -6,10 +6,10 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 
-const {version} = require('../../package.json')
 const getClientEnvironment = require('../env')
 const modules = require('../modules')
 const paths = require('../paths')
+const {version} = require(paths.appPackageJson)
 const {clientLoaders} = require('./clientLoaders')
 const createEnvironmentHash = require('./persistentCache/createEnvironmentHash')
 const {remotePlugins} = require('./remotePlugins')
@@ -49,12 +49,6 @@ module.exports = webpackEnv => {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
-    // eslint-disable-next-line no-nested-ternary
-    devtool: isEnvProduction
-      ? shouldUseSourceMap
-        ? 'source-map'
-        : false
-      : isEnvDevelopment && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     entry: paths.appClientIndexTsx,
@@ -66,23 +60,17 @@ module.exports = webpackEnv => {
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: isEnvProduction
-        ? `static/js/[name].${version}.[contenthash:8].js`
-        : isEnvDevelopment && 'static/js/bundle.js',
+      filename: isEnvProduction ? `static/js/[name].${version}.js` : isEnvDevelopment && 'static/js/bundle.js',
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
-        ? `static/js/[name].${version}.[contenthash:8].chunk.js`
+        ? `static/js/[name].${version}.chunk.js`
         : isEnvDevelopment && 'static/js/[name].chunk.js',
-      assetModuleFilename: 'static/media/[name].[contenthash:8][ext]',
+      assetModuleFilename: 'static/media/[name][ext]',
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.
       publicPath: paths.publicUrlOrPath,
       // publicPath: `${env.raw.ASSETS_PATH}/`,
-      // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: isEnvProduction
-        ? info => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
-        : isEnvDevelopment && (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
     },
     cache: {
       type: 'filesystem',

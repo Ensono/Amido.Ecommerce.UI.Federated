@@ -2,9 +2,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const flexbugsPlugin = require('postcss-flexbugs-fixes')
 const postCssPresetEnv = require('postcss-preset-env')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
-
 const getClientEnvironment = require('../env')
 const paths = require('../paths')
+const {version} = require(paths.appPackageJson)
 
 const imageInlineSizeLimit = parseInt(process.env.IMAGE_INLINE_SIZE_LIMIT || '10000', 10)
 
@@ -196,7 +196,7 @@ const clientLoaders = webpackEnv => {
         {
           loader: require.resolve('file-loader'),
           options: {
-            name: 'static/media/[name].[contenthash:8].[ext]',
+            name: `static/media/[name].${version}.[ext]`,
           },
         },
       ],
