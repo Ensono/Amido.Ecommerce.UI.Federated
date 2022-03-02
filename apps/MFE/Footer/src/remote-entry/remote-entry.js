@@ -2,15 +2,12 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "webpack/container/entry/mfe_footer":
-/*!***********************!*\
-  !*** container entry ***!
-  \***********************/
+/***/ 7257:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 var moduleMap = {
 	"./footer": () => {
-		return __webpack_require__.e("src_Footer_tsx").then(() => (() => ((__webpack_require__(/*! ./src/Footer.tsx */ "./src/Footer.tsx")))));
+		return Promise.all([__webpack_require__.e(810), __webpack_require__.e(646)]).then(() => (() => ((__webpack_require__(5646)))));
 	}
 };
 var get = (module, getScope) => {
@@ -56,16 +53,13 @@ __webpack_require__.d(exports, {
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			id: moduleId,
-/******/ 			loaded: false,
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -120,7 +114,16 @@ __webpack_require__.d(exports, {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "static/js/" + chunkId + ".chunk.js";
+/******/ 			return "static/js/" + chunkId + ".1.0.0." + {"89":"c107419e","136":"07a53e73","233":"34209078","262":"5c7542ec","576":"72ec6f12","646":"581d86f2","810":"34f1006f"}[chunkId] + ".chunk.js";
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/get mini-css chunk filename */
+/******/ 	(() => {
+/******/ 		// This function allow to reference async chunks
+/******/ 		__webpack_require__.miniCssF = (chunkId) => {
+/******/ 			// return url for filenames based on template
+/******/ 			return undefined;
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -137,15 +140,6 @@ __webpack_require__.d(exports, {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/node module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nmd = (module) => {
-/******/ 			module.paths = [];
-/******/ 			if (!module.children) module.children = [];
-/******/ 			return module;
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -188,15 +182,20 @@ __webpack_require__.d(exports, {
 /******/ 			var promises = [];
 /******/ 			switch(name) {
 /******/ 				case "default": {
-/******/ 					register("react-dom", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e("node_modules_react-dom_index_js-_ea381").then(() => (() => (__webpack_require__(/*! ../../../node_modules/react-dom/index.js */ "../../../node_modules/react-dom/index.js"))))));
-/******/ 					register("react", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e("libs_ui-components_node_modules_react_index_js-_e5371").then(() => (() => (__webpack_require__(/*! ../../../libs/ui-components/node_modules/react/index.js */ "../../../libs/ui-components/node_modules/react/index.js"))))));
-/******/ 					register("react", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e("node_modules_react_index_js-_74bf0").then(() => (() => (__webpack_require__(/*! ../../../node_modules/react/index.js */ "../../../node_modules/react/index.js"))))));
+/******/ 					register("react-dom", "18.0.0-beta-149b420f6-20211119", () => (Promise.all([__webpack_require__.e(262), __webpack_require__.e(810), __webpack_require__.e(233)]).then(() => (() => (__webpack_require__(7262))))));
+/******/ 					register("react", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e(576).then(() => (() => (__webpack_require__(3157))))));
+/******/ 					register("react", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e(136).then(() => (() => (__webpack_require__(6136))))));
 /******/ 				}
 /******/ 				break;
 /******/ 			}
 /******/ 			if(!promises.length) return initPromises[name] = 1;
 /******/ 			return initPromises[name] = Promise.all(promises).then(() => (initPromises[name] = 1));
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		__webpack_require__.p = "//localhost:3003/";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/consumes */
@@ -334,17 +333,16 @@ __webpack_require__.d(exports, {
 /******/ 		});
 /******/ 		var installedModules = {};
 /******/ 		var moduleToHandlerMapping = {
-/******/ 			"webpack/sharing/consume/default/react/react?3bcc": () => (loadStrictVersionCheckFallback("default", "react", [6,18,0,0,,"beta-149b420f6-20211119"], () => (__webpack_require__.e("node_modules_react_index_js-_74bf1").then(() => (() => (__webpack_require__(/*! react */ "../../../node_modules/react/index.js"))))))),
-/******/ 			"webpack/sharing/consume/default/react/react?695f": () => (loadFallback("default", "react", () => (__webpack_require__.e("node_modules_react_index_js-_74bf1").then(() => (() => (__webpack_require__(/*! react */ "../../../node_modules/react/index.js")))))))
+/******/ 			9810: () => (loadStrictVersionCheckFallback("default", "react", [6,18,0,0,,"beta-149b420f6-20211119"], () => (__webpack_require__.e(89).then(() => (() => (__webpack_require__(6136))))))),
+/******/ 			1278: () => (loadFallback("default", "react", () => (__webpack_require__.e(89).then(() => (() => (__webpack_require__(6136)))))))
 /******/ 		};
 /******/ 		// no consumes in initial chunks
 /******/ 		var chunkMapping = {
-/******/ 			"node_modules_react-dom_index_js-_ea381": [
-/******/ 				"webpack/sharing/consume/default/react/react?3bcc"
+/******/ 			"646": [
+/******/ 				1278
 /******/ 			],
-/******/ 			"src_Footer_tsx": [
-/******/ 				"webpack/sharing/consume/default/react/react?3bcc",
-/******/ 				"webpack/sharing/consume/default/react/react?695f"
+/******/ 			"810": [
+/******/ 				9810
 /******/ 			]
 /******/ 		};
 /******/ 		__webpack_require__.f.consumes = (chunkId, promises) => {
@@ -383,7 +381,7 @@ __webpack_require__.d(exports, {
 /******/ 		// object to store loaded chunks
 /******/ 		// "1" means "loaded", otherwise not loaded yet
 /******/ 		var installedChunks = {
-/******/ 			"mfe_footer": 1
+/******/ 			314: 1
 /******/ 		};
 /******/ 		
 /******/ 		// no on chunks loaded
@@ -405,7 +403,7 @@ __webpack_require__.d(exports, {
 /******/ 		__webpack_require__.f.require = (chunkId, promises) => {
 /******/ 			// "1" is the signal for "already loaded"
 /******/ 			if(!installedChunks[chunkId]) {
-/******/ 				if(true) { // all chunks have JS
+/******/ 				if(810 != chunkId) {
 /******/ 					installChunk(require("./" + __webpack_require__.u(chunkId)));
 /******/ 				} else installedChunks[chunkId] = 1;
 /******/ 			}
@@ -423,11 +421,10 @@ __webpack_require__.d(exports, {
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__("webpack/container/entry/mfe_footer");
+/******/ 	var __webpack_exports__ = __webpack_require__(7257);
 /******/ 	var __webpack_export_target__ = exports;
 /******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
 /******/ 	if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=remote-entry.js.map

@@ -1,31 +1,23 @@
 {
   "files": {
-    "main.js": "//localhost:3003/static/js/bundle.js",
+    "main.css": "//localhost:3003/static/css/main.6070a357.css",
+    "main.js": "//localhost:3003/static/js/main.1.0.0.09e16ff5.js",
     "mfe_footer.js": "//localhost:3003/remote-entry.js",
-    "static/js/node_modules_react-dom_index_js-_ea380.chunk.js": "//localhost:3003/static/js/node_modules_react-dom_index_js-_ea380.chunk.js",
-    "static/js/node_modules_web-vitals_dist_web-vitals_js.chunk.js": "//localhost:3003/static/js/node_modules_web-vitals_dist_web-vitals_js.chunk.js",
-    "static/js/node_modules_react_index_js-_74bf1.chunk.js": "//localhost:3003/static/js/node_modules_react_index_js-_74bf1.chunk.js",
-    "static/js/libs_ui-components_node_modules_react_index_js-_e5370.chunk.js": "//localhost:3003/static/js/libs_ui-components_node_modules_react_index_js-_e5370.chunk.js",
-    "static/js/node_modules_react-dom_index_js-_ea381.chunk.js": "//localhost:3003/static/js/node_modules_react-dom_index_js-_ea381.chunk.js",
-    "static/js/libs_ui-components_node_modules_react_index_js-_e5371.chunk.js": "//localhost:3003/static/js/libs_ui-components_node_modules_react_index_js-_e5371.chunk.js",
-    "static/js/node_modules_react_index_js-_74bf0.chunk.js": "//localhost:3003/static/js/node_modules_react_index_js-_74bf0.chunk.js",
-    "static/js/src_Footer_tsx.chunk.js": "//localhost:3003/static/js/src_Footer_tsx.chunk.js",
+    "static/js/262.1.0.0.5c7542ec.chunk.js": "//localhost:3003/static/js/262.1.0.0.5c7542ec.chunk.js",
+    "static/js/89.1.0.0.c107419e.chunk.js": "//localhost:3003/static/js/89.1.0.0.c107419e.chunk.js",
+    "static/js/157.1.0.0.4b68fae7.chunk.js": "//localhost:3003/static/js/157.1.0.0.4b68fae7.chunk.js",
+    "static/js/268.1.0.0.b98a7293.chunk.js": "//localhost:3003/static/js/268.1.0.0.b98a7293.chunk.js",
+    "static/js/233.1.0.0.34209078.chunk.js": "//localhost:3003/static/js/233.1.0.0.34209078.chunk.js",
+    "static/js/576.1.0.0.72ec6f12.chunk.js": "//localhost:3003/static/js/576.1.0.0.72ec6f12.chunk.js",
+    "static/js/136.1.0.0.07a53e73.chunk.js": "//localhost:3003/static/js/136.1.0.0.07a53e73.chunk.js",
+    "static/js/646.1.0.0.581d86f2.chunk.js": "//localhost:3003/static/js/646.1.0.0.581d86f2.chunk.js",
     "stats.json": "//localhost:3003/stats.json",
-    "static/media/logo.6ce24c58.svg": "//localhost:3003/static/media/logo.6ce24c58.svg",
+    "static/media/logo.svg": "//localhost:3003/static/media/logo.6ce24c58.svg",
     "federation-stats.json": "//localhost:3003/federation-stats.json",
-    "app.html": "//localhost:3003/app.html",
-    "bundle.js.map": "//localhost:3003/static/js/bundle.js.map",
-    "remote-entry.js.map": "//localhost:3003/remote-entry.js.map",
-    "node_modules_react-dom_index_js-_ea380.chunk.js.map": "//localhost:3003/static/js/node_modules_react-dom_index_js-_ea380.chunk.js.map",
-    "node_modules_web-vitals_dist_web-vitals_js.chunk.js.map": "//localhost:3003/static/js/node_modules_web-vitals_dist_web-vitals_js.chunk.js.map",
-    "node_modules_react_index_js-_74bf1.chunk.js.map": "//localhost:3003/static/js/node_modules_react_index_js-_74bf1.chunk.js.map",
-    "libs_ui-components_node_modules_react_index_js-_e5370.chunk.js.map": "//localhost:3003/static/js/libs_ui-components_node_modules_react_index_js-_e5370.chunk.js.map",
-    "node_modules_react-dom_index_js-_ea381.chunk.js.map": "//localhost:3003/static/js/node_modules_react-dom_index_js-_ea381.chunk.js.map",
-    "libs_ui-components_node_modules_react_index_js-_e5371.chunk.js.map": "//localhost:3003/static/js/libs_ui-components_node_modules_react_index_js-_e5371.chunk.js.map",
-    "node_modules_react_index_js-_74bf0.chunk.js.map": "//localhost:3003/static/js/node_modules_react_index_js-_74bf0.chunk.js.map",
-    "src_Footer_tsx.chunk.js.map": "//localhost:3003/static/js/src_Footer_tsx.chunk.js.map"
+    "app.html": "//localhost:3003/app.html"
   },
   "entrypoints": [
-    "static/js/bundle.js"
+    "static/css/main.6070a357.css",
+    "static/js/main.1.0.0.09e16ff5.js"
   ]
 }

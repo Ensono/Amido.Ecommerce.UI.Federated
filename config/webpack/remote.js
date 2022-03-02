@@ -145,10 +145,6 @@ module.exports = webpackEnv => {
         // This is only used in production mode
         new CssMinimizerPlugin(),
       ],
-      splitChunks: isEnvProduction && {
-        chunks: 'all',
-        name: false,
-      },
     },
     resolve: {
       // These are the reasonable defaults supported by the Node ecosystem.
