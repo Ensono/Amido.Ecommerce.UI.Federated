@@ -1,22 +1,41 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "webpack/container/entry/mfe_footer":
-/*!***********************!*\
-  !*** container entry ***!
-  \***********************/
+/***/ 7257:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("var moduleMap = {\n\t\"./footer\": () => {\n\t\treturn __webpack_require__.e(\"src_Footer_tsx\").then(() => (() => ((__webpack_require__(/*! ./src/Footer.tsx */ \"./src/Footer.tsx\")))));\n\t}\n};\nvar get = (module, getScope) => {\n\t__webpack_require__.R = getScope;\n\tgetScope = (\n\t\t__webpack_require__.o(moduleMap, module)\n\t\t\t? moduleMap[module]()\n\t\t\t: Promise.resolve().then(() => {\n\t\t\t\tthrow new Error('Module \"' + module + '\" does not exist in container.');\n\t\t\t})\n\t);\n\t__webpack_require__.R = undefined;\n\treturn getScope;\n};\nvar init = (shareScope, initScope) => {\n\tif (!__webpack_require__.S) return;\n\tvar name = \"default\"\n\tvar oldScope = __webpack_require__.S[name];\n\tif(oldScope && oldScope !== shareScope) throw new Error(\"Container initialization failed as it has already been initialized with a different share scope\");\n\t__webpack_require__.S[name] = shareScope;\n\treturn __webpack_require__.I(name, initScope);\n};\n\n// This exports getters to disallow modifications\n__webpack_require__.d(exports, {\n\tget: () => (get),\n\tinit: () => (init)\n});\n\n//# sourceURL=webpack://@next/footer/container_entry?");
+var moduleMap = {
+	"./footer": () => {
+		return __webpack_require__.e(646).then(() => (() => ((__webpack_require__(5646)))));
+	}
+};
+var get = (module, getScope) => {
+	__webpack_require__.R = getScope;
+	getScope = (
+		__webpack_require__.o(moduleMap, module)
+			? moduleMap[module]()
+			: Promise.resolve().then(() => {
+				throw new Error('Module "' + module + '" does not exist in container.');
+			})
+	);
+	__webpack_require__.R = undefined;
+	return getScope;
+};
+var init = (shareScope, initScope) => {
+	if (!__webpack_require__.S) return;
+	var name = "default"
+	var oldScope = __webpack_require__.S[name];
+	if(oldScope && oldScope !== shareScope) throw new Error("Container initialization failed as it has already been initialized with a different share scope");
+	__webpack_require__.S[name] = shareScope;
+	return __webpack_require__.I(name, initScope);
+};
+
+// This exports getters to disallow modifications
+__webpack_require__.d(exports, {
+	get: () => (get),
+	init: () => (init)
+});
 
 /***/ })
 
@@ -34,16 +53,13 @@ eval("var moduleMap = {\n\t\"./footer\": () => {\n\t\treturn __webpack_require__
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			id: moduleId,
-/******/ 			loaded: false,
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -98,7 +114,16 @@ eval("var moduleMap = {\n\t\"./footer\": () => {\n\t\treturn __webpack_require__
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "static/js/" + chunkId + ".chunk.js";
+/******/ 			return "static/js/" + chunkId + ".0.1.0.chunk.js";
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/get mini-css chunk filename */
+/******/ 	(() => {
+/******/ 		// This function allow to reference async chunks
+/******/ 		__webpack_require__.miniCssF = (chunkId) => {
+/******/ 			// return url for filenames based on template
+/******/ 			return undefined;
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -115,15 +140,6 @@ eval("var moduleMap = {\n\t\"./footer\": () => {\n\t\treturn __webpack_require__
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/node module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nmd = (module) => {
-/******/ 			module.paths = [];
-/******/ 			if (!module.children) module.children = [];
-/******/ 			return module;
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -166,15 +182,20 @@ eval("var moduleMap = {\n\t\"./footer\": () => {\n\t\treturn __webpack_require__
 /******/ 			var promises = [];
 /******/ 			switch(name) {
 /******/ 				case "default": {
-/******/ 					register("react-dom", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e("node_modules_react-dom_index_js-_ea381").then(() => (() => (__webpack_require__(/*! ../../../node_modules/react-dom/index.js */ "../../../node_modules/react-dom/index.js"))))));
-/******/ 					register("react", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e("libs_ui-components_node_modules_react_index_js-_e5371").then(() => (() => (__webpack_require__(/*! ../../../libs/ui-components/node_modules/react/index.js */ "../../../libs/ui-components/node_modules/react/index.js"))))));
-/******/ 					register("react", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e("node_modules_react_index_js-_74bf0").then(() => (() => (__webpack_require__(/*! ../../../node_modules/react/index.js */ "../../../node_modules/react/index.js"))))));
+/******/ 					register("react-dom", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e(378).then(() => (() => (__webpack_require__(7262))))));
+/******/ 					register("react", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e(576).then(() => (() => (__webpack_require__(3157))))));
+/******/ 					register("react", "18.0.0-beta-149b420f6-20211119", () => (__webpack_require__.e(136).then(() => (() => (__webpack_require__(6136))))));
 /******/ 				}
 /******/ 				break;
 /******/ 			}
 /******/ 			if(!promises.length) return initPromises[name] = 1;
 /******/ 			return initPromises[name] = Promise.all(promises).then(() => (initPromises[name] = 1));
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		__webpack_require__.p = "//localhost:3003/";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/consumes */
@@ -312,17 +333,17 @@ eval("var moduleMap = {\n\t\"./footer\": () => {\n\t\treturn __webpack_require__
 /******/ 		});
 /******/ 		var installedModules = {};
 /******/ 		var moduleToHandlerMapping = {
-/******/ 			"webpack/sharing/consume/default/react/react?3bcc": () => (loadStrictVersionCheckFallback("default", "react", [6,18,0,0,,"beta-149b420f6-20211119"], () => (__webpack_require__.e("node_modules_react_index_js-_74bf1").then(() => (() => (__webpack_require__(/*! react */ "../../../node_modules/react/index.js"))))))),
-/******/ 			"webpack/sharing/consume/default/react/react?695f": () => (loadFallback("default", "react", () => (__webpack_require__.e("node_modules_react_index_js-_74bf1").then(() => (() => (__webpack_require__(/*! react */ "../../../node_modules/react/index.js")))))))
+/******/ 			9810: () => (loadStrictVersionCheckFallback("default", "react", [6,18,0,0,,"beta-149b420f6-20211119"], () => (__webpack_require__.e(89).then(() => (() => (__webpack_require__(6136))))))),
+/******/ 			1278: () => (loadFallback("default", "react", () => (__webpack_require__.e(89).then(() => (() => (__webpack_require__(6136)))))))
 /******/ 		};
 /******/ 		// no consumes in initial chunks
 /******/ 		var chunkMapping = {
-/******/ 			"node_modules_react-dom_index_js-_ea381": [
-/******/ 				"webpack/sharing/consume/default/react/react?3bcc"
+/******/ 			"378": [
+/******/ 				9810
 /******/ 			],
-/******/ 			"src_Footer_tsx": [
-/******/ 				"webpack/sharing/consume/default/react/react?3bcc",
-/******/ 				"webpack/sharing/consume/default/react/react?695f"
+/******/ 			"646": [
+/******/ 				9810,
+/******/ 				1278
 /******/ 			]
 /******/ 		};
 /******/ 		__webpack_require__.f.consumes = (chunkId, promises) => {
@@ -361,7 +382,7 @@ eval("var moduleMap = {\n\t\"./footer\": () => {\n\t\treturn __webpack_require__
 /******/ 		// object to store loaded chunks
 /******/ 		// "1" means "loaded", otherwise not loaded yet
 /******/ 		var installedChunks = {
-/******/ 			"mfe_footer": 1
+/******/ 			314: 1
 /******/ 		};
 /******/ 		
 /******/ 		// no on chunks loaded
@@ -401,7 +422,7 @@ eval("var moduleMap = {\n\t\"./footer\": () => {\n\t\treturn __webpack_require__
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__("webpack/container/entry/mfe_footer");
+/******/ 	var __webpack_exports__ = __webpack_require__(7257);
 /******/ 	var __webpack_export_target__ = exports;
 /******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
 /******/ 	if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
