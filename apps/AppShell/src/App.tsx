@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import {FC, StrictMode, Suspense, createContext} from 'react'
+import {FC, StrictMode, createContext} from 'react'
 
 import {Text} from '@next-ui-components/Text'
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -26,8 +26,8 @@ export const ReduxProvider = ({children, data}: any) => {
   return <ReduxContext.Provider value={data}>{children}</ReduxContext.Provider>
 }
 
-// const Header = federateComponent('mfe_header', './header', REMOTE_URLS().mfe_header)
 const REMOTES = JSON.parse(process.env.REMOTE_URLS)
+const Header = federateComponent('mfe_header', './header', REMOTES.mfe_header)
 const Footer = federateComponent('mfe_footer', './footer', REMOTES.mfe_footer)
 
 /**
@@ -52,12 +52,10 @@ const App: FC = () => {
   return (
     <StrictMode>
       <ThemeProvider value={{}}>
-        {/* <Suspense fallback={<div>Fallback header</div>}>
-          <Header>
-            <h1>Header</h1>
-            <p>Federated from a webpack build</p>
-          </Header>
-        </Suspense> */}
+        <Header loadingFallback={<div>Loading fallback header</div>} errorFallback={<div>Error fallback header</div>}>
+          <h1>Header</h1>
+          <p>Federated from a webpack build</p>
+        </Header>
         <div className="App">
           <section className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
@@ -70,9 +68,10 @@ const App: FC = () => {
             </a>
           </section>
         </div>
-        <Suspense fallback={<div>Fallback footer</div>}>
-          <Footer><div>THIS IS THE FOOTER YAYYY</div></Footer>
-        </Suspense>
+        <Footer>
+          <h1>Footer</h1>
+          <p>Federated from a webpack build</p>
+        </Footer>
       </ThemeProvider>
     </StrictMode>
   )
