@@ -1,48 +1,31 @@
 // @ts-ignore
-// import path from 'path'
-
 import React from 'react'
 
-import axios from 'axios'
 import {NextFunction} from 'express'
 import {renderToStaticMarkup} from 'react-dom/server'
 
+import federationStats from '../../../remote-entry/federation-stats.json'
+import remoteEntry from '../../../remote-entry/remote-entry'
 import {ExposedModule} from './models'
 
-let remoteEntry
-let remoteInitPromise
+const remoteInitPromise = (remoteEntry as any).init({
+  react: {
+    [React.version]: {
+      get: () => () => React,
+    },
+  },
+})
+
+const exposes = federationStats.federatedModules.find(m => m.remote === 'mfe_footer')!.exposes
+
+const getChunksForExposed = (exposed: string) => {
+  return exposes[exposed].reduce((p: Array<any>, c: ExposedModule) => {
+    p.push(...c.chunks)
+    return p
+  }, [])
+}
 
 export const prerenderMiddleware = async (req: any, res: any, next: NextFunction) => {
-  if (!remoteEntry) {
-    remoteEntry = await import('../../../../dist/public/remote/remote-entry')
-  }
-
-  const federationStats = (
-    await axios({
-      method: 'GET',
-      url: '/remote/federation-stats.json',
-      baseURL: 'http://localhost:3003',
-    })
-  ).data
-  const exposes = federationStats.federatedModules.find(m => m.remote === 'mfe_footer')!.exposes
-
-  const getChunksForExposed = (exposed: string) => {
-    return exposes[exposed].reduce((p: Array<any>, c: ExposedModule) => {
-      p.push(...c.chunks)
-      return p
-    }, [])
-  }
-
-  if (!remoteInitPromise) {
-    remoteInitPromise = (remoteEntry as any).init({
-      react: {
-        [React.version]: {
-          get: () => () => React,
-        },
-      },
-    })
-  }
-
   console.log(__dirname)
 
   const {module, props} = req?.body as any
