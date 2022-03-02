@@ -282,6 +282,10 @@ function build(previousFileSizes) {
             }
           }
 
+          // remove the remote-entry generated static files that we don't need anymore
+          fs.rmSync(`${paths.appSrc}/remote-entry/static`, {recursive: true, force: true})
+          fs.rmSync(`${paths.appSrc}/remote-entry/app.html`, {force: true})
+
           return resolve({
             stats: clientStats,
             previousFileSizes,

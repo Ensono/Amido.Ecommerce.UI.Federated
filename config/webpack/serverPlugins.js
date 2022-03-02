@@ -5,12 +5,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const resolve = require('resolve')
 const webpack = require('webpack')
 const ForkTsCheckerWebpackPlugin =
-process.env.TSC_COMPILE_ON_ERROR === 'true'
-? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
-: require('react-dev-utils/ForkTsCheckerWebpackPlugin')
+  process.env.TSC_COMPILE_ON_ERROR === 'true'
+    ? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
+    : require('react-dev-utils/ForkTsCheckerWebpackPlugin')
 
 const getClientEnvironment = require('../env')
 const paths = require('../paths')
+// eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 // eslint-disable-next-line import/no-dynamic-require
 const {getFederationConfig} = require(`${paths.federationConfigPath}/server`)

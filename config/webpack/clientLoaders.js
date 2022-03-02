@@ -2,8 +2,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const flexbugsPlugin = require('postcss-flexbugs-fixes')
 const postCssPresetEnv = require('postcss-preset-env')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
+
 const getClientEnvironment = require('../env')
 const paths = require('../paths')
+
+// eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 
 const imageInlineSizeLimit = parseInt(process.env.IMAGE_INLINE_SIZE_LIMIT || '10000', 10)
@@ -38,7 +41,7 @@ const clientLoaders = webpackEnv => {
   // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
   // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
   // Get environment variables to inject into our app.
-  const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
+  // const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {

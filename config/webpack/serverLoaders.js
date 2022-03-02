@@ -2,7 +2,9 @@ const flexbugsPlugin = require('postcss-flexbugs-fixes')
 const postCssPresetEnv = require('postcss-preset-env')
 // eslint-disable-next-line import/no-extraneous-dependencies
 const getCSSModuleLocalIdent = require('react-ssr-dev-utils/getCSSModuleLocalIdent')
+
 const paths = require('../paths')
+// eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -166,7 +168,7 @@ const serverLoaders = webpackEnv => {
       loader: require.resolve('file-loader'),
       exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.json$/],
       options: {
-        name: `static/media/[name].${version}.[ext]`,
+        name: `/static/media/[name].${version}.[ext]`,
         emitFile: false,
       },
     },

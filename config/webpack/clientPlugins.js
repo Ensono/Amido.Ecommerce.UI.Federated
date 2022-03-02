@@ -20,6 +20,7 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 
 const getClientEnvironment = require('../env')
 const paths = require('../paths')
+// eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 // eslint-disable-next-line import/no-dynamic-require
 const {getFederationConfig} = require(`${paths.federationConfigPath}/client`)

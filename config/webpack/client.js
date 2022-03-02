@@ -9,6 +9,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 const getClientEnvironment = require('../env')
 const modules = require('../modules')
 const paths = require('../paths')
+// eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 const {clientLoaders} = require('./clientLoaders')
 const {clientPlugins} = require('./clientPlugins')
@@ -66,9 +67,7 @@ module.exports = webpackEnv => {
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: isEnvProduction
-        ? `static/js/[name].${version}.js`
-        : isEnvDevelopment && 'static/js/bundle.js',
+      filename: isEnvProduction ? `static/js/[name].${version}.js` : isEnvDevelopment && 'static/js/bundle.js',
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
         ? `static/js/[name].${version}.chunk.js`

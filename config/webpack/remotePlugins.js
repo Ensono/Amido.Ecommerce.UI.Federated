@@ -12,8 +12,10 @@ const FederatedStatsPlugin = require('webpack-federated-stats-plugin')
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin')
 const {StatsWriterPlugin} = require('webpack-stats-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
+
 const getClientEnvironment = require('../env')
 const paths = require('../paths')
+// eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 // eslint-disable-next-line import/no-dynamic-require
 const {getFederationConfig} = require(`${paths.federationConfigPath}/remote`)

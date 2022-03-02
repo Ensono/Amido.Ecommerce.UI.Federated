@@ -1,5 +1,5 @@
 const fs = require('fs')
-const path = require('path')
+// const path = require('path')
 
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
@@ -9,6 +9,7 @@ const nodeExternals = require('webpack-node-externals')
 const getClientEnvironment = require('../env')
 const modules = require('../modules')
 const paths = require('../paths')
+// eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 const {clientLoaders} = require('./clientLoaders')
 const createEnvironmentHash = require('./persistentCache/createEnvironmentHash')
@@ -133,6 +134,7 @@ module.exports = webpackEnv => {
         // This is only used in production mode
         new CssMinimizerPlugin(),
       ],
+      splitChunks: false,
     },
     resolve: {
       // These are the reasonable defaults supported by the Node ecosystem.
