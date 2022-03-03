@@ -27,7 +27,7 @@ export const ReduxProvider = ({children, data}: any) => {
 }
 
 const REMOTES = JSON.parse(process.env.REMOTE_URLS)
-const Header = federateComponent('mfe_header', './header', REMOTES.mfe_header)
+// const Header = federateComponent('mfe_header', './header', REMOTES.mfe_header)
 const Footer = federateComponent('mfe_footer', './footer', REMOTES.mfe_footer)
 
 /**
@@ -52,10 +52,10 @@ const App: FC = () => {
   return (
     <StrictMode>
       <ThemeProvider value={{}}>
-        <Header loadingFallback={<div>Loading fallback header</div>} errorFallback={<div>Error fallback header</div>}>
+        {/* <Header loadingFallback={<div>Loading fallback header</div>} errorFallback={<div>Error fallback header</div>}>
           <h1>Header</h1>
           <p>Federated from a webpack build</p>
-        </Header>
+        </Header> */}
         <div className="App">
           <section className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
