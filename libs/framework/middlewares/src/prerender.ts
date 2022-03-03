@@ -23,7 +23,14 @@ interface SharedDependency {
   eager: boolean
 }
 
-export const prerenderMiddleware = (mfeName: string, federationStats, remoteEntry) => {
+interface FederationStats {
+  federatedModules: {
+    remote: string
+    exposes: {[key: string]: any[]}
+  }[]
+}
+
+export const prerenderMiddleware = (mfeName: string, federationStats: FederationStats, remoteEntry) => {
   const remoteInitPromise = (remoteEntry as any).init({
     react: {
       [React.version]: {
