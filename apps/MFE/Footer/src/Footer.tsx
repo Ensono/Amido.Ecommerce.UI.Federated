@@ -1,8 +1,23 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {context, federateComponent} from '@next/federate-component'
+
+export {context}
+
+const REMOTES = JSON.parse(process.env.REMOTE_URLS!)
+
+const Header = federateComponent('mfe_header', './header', REMOTES.mfe_header)
+
 const Footer: React.FC = ({children}) => {
-  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-  return <footer onClick={() => alert('ciao mamma footer')}>{children}</footer>
+  return (
+    <footer onClick={() => alert('ciao mamma footer')}>
+      THIS IS THE FOOTER
+      <Header errorFallback={<div>{children}</div>}>{children}</Header>
+    </footer>
+  )
 }
 
 export default Footer

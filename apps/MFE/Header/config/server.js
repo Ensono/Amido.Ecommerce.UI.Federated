@@ -1,20 +1,19 @@
 const {dependencies} = require('../package.json')
 
 const getFederationConfig = REMOTES => ({
-  name: 'app-shell',
+  name: 'mfe_header',
   filename: 'remote-entry.js',
   library: {type: 'commonjs'},
   remotes: REMOTES,
+  exposes: {
+    './header': './src/Header.tsx',
+  },
   shared: {
     react: {
       singleton: true,
       eager: true,
       requiredVersion: dependencies.react,
-    },
-    'react-dom': {
-      singleton: true,
-      eager: true,
-      requiredVersion: dependencies['react-dom'],
+      shareScope: 'default',
     },
   },
 })

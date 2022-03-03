@@ -25,13 +25,6 @@
     "header:serve": "npm run serve -w @next/header --if-present",
     "header:watch": "npm run watch -w @next/header --if-present",
     "header:ratchet": "npm run jest-ratchet -w @next/header --if-present",
-    "meganav:lint": "npm run lint -w @next/meganav --if-present",
-    "meganav:build": "npm run build -w @next/meganav --if-present",
-    "meganav:test": "npm run test -w @next/meganav --if-present",
-    "meganav:dev": "npm run dev -w @next/meganav --if-present",
-    "meganav:serve": "npm run serve -w @next/meganav --if-present",
-    "meganav:watch": "npm run watch -w @next/meganav --if-present",
-    "meganav:ratchet": "npm run jest-ratchet -w @next/meganav --if-present",
     "footer:lint": "npm run lint -w @next/footer --if-present",
     "footer:build": "npm run build -w @next/footer --if-present",
     "footer:test": "npm run test -w @next/footer --if-present",
@@ -78,7 +71,6 @@
     "./tools/CLI",
     "./apps/AppShell",
     "./apps/MFE/Header",
-    "./apps/MFE/Meganav",
     "./apps/MFE/Footer"
   ],
   "dependencies": {

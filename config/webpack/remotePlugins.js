@@ -13,7 +13,7 @@ const paths = require('../paths')
 // eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 // eslint-disable-next-line import/no-dynamic-require
-const {getFederationConfig} = require(`${paths.federationConfigPath}/remote`)
+const {getFederationConfig} = require(`${paths.federationConfigPath}/server`)
 
 // Check if TypeScript is setup
 // const useTypeScript = fs.existsSync(paths.appTsConfig)
