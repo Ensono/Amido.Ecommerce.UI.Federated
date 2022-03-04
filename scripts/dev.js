@@ -283,8 +283,15 @@ function build(previousFileSizes) {
           }
 
           // remove the remote-entry generated static files that we don't need anymore
-          fs.rmSync(`${paths.appSrc}/remote-entry/static`, {recursive: true, force: true})
-          fs.rmSync(`${paths.appSrc}/remote-entry/app.html`, {force: true})
+          const remoteEntryFolder = `${paths.appSrc}/remote-entry`
+          fs.rmSync(`${remoteEntryFolder}/static`, {recursive: true, force: true})
+          fs.rmSync(`${remoteEntryFolder}/app.html`, {force: true})
+
+          // remove remote-entry if the folder is empty
+          const files = fs.readdirSync(remoteEntryFolder)
+          if (files.length === 0) {
+            fs.rmdirSync(remoteEntryFolder)
+          }
 
           return resolve({
             stats: clientStats,
