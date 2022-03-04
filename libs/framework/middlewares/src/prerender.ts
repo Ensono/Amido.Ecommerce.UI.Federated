@@ -2,7 +2,8 @@
 import React from 'react'
 
 import {NextFunction} from 'express'
-import {renderToStaticMarkup} from 'react-dom/server'
+// @ts-ignore
+import {renderToPipeableStream} from 'react-dom/server'
 
 interface ExposedModule {
   chunks: Array<string>
@@ -58,17 +59,32 @@ export const prerenderMiddleware = (mfeName: string, federationStats: Federation
     try {
       const chunks = getChunksForExposed(module)
 
+      const REMOTE_URLS = JSON.parse(process.env.REMOTE_URLS!)
+      const REMOTE_ENTRIES = Object.entries(REMOTE_URLS).map(([, entry]) => `${entry}/remote-entry.js`)
+
       await remoteInitPromise
 
       const factory = await (remoteEntry as any).get(module)
       let Component = factory()
       Component = (Component && Component.default) || Component
 
-      const html = renderToStaticMarkup(React.createElement(Component, props || {}, `\u200Cchildren\u200C`))
+      const first = `{"chunks":${JSON.stringify([...chunks, ...REMOTE_ENTRIES])},"html":"`
+      const last = '"}'
+      let didError = false
 
-      res.json({
-        chunks,
-        html,
+      const {pipe} = renderToPipeableStream(React.createElement(Component, props || {}, `\u200Cchildren\u200C`), {
+        onCompleteAll() {
+          // If something errored before we started streaming, we set the error code appropriately.
+          res.statusCode = didError ? 206 : 200
+          res.contentType('application/json')
+          res.write(first)
+          pipe(res)
+          res.write(last)
+        },
+        onError(x: Error) {
+          didError = true
+          console.error(x)
+        },
       })
     } catch (err) {
       console.log('err', err)
