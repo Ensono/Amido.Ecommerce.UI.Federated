@@ -24,14 +24,18 @@ axios.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    const data = response.data
+    let data = response.data
     if (data && typeof data === 'string') {
-      const replaced = data
-        .replace(/async=""/g, 'async=\\"\\"')
-        .replace(/src="/g, 'src=\\"')
-        .replace(/">/g, '\\">')
+      const regex = /("html":")(?<html>.*?)("})/
+      const html = data.match(regex)?.groups?.html
+      if (html) {
+        const escapedHtml = html.replace(/"/g, '\\"')
+        data = data.replace(regex, `$1${escapedHtml}$3`)
+        console.log(data)
+      }
       try {
-        const parsed = JSON.parse(replaced)
+        // return JSON because prerender in reality is returning a string (it used to return JSON)
+        const parsed = JSON.parse(data)
         response.data = parsed
       } catch (err) {
         console.error(err)
