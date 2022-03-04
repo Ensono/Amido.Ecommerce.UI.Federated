@@ -62,11 +62,6 @@ export const prerenderMiddleware = async (req: any, res: any, next: NextFunction
         console.error(x)
       },
     })
-
-    // res.json({
-    //   chunks,
-    //   html,
-    // })
   } catch (err) {
     console.log('err', err)
     next(err)
