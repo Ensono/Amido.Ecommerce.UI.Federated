@@ -45,6 +45,7 @@ const baseClientConfig = webpackEnv => {
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
   return {
+    externalsPresets: {node: true},
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,

@@ -3,7 +3,7 @@ const nodeExternals = require('webpack-node-externals')
 
 const paths = require('../paths')
 // eslint-disable-next-line import/no-dynamic-require
-const {baseClientConfig} = require('./client.base')
+const baseClientConfig = require('./client.base')
 const {remotePlugins} = require('./plugins/remotePlugins')
 
 module.exports = webpackEnv => {
