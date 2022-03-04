@@ -85,7 +85,8 @@ const baseClientConfig = webpackEnv => {
     },
     optimization: {
       // TODO needs further investigation as if set to true it breaks remote-entry
-      minimize: isEnvProduction,
+      // minimize: isEnvProduction,
+      minimize: false,
       minimizer: [
         // This is only used in production mode
         new TerserPlugin({

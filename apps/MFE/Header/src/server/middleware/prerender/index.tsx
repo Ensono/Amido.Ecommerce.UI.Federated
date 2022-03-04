@@ -16,7 +16,7 @@ const remoteInitPromise = (remoteEntry as any).init({
   },
 })
 
-const exposes = federationStats.federatedModules.find(m => m.remote === 'mfe_footer')!.exposes
+const exposes = federationStats.federatedModules.find(m => m.remote === 'mfe_header')!.exposes
 
 const getChunksForExposed = (exposed: string) => {
   return exposes[exposed].reduce((p: Array<any>, c: ExposedModule) => {

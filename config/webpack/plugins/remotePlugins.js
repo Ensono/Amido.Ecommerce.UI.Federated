@@ -13,7 +13,7 @@ const {getRemotes, getHtmlPlugin} = require('../util')
 // eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 // eslint-disable-next-line import/no-dynamic-require
-const {getFederationConfig} = require(`${paths.federationConfigPath}/remote`)
+const {getFederationConfig} = require(`${paths.federationConfigPath}/server`)
 
 const remotePlugins = webpackEnv => {
   const isEnvDevelopment = webpackEnv === 'development'

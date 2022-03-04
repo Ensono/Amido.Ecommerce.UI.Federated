@@ -2,20 +2,19 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 
+const getClientEnvironment = require('../../env')
 const paths = require('../../paths')
-const {getRemotes} = require('../util')
 const typescriptCheck = require('../util/typescriptCheck')
 // eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
-// eslint-disable-next-line import/no-dynamic-require
-const {getFederationConfig} = require(`${paths.federationConfigPath}/server`)
 
 const serverPlugins = webpackEnv => {
   const isEnvDevelopment = webpackEnv === 'development'
   const isEnvProduction = webpackEnv === 'production'
 
-  const remotes = getRemotes()
-  const federationConfig = getFederationConfig(remotes)
+  // Get environment variables to inject into our app.
+  const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
+  const REMOTE_URLS = JSON.parse(env.raw.REMOTE_URLS)
 
   return [
     // Watcher doesn't work well if you mistype casing in a path so we use
@@ -39,7 +38,9 @@ const serverPlugins = webpackEnv => {
       contextRegExp: /moment$/,
     }),
     typescriptCheck(webpackEnv),
-    new webpack.container.ModuleFederationPlugin(federationConfig),
+    new webpack.EnvironmentPlugin({
+      REMOTE_URLS,
+    }),
   ]
 }
 
