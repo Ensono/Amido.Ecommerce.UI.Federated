@@ -24,6 +24,19 @@ axios.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
+    const data = response.data
+    if (data && typeof data === 'string') {
+      const replaced = data
+        .replace(/async=""/g, 'async=\\"\\"')
+        .replace(/src="/g, 'src=\\"')
+        .replace(/">/g, '\\">')
+      try {
+        const parsed = JSON.parse(replaced)
+        response.data = parsed
+      } catch (err) {
+        console.error(err)
+      }
+    }
     return response
   },
   function (error) {
@@ -61,6 +74,7 @@ export const getServerComponent = (
         },
       }).then((res: any) => {
         const {chunks, html} = res.data as PrerenderedModule
+        console.log({remote})
         console.log({chunks, html})
         const processNodeDefinitions = new ProcessNodeDefinitions(React)
         const parser = new Parser()

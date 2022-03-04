@@ -45,7 +45,7 @@ export const renderMiddleware: Handler = (_req, res) => {
     {
       onCompleteAll() {
         // If something errored before we started streaming, we set the error code appropriately.
-        res.statusCode = didError ? 500 : 200
+        res.statusCode = didError ? 206 : 200
         res.contentType('html')
         res.write(first)
         pipe(res)

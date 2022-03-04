@@ -15,7 +15,6 @@ const ThemeContext = createContext(null)
 const ReduxContext = createContext(null)
 
 export const ThemeProvider = ({children, data}: any) => {
-  console.log(federateComponent)
   return <ThemeContext.Provider value={data}>{children}</ThemeContext.Provider>
 }
 
