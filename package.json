@@ -35,7 +35,7 @@
     "federate-component:build": "npm run build -w @next/federate-component --if-present",
     "federate-component:build-ci": "npm run build-ci -w @next/federate-component --if-present",
     "federate-component:lint": "npm run lint -w @next/federate-component --if-present",
-    "federate-component:test": "npm run build-watch -w @next/federate-component --if-present",
+    "federate-component:test": "npm run test -w @next/federate-component --if-present",
     "federate-component:ratchet": "npm run jest-ratchet -w @next/federate-component --if-present",
     "next-ui-components/text:build": "npm run build -w @next-ui-components/text --if-present",
     "next-ui-components/text:lint": "npm run lint -w @next-ui-components/text --if-present",
@@ -44,10 +44,10 @@
     "constants:build": "npm run build -w @next/constants --if-present",
     "logger:build": "npm run build -w @next/core-logger --if-present",
     "logger:lint": "npm run lint -w @next/core-logger --if-present",
-    "logger:test": "npm run build-watch -w @next/core-logger --if-present",
+    "logger:test": "npm run test -w @next/core-logger --if-present",
     "middlewares:build": "npm run build -w @next/middlewares --if-present",
     "middlewares:lint": "npm run lint -w @next/middlewares --if-present",
-    "middlewares:test": "npm run build-watch -w @next/middlewares --if-present"
+    "middlewares:test": "npm run test -w @next/middlewares --if-present"
   },
   "repository": {
     "type": "git",

@@ -11,7 +11,7 @@ declare namespace Express {
     themeVersion: string
     theme: Theme
     html: string
-    lallero:string
+    lallero: string
     body: {
       module: string
       props: {[key: string]: any}

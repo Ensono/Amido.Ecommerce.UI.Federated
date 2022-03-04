@@ -3,8 +3,8 @@ const flexbugsPlugin = require('postcss-flexbugs-fixes')
 const postCssPresetEnv = require('postcss-preset-env')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 
-const getClientEnvironment = require('../env')
-const paths = require('../paths')
+const paths = require('../../paths')
+const {getVersionedMediaFilename} = require('../util')
 
 // eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
@@ -36,12 +36,6 @@ const sassModuleRegex = /\.module\.(scss|sass)$/
 const clientLoaders = webpackEnv => {
   const isEnvProduction = webpackEnv === 'production'
   const isEnvDevelopment = webpackEnv === 'development'
-
-  // We will provide `paths.publicUrlOrPath` to our app
-  // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
-  // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
-  // Get environment variables to inject into our app.
-  // const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
@@ -199,7 +193,7 @@ const clientLoaders = webpackEnv => {
         {
           loader: require.resolve('file-loader'),
           options: {
-            name: `static/media/[name].${version}.[ext]`,
+            name: getVersionedMediaFilename(version),
           },
         },
       ],

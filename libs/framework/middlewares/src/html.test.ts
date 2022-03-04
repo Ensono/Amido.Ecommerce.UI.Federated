@@ -24,7 +24,7 @@ const expectedHtml = 'test html'
 describe('Given a htmlMiddleware', () => {
   describe('When running', () => {
     beforeAll(() => {
-      htmlMiddleware()(mockRequest as any, mockResponse as any, mockNext)
+      htmlMiddleware(mockRequest as any, mockResponse as any, mockNext)
     })
 
     it('should call path.join', () => {
