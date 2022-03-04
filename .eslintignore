@@ -1,1 +1,2 @@
 *.d.ts
+**/remote-entry/remote-entry.js

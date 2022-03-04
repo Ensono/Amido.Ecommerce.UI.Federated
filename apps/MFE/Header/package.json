@@ -107,7 +107,8 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
+      "!src/**/*.d.ts",
+      "!src/remote-entry/*"
     ],
     "setupFiles": [
       "react-app-polyfill/jsdom"
