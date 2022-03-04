@@ -4,19 +4,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
-// const resolve = require('resolve')
 const webpack = require('webpack')
 const FederatedStatsPlugin = require('webpack-federated-stats-plugin')
 
-const getClientEnvironment = require('../env')
-const paths = require('../paths')
+const getClientEnvironment = require('../../env')
+const paths = require('../../paths')
+const {getRemotes, getHtmlPlugin} = require('../util')
 // eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 // eslint-disable-next-line import/no-dynamic-require
 const {getFederationConfig} = require(`${paths.federationConfigPath}/remote`)
-
-// Check if TypeScript is setup
-// const useTypeScript = fs.existsSync(paths.appTsConfig)
 
 const remotePlugins = webpackEnv => {
   const isEnvDevelopment = webpackEnv === 'development'
@@ -28,51 +25,15 @@ const remotePlugins = webpackEnv => {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
-  const REMOTE_URLS = JSON.parse(env.raw.REMOTE_URLS)
+  const remotes = getRemotes()
+  const federationConfig = getFederationConfig(remotes)
 
-  const REMOTES = Object.entries(REMOTE_URLS)
-    .map(([name, entry]) => ({
-      [name]: `${entry}/remote-entry.js`,
-    }))
-    .reduce((acc, n) => ({...acc, ...n}), {})
-
-  const federationConfig = getFederationConfig(REMOTES)
-  console.log({federationConfig})
   // Some apps do not need the benefits of saving a web request, so not inlining the chunk
   // makes for a smoother build process.
   const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false'
 
-  // Source maps are resource heavy and can cause out of memory issue for large source files.
-  // const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
-
   return [
-    // Generates an `index.html` file with the <script> injected.
-    new HtmlWebpackPlugin(
-      Object.assign(
-        {},
-        {
-          inject: true,
-          template: paths.appHtml,
-          filename: 'app.html',
-        },
-        isEnvProduction
-          ? {
-              minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeRedundantAttributes: true,
-                useShortDoctype: true,
-                removeEmptyAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                keepClosingSlash: true,
-                minifyJS: true,
-                minifyCSS: true,
-                minifyURLs: true,
-              },
-            }
-          : undefined,
-      ),
-    ),
+    getHtmlPlugin(isEnvProduction),
     // Inlines the webpack runtime script. This script is too small to warrant
     // a network request.
     // https://github.com/facebook/create-react-app/issues/5358
@@ -111,9 +72,6 @@ const remotePlugins = webpackEnv => {
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/locale$/,
       contextRegExp: /moment$/,
-    }),
-    new webpack.EnvironmentPlugin({
-      REMOTE_URLS,
     }),
     federationConfig.exposes &&
       new FederatedStatsPlugin({

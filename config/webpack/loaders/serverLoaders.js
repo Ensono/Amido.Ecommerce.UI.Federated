@@ -3,7 +3,8 @@ const postCssPresetEnv = require('postcss-preset-env')
 // eslint-disable-next-line import/no-extraneous-dependencies
 const getCSSModuleLocalIdent = require('react-ssr-dev-utils/getCSSModuleLocalIdent')
 
-const paths = require('../paths')
+const paths = require('../../paths')
+const {getVersionedMediaFilename} = require('../util')
 // eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 
@@ -124,7 +125,7 @@ const serverLoaders = webpackEnv => {
       loader: require.resolve('url-loader'),
       options: {
         limit: imageInlineSizeLimit,
-        name: `static/media/[name].${version}.[ext]`,
+        name: getVersionedMediaFilename(version),
       },
     },
     {
@@ -168,7 +169,7 @@ const serverLoaders = webpackEnv => {
       loader: require.resolve('file-loader'),
       exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.json$/],
       options: {
-        name: `/static/media/[name].${version}.[ext]`,
+        name: getVersionedMediaFilename(version),
         emitFile: false,
       },
     },

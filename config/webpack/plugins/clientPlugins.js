@@ -6,20 +6,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
-// const resolve = require('resolve')
 const webpack = require('webpack')
 const FederatedStatsPlugin = require('webpack-federated-stats-plugin')
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin')
 const {StatsWriterPlugin} = require('webpack-stats-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 
-// const ForkTsCheckerWebpackPlugin =
-//   process.env.TSC_COMPILE_ON_ERROR === 'true'
-//     ? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
-//     : require('react-dev-utils/ForkTsCheckerWebpackPlugin')
-
-const getClientEnvironment = require('../env')
-const paths = require('../paths')
+const getClientEnvironment = require('../../env')
+const paths = require('../../paths')
+const {getRemotes, getHtmlPlugin} = require('../util')
+const typescriptCheck = require('../util/typescriptCheck')
 // eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
 // eslint-disable-next-line import/no-dynamic-require
@@ -27,9 +23,6 @@ const {getFederationConfig} = require(`${paths.federationConfigPath}/client`)
 
 // Get the path to the uncompiled service worker (if it exists).
 const swSrc = paths.swSrc
-
-// Check if TypeScript is setup
-// const useTypeScript = fs.existsSync(paths.appTsConfig)
 
 const clientPlugins = webpackEnv => {
   const isEnvDevelopment = webpackEnv === 'development'
@@ -41,51 +34,15 @@ const clientPlugins = webpackEnv => {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
 
-  const REMOTE_URLS = JSON.parse(env.raw.REMOTE_URLS)
-
-  const REMOTES = Object.entries(REMOTE_URLS)
-    .map(([name, entry]) => ({
-      [name]: `${entry}/remote-entry.js`,
-    }))
-    .reduce((acc, n) => ({...acc, ...n}), {})
-
-  const federationConfig = getFederationConfig(REMOTES)
-  console.log({federationConfig})
+  const remotes = getRemotes()
+  const federationConfig = getFederationConfig(remotes)
   // Some apps do not need the benefits of saving a web request, so not inlining the chunk
   // makes for a smoother build process.
   const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false'
 
-  // Source maps are resource heavy and can cause out of memory issue for large source files.
-  // const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
-
   return [
     // Generates an `index.html` file with the <script> injected.
-    new HtmlWebpackPlugin(
-      Object.assign(
-        {},
-        {
-          inject: true,
-          template: paths.appHtml,
-          filename: 'app.html',
-        },
-        isEnvProduction
-          ? {
-              minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeRedundantAttributes: true,
-                useShortDoctype: true,
-                removeEmptyAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                keepClosingSlash: true,
-                minifyJS: true,
-                minifyCSS: true,
-                minifyURLs: true,
-              },
-            }
-          : undefined,
-      ),
-    ),
+    getHtmlPlugin(isEnvProduction),
     // Inlines the webpack runtime script. This script is too small to warrant
     // a network request.
     // https://github.com/facebook/create-react-app/issues/5358
@@ -160,52 +117,7 @@ const clientPlugins = webpackEnv => {
         // See https://github.com/cra-template/pwa/issues/13#issuecomment-722667270
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       }),
-    // // TypeScript type checking
-    // useTypeScript &&
-    //   new ForkTsCheckerWebpackPlugin({
-    //     async: isEnvDevelopment,
-    //     typescript: {
-    //       typescriptPath: resolve.sync('typescript', {
-    //         basedir: paths.appNodeModules,
-    //       }),
-    //       configOverwrite: {
-    //         compilerOptions: {
-    //           sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
-    //           skipLibCheck: true,
-    //           inlineSourceMap: false,
-    //           declarationMap: false,
-    //           noEmit: true,
-    //           incremental: true,
-    //           tsBuildInfoFile: paths.appTsBuildInfoFile,
-    //         },
-    //       },
-    //       context: paths.appPath,
-    //       diagnosticOptions: {
-    //         syntactic: true,
-    //       },
-    //       mode: 'write-references',
-    //       // profile: true,
-    //     },
-    //     issue: {
-    //       // This one is specifically to match during CI tests,
-    //       // as micromatch doesn't match
-    //       // '../cra-template-typescript/template/src/App.tsx'
-    //       // otherwise.
-    //       include: [{file: '../**/src/**/*.{ts,tsx}'}, {file: '**/src/**/*.{ts,tsx}'}],
-    //       exclude: [
-    //         {file: '**/src/**/__tests__/**'},
-    //         {file: '**/src/**/?(*.){spec|test}.*'},
-    //         {file: '**/src/setupProxy.*'},
-    //         {file: '**/src/setupTests.*'},
-    //       ],
-    //     },
-    //     logger: {
-    //       infrastructure: 'silent',
-    //     },
-    //   }),
-    new webpack.EnvironmentPlugin({
-      REMOTE_URLS,
-    }),
+    typescriptCheck(webpackEnv),
     federationConfig.exposes &&
       new StatsWriterPlugin({
         filename: 'stats.json',
