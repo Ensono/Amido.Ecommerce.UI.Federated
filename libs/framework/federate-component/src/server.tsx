@@ -25,18 +25,23 @@ axios.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     let data = response.data
-    if (data && typeof data === 'string') {
+    if (typeof data !== 'string') {
+      throw new Error(
+        `Federate Component Server has not received a string when calling ${JSON.stringify(response.data)}`,
+      )
+    }
+    if (data) {
       const regex = /("html":")(?<html>.*?)("})/
       const html = data.match(regex)?.groups?.html
       if (html) {
         const escapedHtml = html.replace(/"/g, '\\"')
         data = data.replace(regex, `$1${escapedHtml}$3`)
-        console.log(data)
+        console.log('ESCAPED DATA', data)
       }
       try {
         // return JSON because prerender in reality is returning a string (it used to return JSON)
-        const parsed = JSON.parse(data)
-        response.data = parsed
+        // const parsed = JSON.parse(data)
+        response.data = data
       } catch (err) {
         console.error(err)
       }
@@ -77,7 +82,9 @@ export const getServerComponent = (
           'content-type': 'application/json',
         },
       }).then((res: any) => {
-        const {chunks, html} = res.data as PrerenderedModule
+        // response should be a string
+        const parsed = JSON.parse(res.data)
+        const {chunks, html} = parsed as PrerenderedModule
         console.log({remote})
         console.log({chunks, html})
         const processNodeDefinitions = new ProcessNodeDefinitions(React)
@@ -91,7 +98,6 @@ export const getServerComponent = (
                   // If the pre-rendered component rendered a children placeholder,
                   // we will process this ourselves.
                   if (node?.type === 'text' && node.data === '\u200Cchildren\u200C') {
-                    console.log('yeah I am in here')
                     return true
                   }
                   return false

@@ -6,7 +6,7 @@ import {Text} from '@next-ui-components/Text'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {version} from '@next/constants'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {federateComponent} from '@next/federate-component'
+// import {federateComponent} from '@next/federate-component'
 
 import logo from './logo.svg'
 import './App.css'

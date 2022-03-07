@@ -76,7 +76,7 @@ export const prerenderMiddleware = (mfeName: string, federationStats: Federation
         onCompleteAll() {
           // If something errored before we started streaming, we set the error code appropriately.
           res.statusCode = didError ? 206 : 200
-          res.contentType('application/json')
+          res.contentType('text/html')
           res.write(first)
           pipe(res)
           res.write(last)

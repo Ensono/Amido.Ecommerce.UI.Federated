@@ -7,6 +7,7 @@ import {context, federateComponent} from '@next/federate-component'
 
 export {context}
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const REMOTES = JSON.parse(process.env.REMOTE_URLS!)
 
 const Header = federateComponent('mfe_header', './header', REMOTES.mfe_header)
