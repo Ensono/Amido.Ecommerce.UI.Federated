@@ -6,6 +6,24 @@ import stringify from 'json-stringify-deterministic'
 
 import {Module, PrerenderedModule, RemotesContext} from './types'
 
+export const escapePrerenderString = (prerenderString: string): string => {
+  // Do something with response data
+  if (!prerenderString) {
+    throw new Error(`Data is not valid for federate-component: ${prerenderString}`)
+  }
+
+  const regex = /("html":")(?<html>.*?)("})/
+  const html = prerenderString.match(regex)?.groups?.html
+
+  if (html) {
+    const escapedHtml = html.replace(/"/g, '\\"')
+    console.log('ESCAPED DATA', prerenderString)
+    return prerenderString.replace(regex, `$1${escapedHtml}$3`)
+  }
+
+  return prerenderString
+}
+
 axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
@@ -14,45 +32,6 @@ axios.interceptors.request.use(
   },
   function (error) {
     // Do something with request error
-    // console.error(error)
-    return Promise.reject(error)
-  },
-)
-
-// Add a response interceptor
-axios.interceptors.response.use(
-  function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    let data = response.data
-    try {
-      if (typeof data !== 'string') {
-        data = JSON.stringify(data)
-      }
-    } catch (e) {
-      console.error(e)
-    }
-    if (data) {
-      const regex = /("html":")(?<html>.*?)("})/
-      const html = data.match(regex)?.groups?.html
-      if (html) {
-        const escapedHtml = html.replace(/"/g, '\\"')
-        data = data.replace(regex, `$1${escapedHtml}$3`)
-        console.log('ESCAPED DATA', data)
-      }
-      try {
-        // return JSON because prerender in reality is returning a string (it used to return JSON)
-        const parsed = JSON.parse(data)
-        response.data = parsed
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    return response
-  },
-  function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
     // console.error(error)
     return Promise.reject(error)
   },
@@ -84,9 +63,18 @@ export const getServerComponent = (
           'content-type': 'application/json',
         },
       }).then((res: any) => {
-        const {chunks, html} = res.data as PrerenderedModule
-        console.log({remote})
-        console.log({chunks, html})
+        const escaped = escapePrerenderString(res.data)
+        let parsed
+
+        try {
+          // return JSON because prerender in reality is returning a string (it used to return JSON)
+          parsed = JSON.parse(escaped)
+        } catch {
+          throw new Error(`Could not parse escaped prerender response from ${remoteUrl}, data received: ${escaped}`)
+        }
+
+        const {chunks, html} = parsed as PrerenderedModule
+
         const processNodeDefinitions = new ProcessNodeDefinitions(React)
         const parser = new Parser()
 
