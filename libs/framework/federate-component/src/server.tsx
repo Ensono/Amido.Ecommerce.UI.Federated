@@ -25,10 +25,12 @@ axios.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     let data = response.data
-    if (typeof data !== 'string') {
-      throw new Error(
-        `Federate Component Server has not received a string when calling ${JSON.stringify(response.data)}`,
-      )
+    try {
+      if (typeof data !== 'string') {
+        data = JSON.stringify(data)
+      }
+    } catch (e) {
+      console.error(e)
     }
     if (data) {
       const regex = /("html":")(?<html>.*?)("})/
@@ -40,8 +42,8 @@ axios.interceptors.response.use(
       }
       try {
         // return JSON because prerender in reality is returning a string (it used to return JSON)
-        // const parsed = JSON.parse(data)
-        response.data = data
+        const parsed = JSON.parse(data)
+        response.data = parsed
       } catch (err) {
         console.error(err)
       }
@@ -82,9 +84,7 @@ export const getServerComponent = (
           'content-type': 'application/json',
         },
       }).then((res: any) => {
-        // response should be a string
-        const parsed = JSON.parse(res.data)
-        const {chunks, html} = parsed as PrerenderedModule
+        const {chunks, html} = res.data as PrerenderedModule
         console.log({remote})
         console.log({chunks, html})
         const processNodeDefinitions = new ProcessNodeDefinitions(React)

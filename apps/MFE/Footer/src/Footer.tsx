@@ -14,7 +14,7 @@ const Header = federateComponent('mfe_header', './header', REMOTES.mfe_header)
 
 const Footer: React.FC = ({children}) => {
   return (
-    <footer onClick={() => alert('ciao mamma footer')}>
+    <footer data-testid="moodule-federated-footer" onClick={() => alert('ciao mamma footer')}>
       THIS IS THE FOOTER
       <Header errorFallback={<div>{children}</div>}>{children}</Header>
     </footer>
