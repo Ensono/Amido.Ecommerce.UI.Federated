@@ -4,8 +4,6 @@ import {FC, StrictMode, createContext} from 'react'
 
 import {Text} from '@next-ui-components/Text'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {version} from '@next/constants'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {context, federateComponent} from '@next/federate-component'
 
 // import {REMOTE_URLS} from './config/remotes'
@@ -63,9 +61,6 @@ const App: FC = () => {
               Edit <code>src/App.tsx</code> and save to reload.
             </p>
             <Text />
-            <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-              {version.version}
-            </a>
           </section>
         </div>
         <Footer>

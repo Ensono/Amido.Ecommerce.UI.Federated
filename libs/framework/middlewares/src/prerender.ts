@@ -68,8 +68,7 @@ export const prerenderMiddleware = (mfeName: string, federationStats: Federation
       let Component = factory()
       Component = (Component && Component.default) || Component
 
-      const first = `{"chunks":${JSON.stringify([...chunks, ...REMOTE_ENTRIES])},"html":"`
-      const last = '"}'
+      const first = `${JSON.stringify([...chunks, ...REMOTE_ENTRIES])}`
       let didError = false
 
       const {pipe} = renderToPipeableStream(React.createElement(Component, props || {}, `\u200Cchildren\u200C`), {
@@ -79,7 +78,6 @@ export const prerenderMiddleware = (mfeName: string, federationStats: Federation
           res.contentType('text/plain')
           res.write(first)
           pipe(res)
-          res.write(last)
         },
         onError(x: Error) {
           didError = true

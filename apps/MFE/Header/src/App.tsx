@@ -4,8 +4,6 @@ import {StrictMode, createContext} from 'react'
 
 import {Text} from '@next-ui-components/Text'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {version} from '@next/constants'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {federateComponent} from '@next/federate-component'
 
 import logo from './logo.svg'
@@ -52,9 +50,6 @@ const App: React.FC = () => {
               Edit <code>src/App.tsx</code> and save to reload.
             </p>
             <Text />
-            <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-              {version.version}
-            </a>
           </header>
         </div>
       </ThemeProvider>
