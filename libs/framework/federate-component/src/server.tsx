@@ -1,7 +1,7 @@
 import React, {lazy} from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import constants from '@next/constants'
+import {constants} from '@next/constants'
 import Logger from '@next/core-logger'
 import axios from 'axios'
 import {Parser, ProcessNodeDefinitions} from 'html-to-react'

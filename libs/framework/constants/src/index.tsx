@@ -1,4 +1,3 @@
-const constants = Object.freeze({
+export const constants = Object.freeze({
   SERIALISED_RESPONSE_SEPARATOR: '--||||--',
 })
-export default constants
