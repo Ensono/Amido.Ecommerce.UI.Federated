@@ -2,6 +2,7 @@ import React, {lazy} from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import constants from '@next/constants'
+import Logger from '@next/core-logger'
 import axios from 'axios'
 import {Parser, ProcessNodeDefinitions} from 'html-to-react'
 import stringify from 'json-stringify-deterministic'
@@ -34,8 +35,14 @@ export const getServerComponent = (
           'content-type': 'application/json',
         },
       }).then((res: any) => {
+        let parsedChunks: Array<any>
         const [chunks, html] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
-        const parsedChunks: Array<any> = JSON.parse(chunks)
+        try {
+          parsedChunks = JSON.parse(chunks)
+        } catch (err: any) {
+          parsedChunks = []
+          Logger.error(err.message)
+        }
 
         const processNodeDefinitions = new ProcessNodeDefinitions(React)
         const parser = new Parser()
