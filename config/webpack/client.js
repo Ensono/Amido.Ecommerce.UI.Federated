@@ -30,6 +30,7 @@ const clientConfig = webpackEnv => {
         : isEnvDevelopment && (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
     },
     optimization: {
+      minimize: isEnvProduction,
       splitChunks: isEnvProduction && {
         chunks: 'all',
         name: false,
