@@ -1,1 +1,1 @@
-{"sharedModules":[],"federatedModules":[{"remote":"mfe_footer","entry":"//localhost:3003/remote-entry.js","sharedModules":[],"exposes":{"./footer":[{"chunks":["//localhost:3003/static/js/577.0.1.0.chunk.js"],"sharedModules":[]}]}}]}
+{"sharedModules":[],"federatedModules":[{"remote":"mfe_footer","entry":"//localhost:3003/remote-entry.js","sharedModules":[],"exposes":{"./footer":[{"chunks":["//localhost:3003/static/js/src_Footer_tsx.chunk.js"],"sharedModules":[]}]}}]}

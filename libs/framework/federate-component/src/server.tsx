@@ -1,27 +1,12 @@
 import React, {lazy} from 'react'
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import constants from '@next/constants'
 import axios from 'axios'
 import {Parser, ProcessNodeDefinitions} from 'html-to-react'
 import stringify from 'json-stringify-deterministic'
 
-import {Module, PrerenderedModule, RemotesContext} from './types'
-
-export const escapePrerenderString = (prerenderString: string): string => {
-  // Do something with response data
-  if (!prerenderString) {
-    throw new Error(`Data is not valid for federate-component: ${prerenderString}`)
-  }
-
-  const regex = /("html":")(?<html>.*?)("})/
-  const html = prerenderString.match(regex)?.groups?.html
-
-  if (html) {
-    const escapedHtml = html.replace(/"/g, '\\"')
-    return prerenderString.replace(regex, `$1${escapedHtml}$3`)
-  }
-
-  return prerenderString
-}
+import {Module, RemotesContext} from './types'
 
 export const getServerComponent = (
   ctx: RemotesContext,
@@ -49,17 +34,8 @@ export const getServerComponent = (
           'content-type': 'application/json',
         },
       }).then((res: any) => {
-        const escaped = escapePrerenderString(res.data)
-        let parsed
-
-        try {
-          // return JSON because prerender in reality is returning a string (it used to return JSON)
-          parsed = JSON.parse(escaped)
-        } catch {
-          throw new Error(`Could not parse escaped prerender response from ${remoteUrl}, data received: ${escaped}`)
-        }
-
-        const {chunks, html} = parsed as PrerenderedModule
+        const [chunks, html] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
+        const parsedChunks: Array<any> = JSON.parse(chunks)
 
         const processNodeDefinitions = new ProcessNodeDefinitions(React)
         const parser = new Parser()
@@ -97,7 +73,7 @@ export const getServerComponent = (
             return (
               <>
                 {/* Add style chunks and async script tags for the script chunks. */}
-                {chunks.map(chunk =>
+                {parsedChunks.map(chunk =>
                   chunk.endsWith('.css') ? (
                     <link key={chunk} rel="stylesheet" href={chunk} />
                   ) : (

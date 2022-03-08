@@ -1,6 +1,8 @@
 // @ts-ignore
 import React from 'react'
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import constants from '@next/constants'
 import {NextFunction} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
@@ -68,7 +70,7 @@ export const prerenderMiddleware = (mfeName: string, federationStats: Federation
       let Component = factory()
       Component = (Component && Component.default) || Component
 
-      const first = `${JSON.stringify([...chunks, ...REMOTE_ENTRIES])}`
+      const stringifiedChunks = `${JSON.stringify([...chunks, ...REMOTE_ENTRIES])}`
       let didError = false
 
       const {pipe} = renderToPipeableStream(React.createElement(Component, props || {}, `\u200Cchildren\u200C`), {
@@ -76,7 +78,8 @@ export const prerenderMiddleware = (mfeName: string, federationStats: Federation
           // If something errored before we started streaming, we set the error code appropriately.
           res.statusCode = didError ? 206 : 200
           res.contentType('text/plain')
-          res.write(first)
+          res.write(stringifiedChunks)
+          res.write(constants.SERIALISED_RESPONSE_SEPARATOR)
           pipe(res)
         },
         onError(x: Error) {
