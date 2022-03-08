@@ -5,7 +5,7 @@ import React from 'react'
 const Header: React.FC = ({children}) => {
   return (
     <div onClick={() => alert('ciao mamma header')}>
-      <p>I am the HEADERRRRR</p>
+      <p data-testid="paragraph-in-header">I am the HEADERRRRR'"</p>
       {children}
     </div>
   )

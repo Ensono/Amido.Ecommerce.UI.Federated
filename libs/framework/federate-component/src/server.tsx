@@ -1,55 +1,13 @@
 import React, {lazy} from 'react'
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import constants from '@next/constants'
+import Logger from '@next/core-logger'
 import axios from 'axios'
 import {Parser, ProcessNodeDefinitions} from 'html-to-react'
 import stringify from 'json-stringify-deterministic'
 
-import {Module, PrerenderedModule, RemotesContext} from './types'
-
-axios.interceptors.request.use(
-  function (config) {
-    // Do something before request is sent
-    // console.log(config)
-    return config
-  },
-  function (error) {
-    // Do something with request error
-    // console.error(error)
-    return Promise.reject(error)
-  },
-)
-
-// Add a response interceptor
-axios.interceptors.response.use(
-  function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    let data = response.data
-    if (data && typeof data === 'string') {
-      const regex = /("html":")(?<html>.*?)("})/
-      const html = data.match(regex)?.groups?.html
-      if (html) {
-        const escapedHtml = html.replace(/"/g, '\\"')
-        data = data.replace(regex, `$1${escapedHtml}$3`)
-        console.log(data)
-      }
-      try {
-        // return JSON because prerender in reality is returning a string (it used to return JSON)
-        const parsed = JSON.parse(data)
-        response.data = parsed
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    return response
-  },
-  function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    // console.error(error)
-    return Promise.reject(error)
-  },
-)
+import {Module, RemotesContext} from './types'
 
 export const getServerComponent = (
   ctx: RemotesContext,
@@ -77,9 +35,15 @@ export const getServerComponent = (
           'content-type': 'application/json',
         },
       }).then((res: any) => {
-        const {chunks, html} = res.data as PrerenderedModule
-        console.log({remote})
-        console.log({chunks, html})
+        let parsedChunks: Array<any>
+        const [chunks, html] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
+        try {
+          parsedChunks = JSON.parse(chunks)
+        } catch (err: any) {
+          parsedChunks = []
+          Logger.error(err.message)
+        }
+
         const processNodeDefinitions = new ProcessNodeDefinitions(React)
         const parser = new Parser()
 
@@ -91,7 +55,6 @@ export const getServerComponent = (
                   // If the pre-rendered component rendered a children placeholder,
                   // we will process this ourselves.
                   if (node?.type === 'text' && node.data === '\u200Cchildren\u200C') {
-                    console.log('yeah I am in here')
                     return true
                   }
                   return false
@@ -117,7 +80,7 @@ export const getServerComponent = (
             return (
               <>
                 {/* Add style chunks and async script tags for the script chunks. */}
-                {chunks.map(chunk =>
+                {parsedChunks.map(chunk =>
                   chunk.endsWith('.css') ? (
                     <link key={chunk} rel="stylesheet" href={chunk} />
                   ) : (
