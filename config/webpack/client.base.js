@@ -84,9 +84,6 @@ const baseClientConfig = webpackEnv => {
       level: 'none',
     },
     optimization: {
-      // TODO needs further investigation as if set to true it breaks remote-entry
-      // minimize: isEnvProduction,
-      minimize: false,
       minimizer: [
         // This is only used in production mode
         new TerserPlugin({
@@ -131,7 +128,6 @@ const baseClientConfig = webpackEnv => {
         // This is only used in production mode
         new CssMinimizerPlugin(),
       ],
-      splitChunks: false,
     },
     resolve: {
       // These are the reasonable defaults supported by the Node ecosystem.
