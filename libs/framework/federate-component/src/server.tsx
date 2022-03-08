@@ -2,7 +2,6 @@ import React, {lazy} from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {constants} from '@next/constants'
-import Logger from '@next/core-logger'
 import axios from 'axios'
 import {Parser, ProcessNodeDefinitions} from 'html-to-react'
 import stringify from 'json-stringify-deterministic'
@@ -41,7 +40,7 @@ export const getServerComponent = (
           parsedChunks = JSON.parse(chunks)
         } catch (err: any) {
           parsedChunks = []
-          Logger.error(err.message)
+          console.error(err)
         }
 
         const processNodeDefinitions = new ProcessNodeDefinitions(React)
