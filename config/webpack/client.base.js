@@ -69,7 +69,8 @@ const baseClientConfig = webpackEnv => {
       publicPath: paths.publicUrlOrPath,
       // publicPath: `${env.raw.ASSETS_PATH}/`,
     },
-    cache: {
+    // caching will not work with productino as we do split chunks in that case
+    cache: isEnvDevelopment && {
       type: 'filesystem',
       version: createEnvironmentHash(env.raw),
       cacheDirectory: paths.appWebpackCache,

@@ -131,6 +131,7 @@ checkBrowsers(paths.appPath, isInteractive)
 
 // Create the development build and print the deployment instructions.
 function build(previousFileSizes) {
+  console.log('environment variables for this build are: ', process.env)
   console.log('Running the DEVELOPMENT build of the application.')
 
   const clientCompiler = webpack(clientConfig)
