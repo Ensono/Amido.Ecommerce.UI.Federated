@@ -4,7 +4,6 @@ const postCssPresetEnv = require('postcss-preset-env')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 
 const paths = require('../../paths')
-const {getVersionedMediaFilename} = require('../util')
 
 // eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
@@ -193,7 +192,7 @@ const clientLoaders = webpackEnv => {
         {
           loader: require.resolve('file-loader'),
           options: {
-            name: getVersionedMediaFilename(version),
+            name: `static/media/[name].${version}.[ext]`,
           },
         },
       ],

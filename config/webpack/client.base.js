@@ -11,7 +11,6 @@ const paths = require('../paths')
 const {version} = require(paths.appPackageJson)
 const {clientLoaders} = require('./loaders/clientLoaders')
 const createEnvironmentHash = require('./persistentCache/createEnvironmentHash')
-const {getVersionedMediaFilename} = require('./util')
 
 const babelRuntimeEntry = require.resolve('babel-preset-react-app')
 const babelRuntimeEntryHelpers = require.resolve('@babel/runtime/helpers/esm/assertThisInitialized', {
@@ -62,7 +61,7 @@ const baseClientConfig = webpackEnv => {
       chunkFilename: isEnvProduction
         ? `static/js/[name].${version}.chunk.js`
         : isEnvDevelopment && 'static/js/[name].chunk.js',
-      assetModuleFilename: getVersionedMediaFilename(version),
+      assetModuleFilename: `static/media/[name].${version}[ext]`,
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.

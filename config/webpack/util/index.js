@@ -48,10 +48,7 @@ const getHtmlPlugin = isEnvProduction => {
   )
 }
 
-const getVersionedMediaFilename = version => `static/media/[name].${version}.[ext]`
-
 module.exports = {
   getRemotes,
   getHtmlPlugin,
-  getVersionedMediaFilename,
 }
