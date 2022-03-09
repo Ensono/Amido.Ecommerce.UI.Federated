@@ -115,6 +115,7 @@ checkBrowsers(paths.appPath, isInteractive)
 
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
+  console.log('environment variables for this build are: ', process.env)
   console.log('Creating an optimized production build...')
 
   const clientCompiler = webpack(clientConfig)
