@@ -9,7 +9,7 @@ const logLevels: any = Object.freeze({
   error: 4,
 })
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'development' || process.env.VSCODE_GIT_ASKPASS_NODE
 
 const logger = {
   info: (message: string | object, correlationId: any) => {
