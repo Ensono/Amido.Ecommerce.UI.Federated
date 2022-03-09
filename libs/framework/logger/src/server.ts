@@ -1,5 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* istanbul ignore file */
 /* eslint-disable no-console */
+import {defaultClient} from 'applicationinsights'
+
 const logLevel = process.env.LOG_LEVEL || 'warn'
 
 const logLevels: any = Object.freeze({
@@ -22,20 +25,20 @@ const logger = {
       console.debug(correlationId, message)
     }
   },
-  warn: (message: string | object, correlationId: any) => {
+  warn: (message: string, correlationId: any) => {
     if (isDev || logLevels[logLevel] <= 3) {
       console.warn(correlationId, message)
     }
-    if (typeof window !== 'undefined' && (window as any).appInsights) {
-      ;(window as any).appInsights.trackTrace({message, severityLevel: 2})
+    if (defaultClient) {
+      defaultClient?.trackTrace({message, severity: 2})
     }
   },
-  error: (message: string | object, correlationId: any) => {
+  error: (message: string, correlationId: any) => {
     if (isDev || logLevels[logLevel] <= 4) {
       console.error(correlationId, message)
     }
-    if (typeof window !== 'undefined' && (window as any)?.appInsights) {
-      ;(window as any).appInsights.trackException({error: new Error(message as string), severityLevel: 3})
+    if (defaultClient) {
+      defaultClient?.trackException({exception: new Error(message)})
     }
   },
 }
@@ -47,10 +50,10 @@ export const Logger = {
   debug(message: string | object, correlationId = 'root') {
     logger.debug(message, correlationId)
   },
-  warn(message: string | object, correlationId = 'root') {
+  warn(message: string, correlationId = 'root') {
     logger.warn(message, correlationId)
   },
-  error(message: string | object, correlationId = 'root') {
+  error(message: string, correlationId = 'root') {
     logger.error(message, correlationId)
   },
   stream: {
@@ -59,5 +62,3 @@ export const Logger = {
     },
   },
 }
-
-export default Logger

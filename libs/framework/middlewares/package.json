@@ -32,7 +32,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@next/core-logger": "^7.3.1",
+    "@next/core-logger": "*",
     "helmet": "^3.21.2",
     "morgan": "^1.10.0",
     "uuid": "^3.4.0"

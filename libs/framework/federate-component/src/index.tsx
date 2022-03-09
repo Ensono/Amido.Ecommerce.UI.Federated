@@ -1,6 +1,6 @@
 import React, {Suspense} from 'react'
 
-import Logger from '@next/core-logger'
+import {Logger} from '@next/core-logger'
 
 import {getClientComponent} from './client'
 import {getServerComponent} from './server'
@@ -19,7 +19,7 @@ class ErrorBoundary extends React.Component<any, {hasError: boolean}> {
   }
 
   componentDidCatch(error: Error) {
-    Logger.error(error)
+    Logger.error(error.message)
   }
 
   render() {
