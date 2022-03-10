@@ -2,7 +2,7 @@ import {Component} from 'react'
 
 import 'custom-event-polyfill'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import logger from '@next/core-logger'
+import {Logger} from '@next/core-logger'
 
 // eslint-disable-next-line import/no-named-as-default
 import App, {ReduxProvider} from '../App'
@@ -41,7 +41,7 @@ export class ClientApp extends Component<any, {hasError: boolean}> {
   }
 
   componentDidCatch(error: any, errorInfo: any) {
-    logger.error(`${error}, ${errorInfo}`, document.cookie)
+    Logger.error(`${error}, ${errorInfo}`, document.cookie)
   }
 
   render() {

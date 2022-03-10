@@ -1,7 +1,7 @@
 import React, {lazy} from 'react'
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {constants} from '@next/constants'
+import {Logger} from '@next/core-logger'
 import axios from 'axios'
 import {Parser, ProcessNodeDefinitions} from 'html-to-react'
 import stringify from 'json-stringify-deterministic'
@@ -33,66 +33,70 @@ export const getServerComponent = (
         headers: {
           'content-type': 'application/json',
         },
-      }).then((res: any) => {
-        let parsedChunks: Array<any>
-        const [chunks, html] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
-        try {
-          parsedChunks = JSON.parse(chunks)
-        } catch (err: any) {
-          parsedChunks = []
-          console.error(err)
-        }
+      })
+        .catch(error => {
+          Logger.error(error)
+        })
+        .then((res: any) => {
+          let parsedChunks: Array<any>
+          const [chunks, html] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
+          try {
+            parsedChunks = JSON.parse(chunks)
+          } catch (err: any) {
+            parsedChunks = []
+            Logger.error(err)
+          }
 
-        const processNodeDefinitions = new ProcessNodeDefinitions(React)
-        const parser = new Parser()
+          const processNodeDefinitions = new ProcessNodeDefinitions(React)
+          const parser = new Parser()
 
-        return {
-          default: ({children}: any) => {
-            const parseInstructions = [
-              {
-                shouldProcessNode: (node: any) => {
-                  // If the pre-rendered component rendered a children placeholder,
-                  // we will process this ourselves.
-                  if (node?.type === 'text' && node.data === '\u200Cchildren\u200C') {
-                    return true
-                  }
-                  return false
+          return {
+            default: ({children}: any) => {
+              const parseInstructions = [
+                {
+                  shouldProcessNode: (node: any) => {
+                    // If the pre-rendered component rendered a children placeholder,
+                    // we will process this ourselves.
+                    if (node?.type === 'text' && node.data === '\u200Cchildren\u200C') {
+                      return true
+                    }
+                    return false
+                  },
+                  processNode: (_: any, __: any, index: number) => {
+                    // Instead of retaining the children placeholder, render out
+                    // the children components. This even allows for recursive
+                    // federated components!
+                    return <React.Fragment key={index}>{children}</React.Fragment>
+                  },
                 },
-                processNode: (_: any, __: any, index: number) => {
-                  // Instead of retaining the children placeholder, render out
-                  // the children components. This even allows for recursive
-                  // federated components!
-                  return <React.Fragment key={index}>{children}</React.Fragment>
+                {
+                  // Process all other nodes with the lib defaults.
+                  shouldProcessNode: () => true,
+                  processNode: processNodeDefinitions.processDefaultNode,
                 },
-              },
-              {
-                // Process all other nodes with the lib defaults.
-                shouldProcessNode: () => true,
-                processNode: processNodeDefinitions.processDefaultNode,
-              },
-            ]
+              ]
 
-            // Turn the pre-rendered HTML string into a react element
-            // while rendering out the children.
-            const reactElement = parser.parseWithInstructions(html, () => true, parseInstructions)
+              // Turn the pre-rendered HTML string into a react element
+              // while rendering out the children.
+              const reactElement = parser.parseWithInstructions(html, () => true, parseInstructions)
 
-            return (
-              <>
-                {/* Add style chunks and async script tags for the script chunks. */}
-                {parsedChunks.map(chunk =>
-                  chunk.endsWith('.css') ? (
-                    <link key={chunk} rel="stylesheet" href={chunk} />
-                  ) : (
-                    <script key={chunk} async src={chunk} />
-                  ),
-                )}
-                {/* Render the re-constructed react element */}
-                {reactElement}
-              </>
-            )
-          },
-        }
-      }),
+              return (
+                <>
+                  {/* Add style chunks and async script tags for the script chunks. */}
+                  {parsedChunks.map(chunk =>
+                    chunk.endsWith('.css') ? (
+                      <link key={chunk} rel="stylesheet" href={chunk} />
+                    ) : (
+                      <script key={chunk} async src={chunk} />
+                    ),
+                  )}
+                  {/* Render the re-constructed react element */}
+                  {reactElement}
+                </>
+              )
+            },
+          }
+        }),
     )
     ctx[id] = Component
   }

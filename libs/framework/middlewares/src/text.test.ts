@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import fs from 'fs'
 
+import Logger from '@next/core-logger/lib/server'
+
 import {textMiddleware} from '.'
 
 const mockText = {
@@ -15,10 +17,12 @@ enum ConfigurationKeys {
   textData = 'textData',
 }
 
-const logger = {
+jest.mock('@next/core-logger/lib/server', () => ({
   warn: jest.fn(),
   error: jest.fn(),
-}
+  info: jest.fn(),
+  debug: jest.fn(),
+}))
 
 jest.mock('fs', () => ({
   promises: {
@@ -64,11 +68,11 @@ describe('textMiddleware', () => {
         return Promise.resolve(Buffer.from(JSON.stringify(mockText), 'utf-8'))
       })
 
-      await textMiddleware('publicPath', ConfigurationKeys, cache, logger)(mockRequest, mockResponse, mockNext)
+      await textMiddleware('publicPath', ConfigurationKeys, cache)(mockRequest, mockResponse, mockNext)
     })
 
     it('Should return a function when not curried', () => {
-      expect(textMiddleware('publicPath', ConfigurationKeys, cache, logger)).toBeInstanceOf(Function)
+      expect(textMiddleware('publicPath', ConfigurationKeys, cache)).toBeInstanceOf(Function)
     })
     it('Should call cache.get', () => {
       const textUrl = 'publicPath/text/default-text.json'
@@ -79,7 +83,6 @@ describe('textMiddleware', () => {
       })
     })
     it('Should not call readFile', () => {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(fs.promises.readFile).not.toHaveBeenCalled()
     })
     it('Should call mockNext', () => {
@@ -106,7 +109,7 @@ describe('textMiddleware', () => {
     })
 
     beforeEach(async () => {
-      await textMiddleware('publicPath', ConfigurationKeys, cache, logger)(mockRequest, mockResponse, mockNext)
+      await textMiddleware('publicPath', ConfigurationKeys, cache)(mockRequest, mockResponse, mockNext)
     })
 
     it('Should cache.get', () => {
@@ -116,10 +119,8 @@ describe('textMiddleware', () => {
       expect(cache.get).toReturnWith(null)
     })
     it('Should call readFile', () => {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(fs.promises.readFile).toHaveBeenCalled()
 
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(fs.promises.readFile).toHaveBeenCalledWith('publicPath/text/default-text.json')
     })
 
@@ -149,13 +150,11 @@ describe('textMiddleware', () => {
     const mockNext = jest.fn()
 
     beforeEach(async () => {
-      await textMiddleware('publicPath', ConfigurationKeys, cache, logger)(mockRequest, mockResponse, mockNext)
+      await textMiddleware('publicPath', ConfigurationKeys, cache)(mockRequest, mockResponse, mockNext)
     })
     it('should fall back v1 version of text', () => {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(fs.promises.readFile).toHaveBeenCalled()
 
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(fs.promises.readFile).toHaveBeenCalledWith('publicPath/text/default-text.json')
     })
     it('Should call mockNext', () => {
@@ -182,14 +181,12 @@ describe('textMiddleware', () => {
       return Promise.reject(new Error('not found'))
     })
     beforeEach(async () => {
-      await textMiddleware('publicPath', ConfigurationKeys, cache, logger)(mockRequest, mockResponse, mockNext)
+      await textMiddleware('publicPath', ConfigurationKeys, cache)(mockRequest, mockResponse, mockNext)
     })
     it('should call BFF logger', () => {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      expect(logger.warn).toHaveBeenCalled()
+      expect(Logger.warn).toHaveBeenCalled()
 
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      expect(logger.warn).toHaveBeenCalledWith('Error getting text object')
+      expect(Logger.warn).toHaveBeenCalledWith('Error getting text object')
     })
 
     it('Should call mockNext', () => {

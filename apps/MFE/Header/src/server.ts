@@ -1,6 +1,6 @@
-import {env} from 'process'
+import {Logger} from '@next/core-logger'
 
 import server from './server/'
 
-const PORT = env.PORT || '3001'
-server.listen(PORT, () => console.log(`webpack host: started at http://localhost:${PORT}`))
+const PORT = process.env.PORT || '3001'
+server.listen(PORT, () => Logger.info(`webpack host: started at http://localhost:${PORT}`))

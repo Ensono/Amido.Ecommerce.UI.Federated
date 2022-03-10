@@ -32,13 +32,14 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@next/core-logger": "^7.3.1",
+    "@next/core-logger": "*",
     "babel-preset-jest": "^27.5.1",
     "helmet": "^3.21.2",
     "morgan": "^1.10.0",
     "uuid": "^3.4.0"
   },
   "peerDependencies": {
+    "@next/constants": "*",
     "express": "^4.17.3",
     "react": "18.0.0-beta-149b420f6-20211119",
     "react-dom": "18.0.0-beta-149b420f6-20211119"

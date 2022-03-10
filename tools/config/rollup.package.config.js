@@ -34,12 +34,15 @@ module.exports = pkg => ({
   input: 'src/index.ts',
   output: [
     {
+      // the actual file as per package.json description
       file: pkg.main,
       format: 'cjs',
+      // sourcemap: !isProd,
     },
     {
       file: pkg.module,
       format: 'es',
+      // sourcemap: !isProd,
     },
   ],
   plugins: [

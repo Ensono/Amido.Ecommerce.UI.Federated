@@ -23,6 +23,9 @@ module.exports = webpackEnv => {
       // https://github.com/facebook/create-react-app/issues/253
       modules: ['node_modules', paths.appNodeModules].concat(modules.additionalModulePaths || []),
       extensions: paths.moduleFileExtensions.map(ext => `.${ext}`),
+      alias: {
+        '@next/core-logger': '@next/core-logger/lib/server',
+      },
     },
     externals: [nodeExternals()],
     externalsPresets: {node: true},
