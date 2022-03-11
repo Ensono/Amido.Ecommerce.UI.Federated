@@ -5,6 +5,8 @@ import React from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {context, federateComponent} from '@next/federate-component'
 
+import './index.css'
+
 export {context}
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
