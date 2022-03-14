@@ -66,13 +66,12 @@ const clientPlugins = webpackEnv => {
     // a plugin that prints an error when you attempt to do this.
     // See https://github.com/facebook/create-react-app/issues/240
     isEnvDevelopment && new CaseSensitivePathsPlugin(),
-    isEnvProduction &&
-      new MiniCssExtractPlugin({
-        // Options similar to the same options in webpackOptions.output
-        // both options are optional
-        filename: `static/css/[name].${version}.css`,
-        chunkFilename: `static/css/[name].${version}.chunk.css`,
-      }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: `static/css/[name].${version}.css`,
+      chunkFilename: `static/css/[name].${version}.chunk.css`,
+    }),
     // Generate an asset manifest file with the following content:
     // - "files" key: Mapping of all asset filenames to their corresponding
     //   output file so that tools can pick it up without having to parse
