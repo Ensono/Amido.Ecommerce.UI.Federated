@@ -1,0 +1,1 @@
+{"sharedModules":[],"federatedModules":[{"remote":"mfe_header","entry":"//localhost:3001/remote-entry.js","sharedModules":[],"exposes":{"./header":[{"chunks":["//localhost:3001/static/js/122.0.1.1.chunk.js"],"sharedModules":[]}]}}]}
