@@ -37,7 +37,7 @@ const serverPlugins = webpackEnv => {
       resourceRegExp: /^\.\/locale$/,
       contextRegExp: /moment$/,
     }),
-    typescriptCheck(webpackEnv),
+    typescriptCheck(webpackEnv, false),
     new webpack.EnvironmentPlugin({
       REMOTE_URLS,
     }),
