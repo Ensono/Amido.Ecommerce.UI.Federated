@@ -14,7 +14,6 @@ const serverPlugins = webpackEnv => {
 
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
-  const REMOTE_URLS = JSON.parse(env.raw.REMOTE_URLS)
 
   return [
     // Watcher doesn't work well if you mistype casing in a path so we use
@@ -39,7 +38,8 @@ const serverPlugins = webpackEnv => {
     }),
     typescriptCheck(webpackEnv, false),
     new webpack.EnvironmentPlugin({
-      REMOTE_URLS,
+      REMOTE_URLS: JSON.parse(env.raw.REMOTE_URLS),
+      PORT: env.raw.PORT,
     }),
   ]
 }

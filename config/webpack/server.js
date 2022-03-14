@@ -1,11 +1,14 @@
 const nodeExternals = require('webpack-node-externals')
 
+const getClientEnvironment = require('../env')
 const modules = require('../modules')
 const paths = require('../paths')
 const {serverLoaders} = require('./loaders/serverLoaders')
 const {serverPlugins} = require('./plugins/serverPlugins')
 
 module.exports = webpackEnv => {
+  const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
+  console.log('ALESSIO', env.raw.PORT)
   const isEnvDevelopment = webpackEnv === 'development'
   const serverConfig = {
     target: 'node',
