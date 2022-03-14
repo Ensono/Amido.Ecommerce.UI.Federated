@@ -123,9 +123,9 @@ function build(previousFileSizes) {
   const serverCompiler = webpack(serverConfig)
 
   return new Promise((resolve, reject) => {
-    console.log('Compiling client...')
-    clientCompiler.run((err, clientStats) => {
-      let clientMessages
+    console.log('Compiling remote-entry.js files...')
+    remoteCompiler.run((err, remoteStats) => {
+      let remoteMessages
       if (err) {
         if (!err.message) {
           return reject(err)
@@ -138,28 +138,28 @@ function build(previousFileSizes) {
           errMessage += `\nCompileError: Begins at CSS selector ${err.postcssNode.selector}`
         }
 
-        clientMessages = formatWebpackMessages({
+        remoteMessages = formatWebpackMessages({
           errors: [errMessage],
           warnings: [],
         })
       } else {
-        clientMessages = formatWebpackMessages(clientStats.toJson({all: false, warnings: true, errors: true}))
+        remoteMessages = formatWebpackMessages(remoteStats.toJson({all: false, warnings: true, errors: true}))
       }
-      if (clientMessages.errors.length) {
+      if (remoteMessages.errors.length) {
         // Only keep the first error. Others are often indicative
         // of the same problem, but confuse the reader with noise.
-        if (clientMessages.errors.length > 1) {
-          clientMessages.errors.length = 1
+        if (remoteMessages.errors.length > 1) {
+          remoteMessages.errors.length = 1
         }
-        return reject(new Error(clientMessages.errors.join('\n\n')))
+        return reject(new Error(remoteMessages.errors.join('\n\n')))
       }
       if (
         process.env.CI &&
         (typeof process.env.CI !== 'string' || process.env.CI.toLowerCase() !== 'false') &&
-        clientMessages.warnings.length
+        remoteMessages.warnings.length
       ) {
         // Ignore sourcemap warnings in CI builds. See #8227 for more info.
-        const filteredWarnings = clientMessages.warnings.filter(w => !/Failed to parse source map/.test(w))
+        const filteredWarnings = remoteMessages.warnings.filter(w => !/Failed to parse source map/.test(w))
         if (filteredWarnings.length) {
           console.log(
             chalk.yellow(
@@ -171,9 +171,9 @@ function build(previousFileSizes) {
         }
       }
 
-      remoteCompiler.run((err, remoteStats) => {
-        console.log('Compiling remote-entry.js files...')
-        let remoteMessages
+      clientCompiler.run((err, clientStats) => {
+        console.log('Compiling client...')
+        let clientMessages
         if (err) {
           if (!err.message) {
             return reject(err)
@@ -186,28 +186,28 @@ function build(previousFileSizes) {
             errMessage += `\nCompileError: Begins at CSS selector ${err.postcssNode.selector}`
           }
 
-          remoteMessages = formatWebpackMessages({
+          clientMessages = formatWebpackMessages({
             errors: [errMessage],
             warnings: [],
           })
         } else {
-          remoteMessages = formatWebpackMessages(remoteStats.toJson({all: false, warnings: true, errors: true}))
+          clientMessages = formatWebpackMessages(clientStats.toJson({all: false, warnings: true, errors: true}))
         }
-        if (remoteMessages.errors.length) {
+        if (clientMessages.errors.length) {
           // Only keep the first error. Others are often indicative
           // of the same problem, but confuse the reader with noise.
-          if (remoteMessages.errors.length > 1) {
-            remoteMessages.errors.length = 1
+          if (clientMessages.errors.length > 1) {
+            clientMessages.errors.length = 1
           }
-          return reject(new Error(remoteMessages.errors.join('\n\n')))
+          return reject(new Error(clientMessages.errors.join('\n\n')))
         }
         if (
           process.env.CI &&
           (typeof process.env.CI !== 'string' || process.env.CI.toLowerCase() !== 'false') &&
-          remoteMessages.warnings.length
+          clientMessages.warnings.length
         ) {
           // Ignore sourcemap warnings in CI builds. See #8227 for more info.
-          const filteredWarnings = remoteMessages.warnings.filter(w => !/Failed to parse source map/.test(w))
+          const filteredWarnings = clientMessages.warnings.filter(w => !/Failed to parse source map/.test(w))
           if (filteredWarnings.length) {
             console.log(
               chalk.yellow(

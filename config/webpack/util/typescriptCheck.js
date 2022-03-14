@@ -12,7 +12,7 @@ const ForkTsCheckerWebpackPlugin =
     ? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
     : require('react-dev-utils/ForkTsCheckerWebpackPlugin')
 
-module.exports = webpackEnv => {
+module.exports = (webpackEnv, isClientBuild = true) => {
   const isEnvDevelopment = webpackEnv === 'development'
   const isEnvProduction = webpackEnv === 'production'
 
@@ -37,6 +37,7 @@ module.exports = webpackEnv => {
             incremental: true,
             tsBuildInfoFile: paths.appTsBuildInfoFile,
           },
+          exclude: [isClientBuild ? './server' : ''],
         },
         context: paths.appPath,
         diagnosticOptions: {
