@@ -1,7 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* istanbul ignore file */
 /* eslint-disable no-console */
-const logLevel = process.env.LOG_LEVEL || 'warn'
+import {env} from 'process'
+
+const {LOG_LEVEL, NODE_ENV, VSCODE_GIT_ASKPASS_NODE} = env
+
+const logLevel = LOG_LEVEL || 'warn'
 
 const logLevels: any = Object.freeze({
   info: 1,
@@ -10,7 +14,7 @@ const logLevels: any = Object.freeze({
   error: 4,
 })
 
-const isDev = process.env.NODE_ENV === 'development' || process.env.VSCODE_GIT_ASKPASS_NODE
+const isDev = NODE_ENV === 'development' || VSCODE_GIT_ASKPASS_NODE
 
 const logger = {
   info: (message: string | object, correlationId: any) => {

@@ -28,7 +28,7 @@ export const renderMiddleware: Handler = (_req, res) => {
     VIEWPORT: getViewportMetaTag(res.locals.configuration),
     VIEWPORT_FORCE_DESKTOP: getViewportMetaTagScript(res.locals.configuration),
     REMOTE_ENTRIES_JS: Object.entries(JSON.parse(process.env.REMOTE_URLS))
-      .map(([name, entry]) => `<script key="${name}_url" src="${entry}/remote-entry.js"></script>`)
+      .map(([name, entry]) => `<script async="" key="${name}_url" src="${entry}/remote-entry.js"></script>`)
       .join(''),
   }
 

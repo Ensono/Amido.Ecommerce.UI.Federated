@@ -34,6 +34,7 @@ const clientConfig = webpackEnv => {
       splitChunks: isEnvProduction && {
         chunks: 'all',
         name: false,
+        // maxSize: 90000,
       },
     },
     plugins: [...clientPlugins(webpackEnv)].filter(Boolean),
