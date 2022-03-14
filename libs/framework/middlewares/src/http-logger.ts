@@ -1,10 +1,7 @@
-import {Logger} from '@next/core-logger'
+import logger from '@next/core-logger'
 import morgan from 'morgan'
 
-const morganInstance = (options?: object) => {
-  const loggingStyle = process.env.NODE_ENV === 'development' || process.env.VSCODE_GIT_ASKPASS_NODE ? 'dev' : 'short'
-  return morgan(loggingStyle, {stream: Logger.stream, ...options})
-}
+const morganInstance = (options?: object) => morgan('combined', {stream: logger.stream, ...options})
 
 export const httpLogger = isDev =>
   isDev

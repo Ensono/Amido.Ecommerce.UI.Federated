@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import {Logger} from './server'
+import {Logger} from '.'
 
 describe('logger', () => {
   it('Should return a function', () => {

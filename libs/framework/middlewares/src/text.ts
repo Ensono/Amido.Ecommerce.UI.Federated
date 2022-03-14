@@ -1,7 +1,5 @@
 import fs from 'fs'
 
-import Logger from '@next/core-logger/lib/server'
-
 const getText = async (textUrl: string): Promise<any> => {
   try {
     const text = await fs.promises.readFile(textUrl)
@@ -12,7 +10,7 @@ const getText = async (textUrl: string): Promise<any> => {
 }
 
 export const textMiddleware =
-  (publicPath: string, configurationKeys: any, cache: any) => async (req, _res: any, nextOp) => {
+  (publicPath: string, configurationKeys: any, cache: any, logger: any) => async (req, _res: any, nextOp) => {
     try {
       const ttl = _res.locals.configuration ? _res.locals.configuration[configurationKeys.appCache]?.Value : 0
       const textData = _res.locals.configuration
@@ -26,12 +24,12 @@ export const textMiddleware =
           text = await getText(textUrl)
           cache.set(textUrl, text, ttl ?? 0)
         } catch (err) {
-          Logger.warn('Error getting text object')
+          logger.warn('Error getting text object')
         }
       }
       req.text = text
       nextOp()
     } catch (err) {
-      Logger.error(err)
+      logger.error(err)
     }
   }

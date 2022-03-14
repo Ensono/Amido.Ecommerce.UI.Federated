@@ -3,10 +3,9 @@
   "version": "7.3.1",
   "description": "Shared eventing service for communication between front end components",
   "author": "Next Plc",
-  "main": "./lib/server/index.js",
-  "types": "./lib/server/server.d.ts",
-  "module": "./lib/client/index.es.js",
-  "browser": "./lib/client/index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.es.js",
   "files": [
     "lib/**/*"
   ],
@@ -18,12 +17,8 @@
     "tsc": "tsc"
   },
   "devDependencies": {
-    "@rollup/plugin-dynamic-import-vars": "^1.4.2",
     "@types/node": "^16.11.13",
     "jest": "^27.4.3",
     "typescript": "^4.5.4"
-  },
-  "dependencies": {
-    "applicationinsights": "^2.2.2"
   }
 }

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "declaration": true,
-    "outDir": "lib/types"
+    "outDir": "./lib"
   },
   "exclude": ["node_modules"],
   "include": ["src"]

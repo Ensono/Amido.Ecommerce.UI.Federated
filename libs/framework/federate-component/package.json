@@ -14,13 +14,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@next/core-logger": "^7.3.1",
     "axios": "^0.26.0",
     "html-to-react": "^1.4.5",
     "json-stringify-deterministic": "1.0.1"
   },
   "peerDependencies": {
-    "@next/constants": "*",
-    "@next/core-logger": "*",
     "react": "18.0.0-beta-149b420f6-20211119",
     "react-dom": "18.0.0-beta-149b420f6-20211119"
   },

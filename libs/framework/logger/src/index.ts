@@ -1,9 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /* istanbul ignore file */
 /* eslint-disable no-console */
-import {defaultClient} from 'applicationinsights'
+const {LOG_LEVEL} = process.env
 
-const logLevel = process.env.LOG_LEVEL || 'warn'
+const logLevel = LOG_LEVEL || 'warn'
 
 const logLevels: any = Object.freeze({
   info: 1,
@@ -12,7 +11,7 @@ const logLevels: any = Object.freeze({
   error: 4,
 })
 
-const isDev = process.env.NODE_ENV === 'development' || process.env.VSCODE_GIT_ASKPASS_NODE
+const isDev = process.env.NODE_ENV === 'development'
 
 const logger = {
   info: (message: string | object, correlationId: any) => {
@@ -25,20 +24,20 @@ const logger = {
       console.debug(correlationId, message)
     }
   },
-  warn: (message: string, correlationId: any) => {
+  warn: (message: string | object, correlationId: any) => {
     if (isDev || logLevels[logLevel] <= 3) {
       console.warn(correlationId, message)
     }
-    if (defaultClient) {
-      defaultClient?.trackTrace({message, severity: 2})
+    if (typeof window !== 'undefined' && (window as any).appInsights) {
+      ;(window as any).appInsights.trackTrace({message, severityLevel: 2})
     }
   },
-  error: (message: string, correlationId: any) => {
+  error: (message: string | object, correlationId: any) => {
     if (isDev || logLevels[logLevel] <= 4) {
       console.error(correlationId, message)
     }
-    if (defaultClient) {
-      defaultClient?.trackException({exception: new Error(message)})
+    if (typeof window !== 'undefined' && (window as any)?.appInsights) {
+      ;(window as any).appInsights.trackException({error: new Error(message as string), severityLevel: 3})
     }
   },
 }
@@ -50,10 +49,10 @@ export const Logger = {
   debug(message: string | object, correlationId = 'root') {
     logger.debug(message, correlationId)
   },
-  warn(message: string, correlationId = 'root') {
+  warn(message: string | object, correlationId = 'root') {
     logger.warn(message, correlationId)
   },
-  error(message: string, correlationId = 'root') {
+  error(message: string | object, correlationId = 'root') {
     logger.error(message, correlationId)
   },
   stream: {
@@ -62,3 +61,5 @@ export const Logger = {
     },
   },
 }
+
+export default Logger
