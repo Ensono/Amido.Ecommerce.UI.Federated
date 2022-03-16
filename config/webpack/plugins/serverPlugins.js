@@ -40,6 +40,7 @@ const serverPlugins = webpackEnv => {
     new webpack.EnvironmentPlugin({
       REMOTE_URLS: JSON.parse(env.raw.REMOTE_URLS),
       PORT: env.raw.PORT,
+      LOG_LEVEL: env.raw.LOG_LEVEL,
     }),
   ]
 }
