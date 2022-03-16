@@ -32,7 +32,7 @@ const cssModuleRegex = /\.module\.css$/
 const sassRegex = /\.(scss|sass)$/
 const sassModuleRegex = /\.module\.(scss|sass)$/
 
-const clientLoaders = webpackEnv => {
+const remoteLoaders = webpackEnv => {
   const isEnvProduction = webpackEnv === 'production'
   const isEnvDevelopment = webpackEnv === 'development'
 
@@ -40,12 +40,12 @@ const clientLoaders = webpackEnv => {
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
       // require.resolve('style-loader'),
-      {
-        loader: MiniCssExtractPlugin.loader,
-        // css is located in `static/css`, use '../../' to locate index.html folder
-        // in production `paths.publicUrlOrPath` can be a relative path
-        options: paths.publicUrlOrPath.startsWith('.') ? {publicPath: '../../../'} : {},
-      },
+      // {
+      //   loader: MiniCssExtractPlugin.loader,
+      //   // css is located in `static/css`, use '../../' to locate index.html folder
+      //   // in production `paths.publicUrlOrPath` can be a relative path
+      //   options: paths.publicUrlOrPath.startsWith('.') ? {publicPath: '../../../'} : {},
+      // },
       {
         loader: require.resolve('css-loader'),
         options: cssOptions,
@@ -289,4 +289,4 @@ const clientLoaders = webpackEnv => {
   ]
 }
 
-module.exports = {clientLoaders}
+module.exports = {remoteLoaders}

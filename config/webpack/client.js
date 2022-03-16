@@ -5,6 +5,7 @@ const {merge} = require('webpack-merge')
 const paths = require('../paths')
 const baseClientConfig = require('./client.base')
 const {clientPlugins} = require('./plugins/clientPlugins')
+const {clientLoaders} = require('./loaders/clientLoaders')
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
@@ -38,6 +39,26 @@ const clientConfig = webpackEnv => {
       },
     },
     plugins: [...clientPlugins(webpackEnv)].filter(Boolean),
+    module: {
+      strictExportPresence: true,
+      rules: [
+        // Handle node_modules packages that contain sourcemaps
+        shouldUseSourceMap
+          ? {
+              enforce: 'pre',
+              exclude: /@babel(?:\/|\\{1,2})runtime/,
+              test: /\.(js|mjs|jsx|ts|tsx|css)$/,
+              loader: require.resolve('source-map-loader'),
+            }
+          : {},
+        {
+          // "oneOf" will traverse all following loaders until one will
+          // match the requirements. When no loader matches it will fall
+          // back to the "file" loader at the end of the loader list.
+          oneOf: [...clientLoaders(webpackEnv)].filter(Boolean),
+        },
+      ],
+    },
   }
 
   const baseConfig = baseClientConfig(webpackEnv)

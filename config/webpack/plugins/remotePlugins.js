@@ -57,12 +57,12 @@ const remotePlugins = webpackEnv => {
     // a plugin that prints an error when you attempt to do this.
     // See https://github.com/facebook/create-react-app/issues/240
     isEnvDevelopment && new CaseSensitivePathsPlugin(),
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: `static/css/[name].${version}.css`,
-      chunkFilename: `static/css/[name].${version}.chunk.css`,
-    }),
+    // new MiniCssExtractPlugin({
+    //   // Options similar to the same options in webpackOptions.output
+    //   // both options are optional
+    //   filename: `static/css/[name].${version}.css`,
+    //   chunkFilename: `static/css/[name].${version}.chunk.css`,
+    // }),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how webpack interprets its code. This is a practical
     // solution that requires the user to opt into importing specific locales.

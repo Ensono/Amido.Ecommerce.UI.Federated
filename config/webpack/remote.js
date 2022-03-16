@@ -5,6 +5,9 @@ const paths = require('../paths')
 // eslint-disable-next-line import/no-dynamic-require
 const baseClientConfig = require('./client.base')
 const {remotePlugins} = require('./plugins/remotePlugins')
+const {remoteLoaders} = require('./loaders/remoteLoaders')
+
+const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
 
 module.exports = webpackEnv => {
   const baseConfig = baseClientConfig(webpackEnv)
@@ -23,6 +26,26 @@ module.exports = webpackEnv => {
       splitChunks: false,
     },
     plugins: [...remotePlugins(webpackEnv)].filter(Boolean),
+    module: {
+      strictExportPresence: true,
+      rules: [
+        // Handle node_modules packages that contain sourcemaps
+        shouldUseSourceMap
+          ? {
+              enforce: 'pre',
+              exclude: /@babel(?:\/|\\{1,2})runtime/,
+              test: /\.(js|mjs|jsx|ts|tsx|css)$/,
+              loader: require.resolve('source-map-loader'),
+            }
+          : {},
+        {
+          // "oneOf" will traverse all following loaders until one will
+          // match the requirements. When no loader matches it will fall
+          // back to the "file" loader at the end of the loader list.
+          oneOf: [...remoteLoaders(webpackEnv)].filter(Boolean),
+        },
+      ],
+    },
   }
 
   return merge(baseConfig, remoteConfig)

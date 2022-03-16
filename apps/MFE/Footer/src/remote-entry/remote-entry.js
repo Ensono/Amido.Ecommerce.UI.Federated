@@ -90,16 +90,6 @@ module.exports = require("os");
 
 /***/ }),
 
-/***/ "process":
-/*!**************************!*\
-  !*** external "process" ***!
-  \**************************/
-/***/ ((module) => {
-
-module.exports = require("process");
-
-/***/ }),
-
 /***/ "stream":
 /*!*************************!*\
   !*** external "stream" ***!
@@ -232,15 +222,6 @@ module.exports = require("zlib");
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/get mini-css chunk filename */
-/******/ 	(() => {
-/******/ 		// This function allow to reference async chunks
-/******/ 		__webpack_require__.miniCssF = (chunkId) => {
-/******/ 			// return url for filenames based on template
-/******/ 			return "static/css/" + chunkId + ".0.1.0.chunk.css";
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -361,11 +342,6 @@ module.exports = require("zlib");
 /******/ 			if(!promises.length) return initPromises[name] = 1;
 /******/ 			return initPromises[name] = Promise.all(promises).then(() => (initPromises[name] = 1));
 /******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/publicPath */
-/******/ 	(() => {
-/******/ 		__webpack_require__.p = "//localhost:3003/";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/consumes */
@@ -538,78 +514,6 @@ module.exports = require("zlib");
 /******/ 				});
 /******/ 			}
 /******/ 		}
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/css loading */
-/******/ 	(() => {
-/******/ 		var createStylesheet = (chunkId, fullhref, resolve, reject) => {
-/******/ 			var linkTag = document.createElement("link");
-/******/ 		
-/******/ 			linkTag.rel = "stylesheet";
-/******/ 			linkTag.type = "text/css";
-/******/ 			var onLinkComplete = (event) => {
-/******/ 				// avoid mem leaks.
-/******/ 				linkTag.onerror = linkTag.onload = null;
-/******/ 				if (event.type === 'load') {
-/******/ 					resolve();
-/******/ 				} else {
-/******/ 					var errorType = event && (event.type === 'load' ? 'missing' : event.type);
-/******/ 					var realHref = event && event.target && event.target.href || fullhref;
-/******/ 					var err = new Error("Loading CSS chunk " + chunkId + " failed.\n(" + realHref + ")");
-/******/ 					err.code = "CSS_CHUNK_LOAD_FAILED";
-/******/ 					err.type = errorType;
-/******/ 					err.request = realHref;
-/******/ 					linkTag.parentNode.removeChild(linkTag)
-/******/ 					reject(err);
-/******/ 				}
-/******/ 			}
-/******/ 			linkTag.onerror = linkTag.onload = onLinkComplete;
-/******/ 			linkTag.href = fullhref;
-/******/ 		
-/******/ 			document.head.appendChild(linkTag);
-/******/ 			return linkTag;
-/******/ 		};
-/******/ 		var findStylesheet = (href, fullhref) => {
-/******/ 			var existingLinkTags = document.getElementsByTagName("link");
-/******/ 			for(var i = 0; i < existingLinkTags.length; i++) {
-/******/ 				var tag = existingLinkTags[i];
-/******/ 				var dataHref = tag.getAttribute("data-href") || tag.getAttribute("href");
-/******/ 				if(tag.rel === "stylesheet" && (dataHref === href || dataHref === fullhref)) return tag;
-/******/ 			}
-/******/ 			var existingStyleTags = document.getElementsByTagName("style");
-/******/ 			for(var i = 0; i < existingStyleTags.length; i++) {
-/******/ 				var tag = existingStyleTags[i];
-/******/ 				var dataHref = tag.getAttribute("data-href");
-/******/ 				if(dataHref === href || dataHref === fullhref) return tag;
-/******/ 			}
-/******/ 		};
-/******/ 		var loadStylesheet = (chunkId) => {
-/******/ 			return new Promise((resolve, reject) => {
-/******/ 				var href = __webpack_require__.miniCssF(chunkId);
-/******/ 				var fullhref = __webpack_require__.p + href;
-/******/ 				if(findStylesheet(href, fullhref)) return resolve();
-/******/ 				createStylesheet(chunkId, fullhref, resolve, reject);
-/******/ 			});
-/******/ 		}
-/******/ 		// object to store loaded CSS chunks
-/******/ 		var installedCssChunks = {
-/******/ 			"mfe_footer": 0
-/******/ 		};
-/******/ 		
-/******/ 		__webpack_require__.f.miniCss = (chunkId, promises) => {
-/******/ 			var cssChunks = {"src_Footer_tsx":1};
-/******/ 			if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
-/******/ 			else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
-/******/ 				promises.push(installedCssChunks[chunkId] = loadStylesheet(chunkId).then(() => {
-/******/ 					installedCssChunks[chunkId] = 0;
-/******/ 				}, (e) => {
-/******/ 					delete installedCssChunks[chunkId];
-/******/ 					throw e;
-/******/ 				}));
-/******/ 			}
-/******/ 		};
-/******/ 		
-/******/ 		// no hmr
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/require chunk loading */
