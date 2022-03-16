@@ -1,11 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* istanbul ignore file */
 /* eslint-disable no-console */
-import {env} from 'process'
-
-const {LOG_LEVEL, NODE_ENV, VSCODE_GIT_ASKPASS_NODE} = env
-
-const logLevel = LOG_LEVEL || 'warn'
+const {LOG_LEVEL = 'warn', NODE_ENV, VSCODE_GIT_ASKPASS_NODE} = process.env
 
 const logLevels: any = Object.freeze({
   info: 1,
@@ -18,17 +14,17 @@ const isDev = NODE_ENV === 'development' || VSCODE_GIT_ASKPASS_NODE
 
 const logger = {
   info: (message: string | object, correlationId: any) => {
-    if (isDev || logLevels[logLevel] === 1) {
+    if (isDev || logLevels[LOG_LEVEL] === 1) {
       console.log(correlationId, message)
     }
   },
   debug: (message: string | object, correlationId: any) => {
-    if (isDev || logLevels[logLevel] <= 2) {
+    if (isDev || logLevels[LOG_LEVEL] <= 2) {
       console.debug(correlationId, message)
     }
   },
   warn: (message: string | object, correlationId: any) => {
-    if (isDev || logLevels[logLevel] <= 3) {
+    if (isDev || logLevels[LOG_LEVEL] <= 3) {
       console.warn(correlationId, message)
     }
     if (typeof window !== 'undefined' && (window as any).appInsights) {
@@ -36,7 +32,7 @@ const logger = {
     }
   },
   error: (message: string | object, correlationId: any) => {
-    if (isDev || logLevels[logLevel] <= 4) {
+    if (isDev || logLevels[LOG_LEVEL] <= 4) {
       console.error(correlationId, message)
     }
     if (typeof window !== 'undefined' && (window as any)?.appInsights) {

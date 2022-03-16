@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 import {defaultClient} from 'applicationinsights'
 
-const logLevel = process.env.LOG_LEVEL || 'warn'
+const {LOG_LEVEL = 'warn', NODE_ENV, VSCODE_GIT_ASKPASS_NODE} = process.env
 
 const logLevels: any = Object.freeze({
   info: 1,
@@ -12,21 +12,21 @@ const logLevels: any = Object.freeze({
   error: 4,
 })
 
-const isDev = process.env.NODE_ENV === 'development' || process.env.VSCODE_GIT_ASKPASS_NODE
+const isDev = NODE_ENV === 'development' || VSCODE_GIT_ASKPASS_NODE
 
 const logger = {
   info: (message: string | object, correlationId: any) => {
-    if (isDev || logLevels[logLevel] === 1) {
+    if (isDev || logLevels[LOG_LEVEL] === 1) {
       console.log(correlationId, message)
     }
   },
   debug: (message: string | object, correlationId: any) => {
-    if (isDev || logLevels[logLevel] <= 2) {
+    if (isDev || logLevels[LOG_LEVEL] <= 2) {
       console.debug(correlationId, message)
     }
   },
   warn: (message: string, correlationId: any) => {
-    if (isDev || logLevels[logLevel] <= 3) {
+    if (isDev || logLevels[LOG_LEVEL] <= 3) {
       console.warn(correlationId, message)
     }
     if (defaultClient) {
@@ -34,7 +34,7 @@ const logger = {
     }
   },
   error: (message: string, correlationId: any) => {
-    if (isDev || logLevels[logLevel] <= 4) {
+    if (isDev || logLevels[LOG_LEVEL] <= 4) {
       console.error(correlationId, message)
     }
     if (defaultClient) {
