@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "nodemon --watch ./src ../../scripts/dev.js",
+    "dev": "nodemon ../../scripts/dev.js --config ../../nodemon.config.json",
     "build": "node ../../scripts/build.js",
     "serve": " node build/server.js",
-    "watch": "nodemon --watch ./src --exec \"npm run build && npm run serve\"",
+    "watch": "nodemon --exec \"npm run build && npm run serve\" --config ../../nodemon.config.json",
     "test": "node ../../scripts/test.js --coverage --watchAll=false",
     "jest-ratchet_DISABLED": "jest-coverage-ratchet",
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix --ignore-path '../../.eslintignore'",

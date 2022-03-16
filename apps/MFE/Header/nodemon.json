@@ -1,4 +1,0 @@
-{
-  "ext": "ts,tsx,css",
-  "ignore": ["build/*", "src/remote-entry/*"]
-}
