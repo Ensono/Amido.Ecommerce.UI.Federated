@@ -9,7 +9,6 @@ const modules = require('../modules')
 const paths = require('../paths')
 // eslint-disable-next-line import/no-dynamic-require
 const {version} = require(paths.appPackageJson)
-const {clientLoaders} = require('./loaders/clientLoaders')
 const createEnvironmentHash = require('./persistentCache/createEnvironmentHash')
 
 const babelRuntimeEntry = require.resolve('babel-preset-react-app')
@@ -19,9 +18,6 @@ const babelRuntimeEntryHelpers = require.resolve('@babel/runtime/helpers/esm/ass
 const babelRuntimeRegenerator = require.resolve('@babel/runtime/regenerator', {
   paths: [babelRuntimeEntry],
 })
-
-// Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
 
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig)
@@ -166,26 +162,6 @@ const baseClientConfig = webpackEnv => {
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
-    module: {
-      strictExportPresence: true,
-      rules: [
-        // Handle node_modules packages that contain sourcemaps
-        shouldUseSourceMap
-          ? {
-              enforce: 'pre',
-              exclude: /@babel(?:\/|\\{1,2})runtime/,
-              test: /\.(js|mjs|jsx|ts|tsx|css)$/,
-              loader: require.resolve('source-map-loader'),
-            }
-          : {},
-        {
-          // "oneOf" will traverse all following loaders until one will
-          // match the requirements. When no loader matches it will fall
-          // back to the "file" loader at the end of the loader list.
-          oneOf: [...clientLoaders(webpackEnv)].filter(Boolean),
-        },
-      ],
-    },
   }
 }
 
