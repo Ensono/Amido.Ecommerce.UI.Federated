@@ -87,7 +87,7 @@ export const getServerComponent = (
                     chunk.endsWith('.css') ? (
                       <link key={chunk} rel="stylesheet" href={chunk} />
                     ) : (
-                      <script key={chunk} async src={chunk} />
+                      <script key={chunk} defer src={chunk} />
                     ),
                   )}
                   {/* Render the re-constructed react element */}

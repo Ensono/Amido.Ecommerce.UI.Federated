@@ -113,6 +113,7 @@ const clientLoaders = webpackEnv => {
             require.resolve('babel-preset-react-app'),
             {
               runtime: hasJsxRuntime ? 'automatic' : 'classic',
+              typescript: true,
             },
           ],
         ],
@@ -135,7 +136,7 @@ const clientLoaders = webpackEnv => {
         // This is a feature of `babel-loader` for webpack (not Babel itself).
         // It enables caching results in ./node_modules/.cache/babel-loader/
         // directory for faster rebuilds.
-        cacheDirectory: true,
+        cacheDirectory: false,
         cacheCompression: isEnvProduction,
         compact: isEnvProduction,
       },
