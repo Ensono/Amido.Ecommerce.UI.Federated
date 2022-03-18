@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import {FC, StrictMode, createContext} from 'react'
 
-import {Text} from '@next-ui-components/Text'
+import {Text} from '@next-ui-components/text'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {context, federateComponent} from '@next/federate-component'
 

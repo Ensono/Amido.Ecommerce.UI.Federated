@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import {StrictMode, createContext} from 'react'
 
-import {Text} from '@next-ui-components/Text'
+import {Text} from '@next-ui-components/text'
 // import {federateComponent} from '@next/federate-component'
 
 import logo from './logo.svg'
