@@ -113,6 +113,7 @@ const clientLoaders = webpackEnv => {
             require.resolve('babel-preset-react-app'),
             {
               runtime: hasJsxRuntime ? 'automatic' : 'classic',
+              typescript: true,
             },
           ],
         ],
