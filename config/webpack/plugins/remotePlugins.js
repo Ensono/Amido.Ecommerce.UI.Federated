@@ -5,7 +5,6 @@ const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
 const webpack = require('webpack')
-const FederatedStatsPlugin = require('webpack-federated-stats-plugin')
 
 const getClientEnvironment = require('../../env')
 const paths = require('../../paths')
@@ -72,10 +71,6 @@ const remotePlugins = webpackEnv => {
       resourceRegExp: /^\.\/locale$/,
       contextRegExp: /moment$/,
     }),
-    federationConfig.exposes &&
-      new FederatedStatsPlugin({
-        filename: 'federation-stats.json',
-      }),
     new webpack.container.ModuleFederationPlugin(federationConfig),
   ].filter(Boolean)
 }

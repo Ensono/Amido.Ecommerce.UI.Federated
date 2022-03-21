@@ -7,7 +7,6 @@ import {json} from 'body-parser'
 import compression from 'compression'
 import express from 'express'
 
-import federationStats from '../remote-entry/federation-stats.json'
 import remoteEntry from '../remote-entry/remote-entry'
 import {renderMiddleware} from './middleware/render'
 
@@ -20,7 +19,7 @@ app.use(httpLogger(false))
 app.use(helmetGuard)
 
 app.use('/app', htmlMiddleware, renderMiddleware)
-app.use('/prerender', json(), prerenderMiddleware('mfe_footer', federationStats, remoteEntry))
+app.use('/prerender', json(), prerenderMiddleware('mfe_footer', remoteEntry))
 app.use('/', express.static(publicPath))
 
 export default app
