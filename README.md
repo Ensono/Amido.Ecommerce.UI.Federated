@@ -28,14 +28,14 @@ npm run footer:dev
 // Terminal 3
 npm run header:dev 
 ```
-Once the servers have successfully compiled vist `http://localhost:3000/app` to access the application. 
+Once the servers have successfully compiled visit `http://localhost:3000/app` to access the application. 
 
 ### Production
 
-To run the application in production mode replace the `dev` command with `serve`:
+To run the application in production mode replace the `dev` command with `watch`:
 ```
 // Terminal 1
-npm run app-shell:serve
+npm run app-shell:watch
 ```
 
 ## Testing
