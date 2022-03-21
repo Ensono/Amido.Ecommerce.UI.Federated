@@ -2,15 +2,46 @@
 
 Federated Modules Production Grade boilerplate for Next
 
-# Install dependencies
+## Installation
+### Prerequsites
 
-1. Use Npm (from version 7)
-2. `npm i`
+To run this project the following package versions are required:
+- NPM v8.x.x
+- Node v16.14.1 (configured via .nvmrc)
 
-# Testing
+### Installing dependencies
+
+1. Run `npm i` at the root of the Monorepo to install the required node modules
+2. Run `npm run build-all` to build all of the applications and libraries
+
+## Running the project
+### Development
+
+To run the fully intergrated application in development mode you need to run the App Shell along with the required applications:
+```
+// Terminal 1
+npm run app-shell:dev
+
+// Terminal 2
+npm run footer:dev
+
+// Terminal 3
+npm run header:dev 
+```
+Once the servers have successfully compiled vist `http://localhost:3000/app` to access the application. 
+
+### Production
+
+To run the application in production mode replace the `dev` command with `serve`:
+```
+// Terminal 1
+npm run app-shell:serve
+```
+
+## Testing
 
 Testing can be done from the root via commands like `npm run host:test`
 
-# Linting
+## Linting
 
 Testing can be done from the root via commands like `npm run host:eslint`
