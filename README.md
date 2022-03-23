@@ -3,9 +3,11 @@
 Federated Modules Production Grade boilerplate for Next
 
 ## Installation
-### Prerequsites
+
+### Prerequisites
 
 To run this project the following package versions are required:
+
 - NPM v8.x.x
 - Node v16.14.1 (configured via .nvmrc)
 
@@ -15,9 +17,12 @@ To run this project the following package versions are required:
 2. Run `npm run build-all` to build all of the applications and libraries
 
 ## Running the project
+
 ### Development
 
-To run the fully intergrated application in development mode you need to run the App Shell along with the required applications:
+To run the fully intergrated application in development mode you need to run the App Shell along with the required
+applications:
+
 ```
 // Terminal 1
 npm run app-shell:dev
@@ -26,13 +31,15 @@ npm run app-shell:dev
 npm run footer:dev
 
 // Terminal 3
-npm run header:dev 
+npm run header:dev
 ```
-Once the servers have successfully compiled visit `http://localhost:3000/app` to access the application. 
+
+Once the servers have successfully compiled visit `http://localhost:3000/app` to access the application.
 
 ### Production
 
 To run the application in production mode replace the `dev` command with `watch`:
+
 ```
 // Terminal 1
 npm run app-shell:watch

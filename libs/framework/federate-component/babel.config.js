@@ -6,6 +6,8 @@ module.exports = {
       {
         regenerator: true,
       },
+    ],
+    [
       '@babel/plugin-transform-react-jsx',
       {
         runtime: 'automatic',
