@@ -6,6 +6,7 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.es.js",
   "scripts": {
+    "docs": "typedoc --out ../../../docs/federate-component src/*.*",
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
     "build": "rollup -c",
     "build-ci": "rollup -c rollup.prod.config.js",

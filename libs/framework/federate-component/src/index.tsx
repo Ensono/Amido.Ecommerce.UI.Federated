@@ -35,6 +35,22 @@ class ErrorBoundary extends React.Component<any, {hasError: boolean}> {
   }
 }
 
+/**
+ * Isomorphic federated component generator, used at the top-level
+ * scope to define components to be fetched from servers other than
+ * the URL requested
+ *
+ * @remarks
+ * client side retrieval logic {@link getClientComponent};
+ * server side retrieval logic {@link getServerComponent};
+ *
+ * @param remote - name of remote address defined by environment
+ * @param module - intended export target on remote address
+ * @param remoteUrl - URL of remote target
+ * @param shareScope - scope key on client's window object
+ *
+ * @returns Suspended, federated React component with an error boundary
+ */
 export const federateComponent = (remote: string, module: string, remoteUrl: string, shareScope = 'default') => {
   const FederatedComponent: React.FC<{loadingFallback?: JSX.Element; errorFallback?: JSX.Element}> = ({
     children,
