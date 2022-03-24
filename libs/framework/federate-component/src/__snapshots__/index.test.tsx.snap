@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`federateComponent on the client returns a component that renders correctly 1`] = `
+<div>
+  <p>
+    What's up yo, I'm on the 
+    client
+  </p>
+</div>
+`;
+
+exports[`federateComponent on the server returns a component that renders correctly 1`] = `"<!--$--><p>What&#x27;s up yo, I&#x27;m on the <!-- -->server</p><!--/$-->"`;
