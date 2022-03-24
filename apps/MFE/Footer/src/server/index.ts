@@ -7,7 +7,7 @@ import {json} from 'body-parser'
 import compression from 'compression'
 import express from 'express'
 
-import remoteEntry from '../remote-entry/remote-entry'
+import remoteEntry from '../remote-entry/remote-entry.cjs'
 import {renderMiddleware} from './middleware/render'
 
 const publicPath = path.join(__dirname, '/public')

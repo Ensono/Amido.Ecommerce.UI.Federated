@@ -52,3 +52,7 @@ Testing can be done from the root via commands like `npm run host:test`
 ## Linting
 
 Testing can be done from the root via commands like `npm run host:eslint`
+
+## Docs
+
+Build tsdocs with `npm run docs` and serve docs locally with `npm run docs:serve`

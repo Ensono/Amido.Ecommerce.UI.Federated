@@ -8,6 +8,19 @@ declare global {
   const __webpack_share_scopes__: any
 }
 
+/**
+ * ModuleFederationPlugin loading code (loaded through <script> tags from imported components)
+ * cached globally as ctx[remote][module]
+ *
+ * @remarks
+ * Read more {@link https://webpack.js.org/concepts/module-federation/}
+ *
+ * @param ctx - global object for caching resolved components
+ * @param remote - scope for caching
+ * @param module - exported module name
+ * @param shareScope - webpack configured shareScope
+ * @returns React Component
+ */
 export const getClientComponent = (ctx: RemotesContext, remote: string, module: string, shareScope: string) => {
   ctx[remote] = ctx[remote] || createContext({})
   const modules = ctx[remote] as Modules
