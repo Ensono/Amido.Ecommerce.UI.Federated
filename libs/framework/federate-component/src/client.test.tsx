@@ -29,9 +29,10 @@ describe('getClientComponent', () => {
   afterEach(() => jest.resetAllMocks())
 
   describe('if the remote is not in the context', () => {
-    it('gets and inits the module from the ModulesContainer', async () => {
+    it('gets and inits the module from the ModulesContainer and puts it in the cache', async () => {
       ;(window as any).coolRemote = coolRemote
-      const Component = getClientComponent({}, 'coolRemote', 'coolModule', 'default')
+      const context = {} as any
+      const Component = getClientComponent(context, 'coolRemote', 'coolModule', 'default')
 
       render(
         <Suspense fallback="loading">
@@ -42,6 +43,7 @@ describe('getClientComponent', () => {
       await waitFor(() => {
         expect(mockGet).toBeCalledTimes(1)
         expect(mockInit).toBeCalledTimes(1)
+        expect(context.coolRemote).toBeTruthy()
       })
     })
 
