@@ -8,7 +8,7 @@ import {RemotesContext} from './types'
 
 export const context: RemotesContext = {}
 
-class ErrorBoundary extends React.Component<any, {hasError: boolean}> {
+export class ErrorBoundary extends React.Component<any, {hasError: boolean}> {
   constructor(props: any) {
     super(props)
     this.state = {hasError: false}
