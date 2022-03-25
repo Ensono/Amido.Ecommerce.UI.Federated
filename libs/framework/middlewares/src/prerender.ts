@@ -43,7 +43,7 @@ export const prerenderMiddleware = (mfeName: string, remoteEntry) => {
       let didError = false
 
       const {pipe} = renderToPipeableStream(React.createElement(Component, props || {}, `\u200Cchildren\u200C`), {
-        onCompleteAll() {
+        onAllReady() {
           // If something errored before we started streaming, we set the error code appropriately.
           res.statusCode = didError ? 206 : 200
           res.contentType('text/plain')

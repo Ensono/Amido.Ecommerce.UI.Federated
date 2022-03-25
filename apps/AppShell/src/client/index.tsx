@@ -1,7 +1,6 @@
 // import ReactDOM from 'react-dom'
-import {hydrateRoot} from 'react-dom'
-
 import {Logger} from '@next/core-logger'
+import {hydrateRoot} from 'react-dom/client'
 
 import reportWebVitals from '../reportWebVitals'
 import App from './client_app'
