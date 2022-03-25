@@ -1,8 +1,6 @@
-import uuidv1 from 'uuid/v1'
-
 import {correlationMiddleware} from './correlation'
 
-jest.mock('uuid/v1')
+jest.mock('uuid/v1', () => () => 'test')
 
 describe('correlationMiddleware', () => {
   it('Should return a function', () => {
@@ -10,7 +8,6 @@ describe('correlationMiddleware', () => {
   })
 
   it('Should add a correlation header if not present', () => {
-    uuidv1.mockImplementation(() => 'test')
     const res = {
       req: {
         headers: {},
