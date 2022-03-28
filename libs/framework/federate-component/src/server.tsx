@@ -36,16 +36,16 @@ export const getServerComponent = (
   if (!Component) {
     Component = lazy(() =>
       // Do the post request to pre-render the federated component
-      axios
-        .post(`${remoteUrl}/prerender`, {
-          data: {
-            module,
-            props,
-          },
-          headers: {
-            'content-type': 'application/json',
-          },
-        })
+      axios(`${remoteUrl}/prerender`, {
+        method: 'POST',
+        data: {
+          module,
+          props,
+        },
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
         .catch(error => {
           Logger.error(error)
         })
