@@ -3,6 +3,8 @@ import React from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {constants} from '@next/constants'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {getRemoteUrls} from '@next/remote-urls'
 import {NextFunction} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
@@ -30,8 +32,8 @@ export const prerenderMiddleware = (mfeName: string, remoteEntry) => {
     }
 
     try {
-      const REMOTE_URLS = JSON.parse(process.env.REMOTE_URLS!)
-      const REMOTE_ENTRIES = Object.entries(REMOTE_URLS).map(([, entry]) => `${entry}/remote-entry.js`)
+      const remoteUrls = getRemoteUrls()
+      const REMOTE_ENTRIES = Object.entries(remoteUrls).map(([, entry]) => `${entry}/remote-entry.js`)
 
       await remoteInitPromise
 

@@ -1,10 +1,11 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {getRemoteUrls} from '@next/remote-urls'
 import escapeStringRegexp from 'escape-string-regexp'
 import {Handler} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
 
 import App, {ReduxProvider} from '../../../App'
-// import {REMOTE_URLS} from '../../../config/remotes'
 import {getViewportMetaTag, getViewportMetaTagScript} from '../../../utils/getForceDesktopLayout'
 
 type AbortRenderToPipe = () => void
@@ -25,7 +26,7 @@ export const renderMiddleware: Handler = (_req, res) => {
     lang: 'lang=en',
     VIEWPORT: getViewportMetaTag(res.locals.configuration),
     VIEWPORT_FORCE_DESKTOP: getViewportMetaTagScript(res.locals.configuration),
-    REMOTE_ENTRIES_JS: Object.entries(JSON.parse(process.env.REMOTE_URLS))
+    REMOTE_ENTRIES_JS: Object.entries(getRemoteUrls())
       .map(([name, entry]) => `<script defer="" key="${name}_url" src="${entry}/remote-entry.js"></script>`)
       .join(''),
   }

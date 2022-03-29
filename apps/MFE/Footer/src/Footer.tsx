@@ -4,15 +4,16 @@ import React from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {context, federateComponent} from '@next/federate-component'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {getRemoteUrls} from '@next/remote-urls'
 
 import './index.css'
 
 export {context}
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const REMOTES = JSON.parse(process.env.REMOTE_URLS!)
+const remotesUrls = getRemoteUrls()
 
-const Header = federateComponent('mfe_header', './header', REMOTES.mfe_header)
+const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_header)
 
 const Footer: React.FC = ({children}) => {
   return (
