@@ -10,6 +10,7 @@ import {getServerComponent} from './server'
 import {ErrorBoundary} from '.'
 
 const mockData = `["http://localhost:3001/remote-entry.js","http://localhost:3001/remote-entry.css"]--||||--<footer data-testid="moodule-federated-footer">THIS IS THE FOOTER<!-- --><!--$--><div><p data-testid="paragraph-in-header">I am the HEADERRRRR&#x27;&quot;</p>‌children‌<!-- --></div><!--/$--></footer>`
+const mockBadData = `help something went wrong this isn't JSON--||||--<footer data-testid="moodule-federated-footer">THIS IS THE FOOTER<!-- --><!--$--><div><p data-testid="paragraph-in-header">I am the HEADERRRRR&#x27;&quot;</p>‌children‌<!-- --></div><!--/$--></footer>`
 
 jest.mock('axios')
 jest.mock('@next/core-logger')
@@ -36,7 +37,7 @@ describe('getServerComponent', () => {
   })
 
   afterEach(() => {
-    jest.resetAllMocks()
+    jest.clearAllMocks()
   })
 
   describe('if the component is not in the supplied context', () => {
@@ -110,6 +111,36 @@ describe('getServerComponent', () => {
     })
   })
 
+  describe("if the chunks aren't valid json", () => {
+    beforeEach(() => {
+      ;(axios as any).mockImplementation(() => Promise.resolve({data: mockBadData}))
+    })
+
+    it('still renders the markup', async () => {
+      renderComponent()
+      await waitFor(() => {
+        const footer = screen.getByTestId('moodule-federated-footer')
+        expect(footer).toBeInTheDocument()
+        expect(footer).toHaveTextContent('THIS IS THE FOOTER')
+
+        const paragraph = screen.getByTestId('paragraph-in-header')
+        expect(paragraph).toBeInTheDocument()
+        expect(paragraph).toHaveTextContent(`I am the HEADERRRRR'"`)
+      })
+    })
+
+    it('without the chunks', async () => {
+      // eslint-disable-next-line testing-library/render-result-naming-convention
+      const container = renderComponent()
+      await waitFor(() => {
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const link = container.querySelector('link')
+        expect(link).not.toBeInTheDocument()
+        expect(screen.getByTestId('moodule-federated-footer')).toBeInTheDocument()
+      })
+    })
+  })
+
   describe('if the prerender endpoint is unavailable', () => {
     const oldError = console.error
 
@@ -121,14 +152,14 @@ describe('getServerComponent', () => {
       console.error = oldError
     })
 
-    it('logs an error', async () => {
+    it('throws and logs an error', async () => {
       const err = new Error('oh no')
       ;(axios as any).mockImplementation(() => Promise.reject(err))
       act(() => {
         renderComponent()
       })
       await waitFor(() => {
-        expect(mockLoggerError).toHaveBeenCalledWith(err)
+        expect(mockLoggerError).toHaveBeenCalledWith('oh no')
       })
     })
   })
