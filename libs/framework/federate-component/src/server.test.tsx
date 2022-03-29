@@ -16,9 +16,8 @@ jest.mock('@next/core-logger')
 const mockLoggerError = jest.fn()
 Logger.error = mockLoggerError
 
-function renderComponent() {
-  // calling this in a before() hook causes React to spew specious warnings about wrapping tests in act()
-  const Component = getServerComponent({}, 'coolRemote', 'coolModule', {}, 'coolRemoteUrl')
+function renderComponent(context = {}) {
+  const Component = getServerComponent(context, 'coolRemote', 'coolModule', {}, 'coolRemoteUrl')
   const {container} = render(
     <Suspense fallback="loading">
       <ErrorBoundary>
@@ -30,17 +29,52 @@ function renderComponent() {
 }
 
 describe('getServerComponent', () => {
+  let mockGet: any
+  beforeEach(() => {
+    mockGet = jest.fn(() => Promise.resolve({data: mockData}))
+    ;(axios as any).mockImplementation(mockGet)
+  })
+
   afterEach(() => {
     jest.resetAllMocks()
   })
 
   describe('if the component is not in the supplied context', () => {
-    it.todo('does a POST request to the remote to get it')
-    it.todo('adds it into the cache')
+    it("does a POST request to the remote's prerender endpoint", async () => {
+      renderComponent()
+
+      await waitFor(() => {
+        expect(mockGet).toHaveBeenCalledWith('coolRemoteUrl/prerender', {
+          data: {module: 'coolModule', props: {}},
+          headers: {'content-type': 'application/json'},
+          method: 'POST',
+        })
+
+        // useless assertion stops the test from completing before the render has finished
+        // silences a warning about asserting on suspended data
+        expect(screen.getByTestId('moodule-federated-footer')).toBeInTheDocument()
+      })
+    })
+
+    it('adds it into the cache', async () => {
+      const context: any = {}
+      renderComponent(context)
+
+      await waitFor(() => {
+        expect(context['{"module":"coolModule","props":{},"remote":"coolRemote"}']).toBeTruthy()
+        // useless assertion stops the test from completing before the render has finished
+        expect(screen.getByTestId('moodule-federated-footer')).toBeInTheDocument()
+      })
+    })
   })
 
   describe('if the component is in the supplied context', () => {
-    it.todo('returns the component from the context')
+    it('returns the component from the context', () => {
+      const mockComponent = jest.fn()
+      const context: any = {'{"module":"coolModule","props":{},"remote":"coolRemote"}': mockComponent}
+      const Component = getServerComponent(context, 'coolRemote', 'coolModule', {}, 'coolRemoteUrl')
+      expect(Component).toEqual(mockComponent)
+    })
   })
 
   describe('returns a component that can be rendered', () => {
