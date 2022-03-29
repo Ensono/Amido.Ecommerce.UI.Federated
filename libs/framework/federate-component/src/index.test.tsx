@@ -43,6 +43,8 @@ describe('federateComponent', () => {
       const {container} = render(<Component {...clientProps} />)
       expect(container).toMatchSnapshot()
     })
+
+    it.todo('renders the correct error fallback if required')
   })
 
   describe('on the server', () => {
@@ -73,5 +75,7 @@ describe('federateComponent', () => {
       const result = renderToString(<Component {...serverProps} />)
       expect(result).toMatchSnapshot()
     })
+
+    it.todo('renders the correct error fallback if required')
   })
 })
