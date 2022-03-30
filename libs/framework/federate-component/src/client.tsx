@@ -9,7 +9,7 @@ declare global {
 }
 
 /**
- * ModuleFederationPlugin loading code (loaded through <script> tags from imported components)
+ * ModuleFederationPlugin loading code (loaded through \<script\> tags from imported components)
  * cached globally as ctx[remote][module]
  *
  * @remarks
