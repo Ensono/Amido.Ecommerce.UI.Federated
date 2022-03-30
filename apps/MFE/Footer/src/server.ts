@@ -1,4 +1,4 @@
-import {Logger} from '@next/core-logger'
+import {Logger} from '@batman/core-logger'
 
 import server from './server/'
 

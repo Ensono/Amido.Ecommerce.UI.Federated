@@ -1,7 +1,7 @@
 import React, {lazy} from 'react'
 
-import {constants} from '@next/constants'
-import {Logger} from '@next/core-logger'
+import {constants} from '@batman/constants'
+import {Logger} from '@batman/core-logger'
 import axios from 'axios'
 import {Parser, ProcessNodeDefinitions} from 'html-to-react'
 import stringify from 'json-stringify-deterministic'

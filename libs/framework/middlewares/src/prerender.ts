@@ -2,7 +2,7 @@
 import React from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {constants} from '@next/constants'
+import {constants} from '@batman/constants'
 import {NextFunction} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'

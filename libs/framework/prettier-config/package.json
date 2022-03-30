@@ -1,7 +1,7 @@
 {
-  "name": "@next/prettier-config",
+  "name": "@batman/prettier-config",
   "version": "1.0.0",
-  "description": "Prettier config for Next",
+  "description": "Prettier config for Batman",
   "license": "MIT",
   "main": "index.js",
   "publishConfig": {

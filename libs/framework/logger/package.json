@@ -1,5 +1,5 @@
 {
-  "name": "@next/core-logger",
+  "name": "@batman/core-logger",
   "version": "7.3.1",
   "description": "Shared eventing service for communication between front end components",
   "author": "Next Plc",

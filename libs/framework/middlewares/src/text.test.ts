@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import fs from 'fs'
 
-import Logger from '@next/core-logger/lib/server'
+import Logger from '@batman/core-logger/lib/server'
 
 import {textMiddleware} from '.'
 
@@ -17,7 +17,7 @@ enum ConfigurationKeys {
   textData = 'textData',
 }
 
-jest.mock('@next/core-logger/lib/server', () => ({
+jest.mock('@batman/core-logger/lib/server', () => ({
   warn: jest.fn(),
   error: jest.fn(),
   info: jest.fn(),

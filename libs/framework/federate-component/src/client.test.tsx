@@ -1,6 +1,6 @@
 import {Suspense} from 'react'
 
-import {Logger} from '@next/core-logger'
+import {Logger} from '@batman/core-logger'
 import {render, waitFor} from '@testing-library/react'
 
 import {getClientComponent} from './client'
