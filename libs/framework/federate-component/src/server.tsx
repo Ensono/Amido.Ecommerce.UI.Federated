@@ -63,6 +63,9 @@ export const getServerComponent = (
       const processNodeDefinitions = new ProcessNodeDefinitions(React)
       const parser = new Parser()
 
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const __INTERNAL_NODE_TAG = 'this-is-a-suspended-element'
+
       return {
         default: ({children}: any) => {
           const parseInstructions = [
@@ -83,15 +86,33 @@ export const getServerComponent = (
               },
             },
             {
+              shouldProcessNode: (node: any) => {
+                return node?.type === 'tag' && node?.name === __INTERNAL_NODE_TAG
+              },
+              processNode: (node: any, kids: any) => {
+                return <React.Suspense fallback={React.Fragment}>{kids}</React.Suspense>
+              },
+            },
+            {
               // Process all other nodes with the lib defaults.
               shouldProcessNode: () => true,
               processNode: processNodeDefinitions.processDefaultNode,
             },
           ]
 
+          const processSuspenseComments = (htmlString: string) => {
+            return htmlString
+              .replaceAll(/<!--\$[!]*-->/g, `<${__INTERNAL_NODE_TAG}>`)
+              .replaceAll(/<!--\/\$[!]*-->/g, `</${__INTERNAL_NODE_TAG}>`)
+          }
+
           // Turn the pre-rendered HTML string into a react element
           // while rendering out the children.
-          const reactElement = parser.parseWithInstructions(html, () => true, parseInstructions)
+          const reactElement = parser.parseWithInstructions(
+            processSuspenseComments(html),
+            () => true,
+            parseInstructions,
+          )
 
           return (
             <>

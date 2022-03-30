@@ -9,6 +9,12 @@ const links: any = document.body.getElementsByTagName('link')
 for (const link of links) {
   document.head.appendChild(link)
 }
+
+const scripts: any = document.body.getElementsByTagName('script')
+for (const script of scripts) {
+  document.head.appendChild(script)
+}
+
 const root = document.getElementById('federated_modules_root_id')
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
