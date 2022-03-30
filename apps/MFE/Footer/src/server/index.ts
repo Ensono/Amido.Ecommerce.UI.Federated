@@ -19,7 +19,7 @@ app.use(httpLogger(false))
 app.use(helmetGuard)
 
 app.use('/app', htmlMiddleware, renderMiddleware)
-app.use('/prerender', json(), prerenderMiddleware('mfe_footer', remoteEntry))
+app.use('/prerender', json(), prerenderMiddleware(remoteEntry))
 app.use('/', express.static(publicPath))
 
 export default app

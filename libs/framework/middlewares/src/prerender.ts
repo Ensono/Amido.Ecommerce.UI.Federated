@@ -7,13 +7,7 @@ import {NextFunction} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
 
-/**
- * Generates payload of downstream client remote entry files and renders the react module exposed
- * in remote-entry.cjs of each application
- *
- * @param remoteEntry - built remote-entry.cjs, generated in config/webpack/remote.js
- */
-export const prerenderMiddleware = (mfeName: string, remoteEntry) => {
+export const prerenderMiddleware = remoteEntry => {
   const remoteInitPromise = (remoteEntry as any).init({
     react: {
       [React.version]: {
@@ -36,6 +30,7 @@ export const prerenderMiddleware = (mfeName: string, remoteEntry) => {
       await remoteInitPromise
 
       const factory = await (remoteEntry as any).get(module)
+
       let Component = factory()
       Component = (Component && Component.default) || Component
 
