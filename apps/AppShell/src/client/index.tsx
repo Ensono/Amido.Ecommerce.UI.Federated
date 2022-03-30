@@ -1,7 +1,6 @@
 // import ReactDOM from 'react-dom'
-import {hydrateRoot} from 'react-dom'
-
 import {Logger} from '@next/core-logger'
+import {hydrateRoot} from 'react-dom/client'
 
 import reportWebVitals from '../reportWebVitals'
 import App from './client_app'
@@ -10,6 +9,12 @@ const links: any = document.body.getElementsByTagName('link')
 for (const link of links) {
   document.head.appendChild(link)
 }
+
+const scripts: any = document.body.getElementsByTagName('script')
+for (const script of scripts) {
+  document.head.appendChild(script)
+}
+
 const root = document.getElementById('platform_modernisation_root_id')
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

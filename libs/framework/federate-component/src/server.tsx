@@ -33,10 +33,15 @@ export const getServerComponent = (
 
   let Component = ctx[id] as Module
 
-  if (!Component) {
-    Component = lazy(() =>
-      // Do the post request to pre-render the federated component
-      axios(`${remoteUrl}/prerender`, {
+  if (Component) {
+    // component is already in the cache, use that
+    return Component
+  }
+
+  Component = lazy(async () => {
+    // Do the post request to pre-render the federated component
+    try {
+      const res = await axios(`${remoteUrl}/prerender`, {
         method: 'POST',
         data: {
           module,
@@ -46,72 +51,91 @@ export const getServerComponent = (
           'content-type': 'application/json',
         },
       })
-        .catch(error => {
-          Logger.error(error)
-        })
-        .then((res: any) => {
-          let parsedChunks: Array<any>
-          const [chunks, html] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
-          try {
-            parsedChunks = JSON.parse(chunks)
-          } catch (err: any) {
-            parsedChunks = []
-            Logger.error(err)
-          }
+      let parsedChunks: Array<any>
+      const [chunks, html] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
+      try {
+        parsedChunks = JSON.parse(chunks)
+      } catch (err: any) {
+        parsedChunks = []
+        Logger.error(err)
+      }
 
-          const processNodeDefinitions = new ProcessNodeDefinitions(React)
-          const parser = new Parser()
+      const processNodeDefinitions = new ProcessNodeDefinitions(React)
+      const parser = new Parser()
 
-          return {
-            default: ({children}: any) => {
-              const parseInstructions = [
-                {
-                  shouldProcessNode: (node: any) => {
-                    // If the pre-rendered component rendered a children placeholder,
-                    // we will process this ourselves.
-                    if (node?.type === 'text' && node.data === '\u200Cchildren\u200C') {
-                      return true
-                    }
-                    return false
-                  },
-                  processNode: (_: any, __: any, index: number) => {
-                    // Instead of retaining the children placeholder, render out
-                    // the children components. This even allows for recursive
-                    // federated components!
-                    return <React.Fragment key={index}>{children}</React.Fragment>
-                  },
-                },
-                {
-                  // Process all other nodes with the lib defaults.
-                  shouldProcessNode: () => true,
-                  processNode: processNodeDefinitions.processDefaultNode,
-                },
-              ]
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const __INTERNAL_NODE_TAG = 'this-is-a-suspended-element'
 
-              // Turn the pre-rendered HTML string into a react element
-              // while rendering out the children.
-              const reactElement = parser.parseWithInstructions(html, () => true, parseInstructions)
-
-              return (
-                <>
-                  {/* Add style chunks and async script tags for the script chunks. */}
-                  {parsedChunks.map(chunk =>
-                    chunk.endsWith('.css') ? (
-                      <link key={chunk} rel="stylesheet" href={chunk} />
-                    ) : (
-                      <script key={chunk} defer src={chunk} />
-                    ),
-                  )}
-                  {/* Render the re-constructed react element */}
-                  {reactElement}
-                </>
-              )
+      return {
+        default: ({children}: any) => {
+          const parseInstructions = [
+            {
+              shouldProcessNode: (node: any) => {
+                // If the pre-rendered component rendered a children placeholder,
+                // we will process this ourselves.
+                if (node?.type === 'text' && node.data === '\u200Cchildren\u200C') {
+                  return true
+                }
+                return false
+              },
+              processNode: (_: any, __: any, index: number) => {
+                // Instead of retaining the children placeholder, render out
+                // the children components. This even allows for recursive
+                // federated components!
+                return <React.Fragment key={index}>{children}</React.Fragment>
+              },
             },
+            {
+              shouldProcessNode: (node: any) => {
+                return node?.type === 'tag' && node?.name === __INTERNAL_NODE_TAG
+              },
+              processNode: (node: any, kids: any) => {
+                return <React.Suspense fallback={React.Fragment}>{kids}</React.Suspense>
+              },
+            },
+            {
+              // Process all other nodes with the lib defaults.
+              shouldProcessNode: () => true,
+              processNode: processNodeDefinitions.processDefaultNode,
+            },
+          ]
+
+          const processSuspenseComments = (htmlString: string) => {
+            return htmlString
+              .replaceAll(/<!--\$[!]*-->/g, `<${__INTERNAL_NODE_TAG}>`)
+              .replaceAll(/<!--\/\$[!]*-->/g, `</${__INTERNAL_NODE_TAG}>`)
           }
-        }),
-    )
-    ctx[id] = Component
-  }
+
+          // Turn the pre-rendered HTML string into a react element
+          // while rendering out the children.
+          const reactElement = parser.parseWithInstructions(
+            processSuspenseComments(html),
+            () => true,
+            parseInstructions,
+          )
+
+          return (
+            <>
+              {/* Add style chunks and async script tags for the script chunks. */}
+              {parsedChunks.map(chunk =>
+                chunk.endsWith('.css') ? (
+                  <link key={chunk} rel="stylesheet" href={chunk} />
+                ) : (
+                  <script key={chunk} defer src={chunk} />
+                ),
+              )}
+              {/* Render the re-constructed react element */}
+              {reactElement}
+            </>
+          )
+        },
+      }
+    } catch (err: any) {
+      Logger.error(err.message)
+      throw new Error(err.message)
+    }
+  })
+  ctx[id] = Component
 
   return Component
 }

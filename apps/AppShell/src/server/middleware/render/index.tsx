@@ -42,7 +42,7 @@ export const renderMiddleware: Handler = (_req, res) => {
       <AppTyped />
     </ReduxProvider>,
     {
-      onCompleteAll() {
+      onAllReady() {
         // If something errored before we started streaming, we set the error code appropriately.
         res.statusCode = didError ? 206 : 200
         res.contentType('html')
