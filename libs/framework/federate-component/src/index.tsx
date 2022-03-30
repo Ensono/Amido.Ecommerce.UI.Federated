@@ -8,7 +8,7 @@ import {RemotesContext} from './types'
 
 export const context: RemotesContext = {}
 
-class ErrorBoundary extends React.Component<any, {hasError: boolean}> {
+export class ErrorBoundary extends React.Component<any, {hasError: boolean}> {
   constructor(props: any) {
     super(props)
     this.state = {hasError: false}
@@ -58,15 +58,10 @@ export const federateComponent = (remote: string, module: string, remoteUrl: str
     errorFallback = <> </>,
     ...props
   }) => {
-    let Component: React.FC
-
-    if (typeof window !== 'undefined') {
-      Component = getClientComponent(context, remote, module, shareScope)
-    } else if (typeof window === 'undefined') {
-      Component = getServerComponent(context, remote, module, props, remoteUrl)
-    } else {
-      return null
-    }
+    const Component: React.FC =
+      typeof window === 'undefined'
+        ? getServerComponent(context, remote, module, props, remoteUrl)
+        : getClientComponent(context, remote, module, shareScope)
 
     return (
       <Suspense fallback={loadingFallback}>
