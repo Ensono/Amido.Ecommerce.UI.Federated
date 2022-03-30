@@ -90,7 +90,6 @@ export const getServerComponent = (
                 return node?.type === 'tag' && node?.name === __INTERNAL_NODE_TAG
               },
               processNode: (node: any, kids: any) => {
-                // const lazyChildren = lazy(async () => node.children)
                 return <React.Suspense fallback={React.Fragment}>{kids}</React.Suspense>
               },
             },
@@ -106,8 +105,6 @@ export const getServerComponent = (
               .replaceAll(/<!--\$[!]*-->/g, `<${__INTERNAL_NODE_TAG}>`)
               .replaceAll(/<!--\/\$[!]*-->/g, `</${__INTERNAL_NODE_TAG}>`)
           }
-
-          console.log(processSuspenseComments(html))
 
           // Turn the pre-rendered HTML string into a react element
           // while rendering out the children.
