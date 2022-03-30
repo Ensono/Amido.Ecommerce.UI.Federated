@@ -3,7 +3,7 @@
 import React from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {context, federateComponent} from '@next/federate-component'
+import {context, federateComponent} from '@batman/federate-component'
 
 import './index.css'
 

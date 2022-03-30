@@ -1,5 +1,5 @@
 {
-  "name": "@next/federate-component",
+  "name": "@batman/federate-component",
   "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
@@ -22,13 +22,13 @@
     "json-stringify-deterministic": "1.0.1"
   },
   "peerDependencies": {
-    "@next/constants": "*",
-    "@next/core-logger": "*",
+    "@batman/constants": "*",
+    "@batman/core-logger": "*",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@next/eslint-config": "1.0.0",
+    "@batman/eslint-config": "1.0.0",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^13.0.0-alpha.5",
     "@types/react": "^17.0.43",

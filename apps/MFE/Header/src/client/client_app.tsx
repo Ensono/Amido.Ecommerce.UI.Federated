@@ -2,7 +2,7 @@ import {Component} from 'react'
 
 import 'custom-event-polyfill'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {Logger} from '@next/core-logger'
+import {Logger} from '@batman/core-logger'
 
 // eslint-disable-next-line import/no-named-as-default
 import App, {ReduxProvider} from '../App'

@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-import Logger from '@next/core-logger/lib/server'
+import Logger from '@batman/core-logger/lib/server'
 
 const getText = async (textUrl: string): Promise<any> => {
   try {

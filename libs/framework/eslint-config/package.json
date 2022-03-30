@@ -1,5 +1,5 @@
 {
-  "name": "@next/eslint-config",
+  "name": "@batman/eslint-config",
   "version": "1.0.0",
   "description": "Eslint config for Next",
   "main": "index.js",

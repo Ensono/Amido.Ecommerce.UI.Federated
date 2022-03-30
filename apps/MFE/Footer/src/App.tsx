@@ -2,9 +2,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import {StrictMode, createContext} from 'react'
 
-import {Text} from '@next-ui-components/text'
+import {Text} from '@batman-ui-components/text'
 // eslint-disable-next-line import/no-extraneous-dependencies
-// import {federateComponent} from '@next/federate-component'
+// import {federateComponent} from '@batman/federate-component'
 
 import logo from './logo.svg'
 import './App.css'

@@ -1,7 +1,7 @@
 import {Suspense} from 'react'
 import '@testing-library/jest-dom'
 
-import {Logger} from '@next/core-logger'
+import {Logger} from '@batman/core-logger'
 import {act, render, screen, waitFor} from '@testing-library/react'
 import axios from 'axios'
 
@@ -13,7 +13,7 @@ const mockData = `["http://localhost:3001/remote-entry.js","http://localhost:300
 const mockBadData = `help something went wrong this isn't JSON--||||--<footer data-testid="moodule-federated-footer">THIS IS THE FOOTER<!-- --><!--$--><div><p data-testid="paragraph-in-header">I am the HEADERRRRR&#x27;&quot;</p>‌children‌<!-- --></div><!--/$--></footer>`
 
 jest.mock('axios')
-jest.mock('@next/core-logger')
+jest.mock('@batman/core-logger')
 const mockLoggerError = jest.fn()
 Logger.error = mockLoggerError
 

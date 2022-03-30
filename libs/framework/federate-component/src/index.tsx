@@ -1,6 +1,6 @@
 import React, {Suspense} from 'react'
 
-import {Logger} from '@next/core-logger'
+import {Logger} from '@batman/core-logger'
 
 import {getClientComponent} from './client'
 import {getServerComponent} from './server'

@@ -1,5 +1,5 @@
 {
-  "name": "@next/footer",
+  "name": "@batman/footer",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
-    "@next-ui-components/text": "1.0.0",
-    "@next/core-logger": "*",
+    "@batman-ui-components/text": "1.0.0",
+    "@batman/core-logger": "*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.16.1",
@@ -82,7 +82,7 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "devDependencies": {
-    "@next/eslint-config": "1.0.0",
+    "@batman/eslint-config": "1.0.0",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "babel-plugin-styled-components": "^2.0.2",

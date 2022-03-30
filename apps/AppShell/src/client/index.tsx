@@ -1,5 +1,5 @@
 // import ReactDOM from 'react-dom'
-import {Logger} from '@next/core-logger'
+import {Logger} from '@batman/core-logger'
 import {hydrateRoot} from 'react-dom/client'
 
 import reportWebVitals from '../reportWebVitals'
@@ -9,7 +9,7 @@ const links: any = document.body.getElementsByTagName('link')
 for (const link of links) {
   document.head.appendChild(link)
 }
-const root = document.getElementById('platform_modernisation_root_id')
+const root = document.getElementById('federated_modules_root_id')
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 hydrateRoot(root!, <App />)
