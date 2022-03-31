@@ -56,6 +56,12 @@ export const prerenderMiddleware = (mfeName: string, remoteEntry) => {
           console.error(x)
         },
       })
+
+      // after 5 seconds we should close the connection
+      setTimeout(() => {
+        res.statusCode = 503
+        res.end()
+      }, 5000)
     } catch (err) {
       console.log('err', err)
       next(err)
