@@ -2,9 +2,9 @@
 import React from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {constants} from '@next/constants'
+import {constants} from '@batman/constants'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {getRemoteUrls} from '@next/remote-urls'
+import {getRemoteUrls} from '@batman/remote-urls'
 import {NextFunction} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'

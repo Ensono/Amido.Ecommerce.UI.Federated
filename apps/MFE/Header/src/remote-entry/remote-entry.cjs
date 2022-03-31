@@ -1155,7 +1155,7 @@ __webpack_require__.d(exports, {
 /******/ 			// runs all init snippets from all modules reachable
 /******/ 			var scope = __webpack_require__.S[name];
 /******/ 			var warn = (msg) => (typeof console !== "undefined" && console.warn && console.warn(msg));
-/******/ 			var uniqueName = "@next/header";
+/******/ 			var uniqueName = "@batman/header";
 /******/ 			var register = (name, version, factory, eager) => {
 /******/ 				var versions = scope[name] = scope[name] || {};
 /******/ 				var activeVersion = versions[version];

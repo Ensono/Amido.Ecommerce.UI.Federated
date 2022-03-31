@@ -10,8 +10,8 @@ export default {
   'libs/framework/logger/**/*.*': () => ['npm run logger:lint', 'npm run logger:test'],
   'libs/framework/middlewares/**/*.*': () => ['npm run middlewares:lint', 'npm run middlewares:test'],
   'libs/ui-components/text/**/*.*': () => [
-    'npm run next-ui-components/text:lint',
-    'npm run next-ui-components/text:test',
-    'npm run next-ui-components/text:ratchet',
+    'npm run batman-ui-components/text:lint',
+    'npm run batman-ui-components/text:test',
+    'npm run batman-ui-components/text:ratchet',
   ],
 }

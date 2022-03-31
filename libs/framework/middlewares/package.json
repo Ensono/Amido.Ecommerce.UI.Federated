@@ -1,5 +1,5 @@
 {
-  "name": "@next/middlewares",
+  "name": "@batman/middlewares",
   "version": "8.0.0",
   "description": "Next collection of shared middlewares",
   "author": "Next Plc",
@@ -33,14 +33,14 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@next/core-logger": "*",
+    "@batman/core-logger": "*",
     "babel-preset-jest": "^27.5.1",
     "helmet": "^3.21.2",
     "morgan": "^1.10.0",
     "uuid": "^3.4.0"
   },
   "peerDependencies": {
-    "@next/constants": "*",
+    "@batman/constants": "*",
     "express": "^4.17.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"

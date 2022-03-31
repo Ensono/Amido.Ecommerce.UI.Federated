@@ -3,9 +3,9 @@
 import React from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {context, federateComponent} from '@next/federate-component'
+import {context, federateComponent} from '@batman/federate-component'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {getRemoteUrls} from '@next/remote-urls'
+import {getRemoteUrls} from '@batman/remote-urls'
 
 import './index.css'
 

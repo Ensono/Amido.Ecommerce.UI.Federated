@@ -1,5 +1,5 @@
 {
-  "name": "@next/remote-urls",
+  "name": "@batman/remote-urls",
   "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",

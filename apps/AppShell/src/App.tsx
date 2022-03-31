@@ -2,11 +2,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import {FC, StrictMode, createContext} from 'react'
 
-import {Text} from '@next-ui-components/text'
+import {Text} from '@batman-ui-components/text'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {context, federateComponent} from '@next/federate-component'
+import {context, federateComponent} from '@batman/federate-component'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {getRemoteUrls} from '@next/remote-urls'
+import {getRemoteUrls} from '@batman/remote-urls'
 
 import logo from './logo.svg'
 import './App.css'

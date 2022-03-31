@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {getRemoteUrls} from '@next/remote-urls'
+import {getRemoteUrls} from '@batman/remote-urls'
 import escapeStringRegexp from 'escape-string-regexp'
 import {Handler} from 'express'
 // @ts-ignore

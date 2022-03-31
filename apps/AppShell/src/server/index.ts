@@ -2,7 +2,7 @@ import 'node-self'
 import path from 'path'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {helmetGuard, htmlMiddleware, httpLogger} from '@next/middlewares'
+import {helmetGuard, htmlMiddleware, httpLogger} from '@batman/middlewares'
 import compression from 'compression'
 import express from 'express'
 
