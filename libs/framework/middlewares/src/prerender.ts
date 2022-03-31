@@ -6,7 +6,12 @@ import {constants} from '@batman/constants'
 import {NextFunction} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
-
+/**
+ * Generates payload of downstream client remote entry files and renders the react module exposed
+ * in remote-entry.cjs of each application
+ *
+ * @param remoteEntry - built remote-entry.cjs, generated in config/webpack/remote.js
+ */
 export const prerenderMiddleware = remoteEntry => {
   const remoteInitPromise = (remoteEntry as any).init({
     react: {
