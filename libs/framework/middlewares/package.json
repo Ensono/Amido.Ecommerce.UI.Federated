@@ -12,6 +12,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "rollup -c",
+    "watch": "rollup -c -w",
     "docs": "typedoc --out ../../../docs/middlewares src/*.*",
     "lint": "eslint --ext .tsx,.ts src/",
     "tsc": "tsc",

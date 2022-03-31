@@ -1,8 +1,5 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {context, federateComponent} from '@batman/federate-component'
 
 import './index.css'
@@ -16,7 +13,8 @@ const Header = federateComponent('mfe_header', './header', REMOTES.mfe_header)
 
 const Footer: React.FC = ({children}) => {
   return (
-    <footer data-testid="moodule-federated-footer" onClick={() => alert('ciao mamma footer')}>
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+    <footer data-testid="module-federated-footer" onClick={() => alert('ciao mamma footer')}>
       THIS IS THE FOOTER
       <Header errorFallback={<div>{children}</div>}>{children}</Header>
     </footer>
