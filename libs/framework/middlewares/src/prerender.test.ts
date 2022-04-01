@@ -5,8 +5,6 @@ import {renderToPipeableStream} from 'react-dom/server'
 
 import {prerenderMiddleware} from './prerender'
 
-// @ts-ignore
-//const renderSpy = jest.spyOn(reactDom, 'renderToPipeableStream')
 jest.mock('react-dom/server', () => ({
   renderToPipeableStream: jest.fn(),
 }))
