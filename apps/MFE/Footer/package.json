@@ -8,6 +8,7 @@
     "serve": " node build/server.js",
     "watch": "nodemon --exec \"npm run build && npm run serve\" --config ../../../nodemon.config.json",
     "test": "node ../../../scripts/test.js --coverage --watchAll=false",
+    "test:watch": "node ../../../scripts/test.js --watch",
     "jest-ratchet_DISABLED": "jest-coverage-ratchet",
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix --ignore-path '../../../.eslintignore'",
     "prettier": "prettier 'src/**/*.{jsx,js,tsx,ts}' --write",

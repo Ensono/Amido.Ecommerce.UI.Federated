@@ -1,11 +1,8 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {StrictMode, createContext} from 'react'
 
 import {Text} from '@batman-ui-components/text'
-// import {federateComponent} from '@batman/federate-component'
 
-import logo from './logo.svg'
+import Header from './Header'
 import './App.css'
 
 const ThemeContext = createContext(null)
@@ -41,15 +38,10 @@ const App: React.FC = () => {
   return (
     <StrictMode>
       <ThemeProvider value={{}}>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p onClick={() => console.log('lallero')}>
-              Edit <code>src/App.tsx</code> and save to reload.
-            </p>
-            <Text />
-          </header>
-        </div>
+        <Header>
+          This is the header children with a text component
+          <Text />
+        </Header>
       </ThemeProvider>
     </StrictMode>
   )

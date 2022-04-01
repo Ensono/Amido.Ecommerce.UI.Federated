@@ -1,10 +1,11 @@
-import {render, screen} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 
 import App from './App'
 
-test('renders external components', () => {
+test('renders', async () => {
   render(<App />)
-  const sharedTextComponent = screen.getByText(/Shared text/i)
-
-  expect(sharedTextComponent).toBeInTheDocument()
+  const footerText = screen.getByText(`THIS IS THE FOOTER`)
+  await waitFor(() => {
+    expect(footerText).toBeInTheDocument()
+  })
 })
