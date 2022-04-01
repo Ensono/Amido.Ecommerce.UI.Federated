@@ -1,18 +1,12 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import {FC, StrictMode, createContext} from 'react'
+import {StrictMode, createContext} from 'react'
 
 import {Text} from '@batman-ui-components/text'
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {context, federateComponent} from '@batman/federate-component'
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {getRemoteUrls} from '@batman/remote-urls'
+// import {federateComponent} from '@batman/federate-component'
 
 import logo from './logo.svg'
 import './App.css'
-
-// TODO: what is this?
-export {context}
 
 const ThemeContext = createContext(null)
 const ReduxContext = createContext(null)
@@ -25,11 +19,6 @@ export const ReduxProvider = ({children, data}: any) => {
   return <ReduxContext.Provider value={data}>{children}</ReduxContext.Provider>
 }
 
-const remotesUrls = getRemoteUrls()
-
-const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_header)
-const Footer = federateComponent('mfe_footer', './footer', remotesUrls.mfe_footer)
-
 /**
  * What is the app single responsibility?
  * @remarks
@@ -39,32 +28,28 @@ const Footer = federateComponent('mfe_footer', './footer', remotesUrls.mfe_foote
  * @example
  * ```typescript
  *    ReactDOM.render(
- *      <StrictMode>
+ *      <React.StrictMode>
  *        <App />
- *      </StrictMode>,
+ *      </React.StrictMode>,
  *      document.getElementById('root')
  *    );
  * ```
  *
  * @alpha
  */
-const App: FC = () => {
+const App: React.FC = () => {
   return (
     <StrictMode>
       <ThemeProvider value={{}}>
-        <Header loadingFallback={<div>Loading header...</div>} errorFallback={<div>Error loading header</div>}>
-          SSR header!
-        </Header>
         <div className="App">
-          <section className="App-header">
+          <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <p onClick={() => console.log('lallero')}>Page 1</p>
+            <p onClick={() => console.log('lallero')}>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
             <Text />
-          </section>
+          </header>
         </div>
-        <Footer loadingFallback={<div>Loading footer...</div>} errorFallback={<div>Error loading footer</div>}>
-          SSR footer!
-        </Footer>
       </ThemeProvider>
     </StrictMode>
   )
