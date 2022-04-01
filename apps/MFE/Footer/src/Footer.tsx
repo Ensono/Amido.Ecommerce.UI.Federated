@@ -13,13 +13,13 @@ export {context}
 
 const remotesUrls = getRemoteUrls()
 
-const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_header)
+const TextPositioner = federateComponent('mfe_text_positioner', './text-positioner', remotesUrls.mfe_text_positioner)
 
 const Footer: React.FC = ({children}) => {
   return (
     <footer data-testid="moodule-federated-footer" onClick={() => alert('ciao mamma footer')}>
-      THIS IS THE FOOTER
-      <Header errorFallback={<div>{children}</div>}>{children}</Header>
+      <strong>I AM THE FOOTER</strong>
+      <TextPositioner>{children}</TextPositioner>
     </footer>
   )
 }

@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 6337:
+/***/ 337:
 /***/ ((__unused_webpack_module, exports) => {
 
 /**
@@ -427,23 +427,23 @@ exports.version = "18.0.0-fc46dba67-20220329";
 
 /***/ }),
 
-/***/ 6136:
+/***/ 136:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 
 
 if (true) {
-  module.exports = __webpack_require__(6337);
+  module.exports = __webpack_require__(337);
 } else {}
 
 /***/ }),
 
-/***/ 9899:
+/***/ 275:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 var moduleMap = {
-	"./header": () => {
-		return __webpack_require__.e(324).then(() => (() => ((__webpack_require__(324)))));
+	"./text-positioner": () => {
+		return __webpack_require__.e(453).then(() => (() => ((__webpack_require__(453)))));
 	}
 };
 var get = (module, getScope) => {
@@ -473,69 +473,6 @@ __webpack_require__.d(exports, {
 	init: () => (init)
 });
 
-/***/ }),
-
-/***/ 9491:
-/***/ ((module) => {
-
-module.exports = require("assert");
-
-/***/ }),
-
-/***/ 3685:
-/***/ ((module) => {
-
-module.exports = require("http");
-
-/***/ }),
-
-/***/ 5687:
-/***/ ((module) => {
-
-module.exports = require("https");
-
-/***/ }),
-
-/***/ 2037:
-/***/ ((module) => {
-
-module.exports = require("os");
-
-/***/ }),
-
-/***/ 2781:
-/***/ ((module) => {
-
-module.exports = require("stream");
-
-/***/ }),
-
-/***/ 6224:
-/***/ ((module) => {
-
-module.exports = require("tty");
-
-/***/ }),
-
-/***/ 7310:
-/***/ ((module) => {
-
-module.exports = require("url");
-
-/***/ }),
-
-/***/ 3837:
-/***/ ((module) => {
-
-module.exports = require("util");
-
-/***/ }),
-
-/***/ 9796:
-/***/ ((module) => {
-
-module.exports = require("zlib");
-
 /***/ })
 
 /******/ 	});
@@ -558,7 +495,7 @@ module.exports = require("zlib");
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -613,7 +550,7 @@ module.exports = require("zlib");
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "static/js/" + chunkId + ".0.1.1.chunk.js";
+/******/ 			return "static/js/" + chunkId + ".0.1.0.chunk.js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -642,55 +579,6 @@ module.exports = require("zlib");
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/remotes loading */
-/******/ 	(() => {
-/******/ 		var chunkMapping = {};
-/******/ 		var idToExternalAndNameMapping = {};
-/******/ 		__webpack_require__.f.remotes = (chunkId, promises) => {
-/******/ 			if(__webpack_require__.o(chunkMapping, chunkId)) {
-/******/ 				chunkMapping[chunkId].forEach((id) => {
-/******/ 					var getScope = __webpack_require__.R;
-/******/ 					if(!getScope) getScope = [];
-/******/ 					var data = idToExternalAndNameMapping[id];
-/******/ 					if(getScope.indexOf(data) >= 0) return;
-/******/ 					getScope.push(data);
-/******/ 					if(data.p) return promises.push(data.p);
-/******/ 					var onError = (error) => {
-/******/ 						if(!error) error = new Error("Container missing");
-/******/ 						if(typeof error.message === "string")
-/******/ 							error.message += '\nwhile loading "' + data[1] + '" from ' + data[2];
-/******/ 						__webpack_modules__[id] = () => {
-/******/ 							throw error;
-/******/ 						}
-/******/ 						data.p = 0;
-/******/ 					};
-/******/ 					var handleFunction = (fn, arg1, arg2, d, next, first) => {
-/******/ 						try {
-/******/ 							var promise = fn(arg1, arg2);
-/******/ 							if(promise && promise.then) {
-/******/ 								var p = promise.then((result) => (next(result, d)), onError);
-/******/ 								if(first) promises.push(data.p = p); else return p;
-/******/ 							} else {
-/******/ 								return next(promise, d, first);
-/******/ 							}
-/******/ 						} catch(error) {
-/******/ 							onError(error);
-/******/ 						}
-/******/ 					}
-/******/ 					var onExternal = (external, _, first) => (external ? handleFunction(__webpack_require__.I, data[0], 0, external, onInitialized, first) : onError());
-/******/ 					var onInitialized = (_, external, first) => (handleFunction(external.get, data[1], getScope, 0, onFactory, first));
-/******/ 					var onFactory = (factory) => {
-/******/ 						data.p = 1;
-/******/ 						__webpack_modules__[id] = (module) => {
-/******/ 							module.exports = factory();
-/******/ 						}
-/******/ 					};
-/******/ 					handleFunction(__webpack_require__, data[2], 0, 0, onExternal, 1);
-/******/ 				});
-/******/ 			}
-/******/ 		}
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/sharing */
 /******/ 	(() => {
 /******/ 		__webpack_require__.S = {};
@@ -710,7 +598,7 @@ module.exports = require("zlib");
 /******/ 			// runs all init snippets from all modules reachable
 /******/ 			var scope = __webpack_require__.S[name];
 /******/ 			var warn = (msg) => (typeof console !== "undefined" && console.warn && console.warn(msg));
-/******/ 			var uniqueName = "@batman/header";
+/******/ 			var uniqueName = "@batman/text-positioner";
 /******/ 			var register = (name, version, factory, eager) => {
 /******/ 				var versions = scope[name] = scope[name] || {};
 /******/ 				var activeVersion = versions[version];
@@ -730,7 +618,7 @@ module.exports = require("zlib");
 /******/ 			var promises = [];
 /******/ 			switch(name) {
 /******/ 				case "default": {
-/******/ 					register("react", "18.0.0", () => (() => (__webpack_require__(6136))), 1);
+/******/ 					register("react", "18.0.0", () => (() => (__webpack_require__(136))), 1);
 /******/ 				}
 /******/ 				break;
 /******/ 			}
@@ -741,7 +629,7 @@ module.exports = require("zlib");
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		__webpack_require__.p = "//localhost:3001/";
+/******/ 		__webpack_require__.p = "//localhost:3004/";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/consumes */
@@ -879,12 +767,12 @@ module.exports = require("zlib");
 /******/ 		});
 /******/ 		var installedModules = {};
 /******/ 		var moduleToHandlerMapping = {
-/******/ 			3662: () => (loadSingletonVersionCheckFallback("default", "react", [1,18,0,0], () => (() => (__webpack_require__(6136)))))
+/******/ 			662: () => (loadSingletonVersionCheckFallback("default", "react", [1,18,0,0], () => (() => (__webpack_require__(136)))))
 /******/ 		};
 /******/ 		// no consumes in initial chunks
 /******/ 		var chunkMapping = {
-/******/ 			"324": [
-/******/ 				3662
+/******/ 			"453": [
+/******/ 				662
 /******/ 			]
 /******/ 		};
 /******/ 		__webpack_require__.f.consumes = (chunkId, promises) => {
@@ -923,7 +811,7 @@ module.exports = require("zlib");
 /******/ 		// object to store loaded chunks
 /******/ 		// "1" means "loaded", otherwise not loaded yet
 /******/ 		var installedChunks = {
-/******/ 			746: 1
+/******/ 			748: 1
 /******/ 		};
 /******/ 		
 /******/ 		// no on chunks loaded
@@ -963,7 +851,7 @@ module.exports = require("zlib");
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__(9899);
+/******/ 	var __webpack_exports__ = __webpack_require__(275);
 /******/ 	var __webpack_export_target__ = exports;
 /******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
 /******/ 	if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });

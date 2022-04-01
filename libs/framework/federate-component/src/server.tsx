@@ -131,6 +131,7 @@ export const getServerComponent = (
         },
       }
     } catch (err: any) {
+      console.error(err)
       Logger.error(err.message)
       throw new Error(err.message)
     }

@@ -44,7 +44,9 @@ export const prerenderMiddleware = remoteEntry => {
       const stringifiedChunks = `${JSON.stringify([...REMOTE_ENTRIES])}`
       let didError = false
 
-      const {pipe} = renderToPipeableStream(React.createElement(Component, props || {}, `\u200Cchildren\u200C`), {
+      const el = React.createElement(Component, props || {}, `\u200Cchildren\u200C`)
+
+      const {pipe} = renderToPipeableStream(el, {
         onAllReady() {
           // If something errored before we started streaming, we set the error code appropriately.
           res.statusCode = didError ? 206 : 200
