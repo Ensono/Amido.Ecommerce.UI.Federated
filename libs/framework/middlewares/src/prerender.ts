@@ -1,9 +1,6 @@
-// @ts-ignore
 import React from 'react'
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {constants} from '@batman/constants'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {getRemoteUrls} from '@batman/remote-urls'
 import {NextFunction} from 'express'
 // @ts-ignore
