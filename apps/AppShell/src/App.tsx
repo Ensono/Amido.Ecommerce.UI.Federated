@@ -5,8 +5,9 @@ import {FC, StrictMode, createContext} from 'react'
 import {Text} from '@batman-ui-components/text'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {context, federateComponent} from '@batman/federate-component'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {getRemoteUrls} from '@batman/remote-urls'
 
-// import {REMOTE_URLS} from './config/remotes'
 import logo from './logo.svg'
 import './App.css'
 
@@ -24,9 +25,9 @@ export const ReduxProvider = ({children, data}: any) => {
   return <ReduxContext.Provider value={data}>{children}</ReduxContext.Provider>
 }
 
-const REMOTES = JSON.parse(process.env.REMOTE_URLS)
+const remotesUrls = getRemoteUrls()
 // const Header = federateComponent('mfe_header', './header', REMOTES.mfe_header)
-const Footer = federateComponent('mfe_footer', './footer', REMOTES.mfe_footer)
+const Footer = federateComponent('mfe_footer', './footer', remotesUrls.mfe_footer)
 
 /**
  * What is the app single responsibility?
