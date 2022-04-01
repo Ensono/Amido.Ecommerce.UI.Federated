@@ -4,7 +4,6 @@ import {Handler} from 'express'
 import {renderToPipeableStream} from 'react-dom/server'
 
 import App, {ReduxProvider} from '../../../App'
-import {getViewportMetaTag, getViewportMetaTagScript} from '../../../utils/getForceDesktopLayout'
 
 type AbortRenderToPipe = () => void
 const AppTyped = App as any
@@ -22,8 +21,9 @@ export const renderMiddleware: Handler = (_req, res) => {
     DIRECTION: 'ltr',
     FAV_ICON_PATH: FAV_ICON_PATH(process.env.ASSETS_PATH || '/static-content', 'next'),
     lang: 'lang=en',
-    VIEWPORT: getViewportMetaTag(res.locals.configuration),
-    VIEWPORT_FORCE_DESKTOP: getViewportMetaTagScript(res.locals.configuration),
+    REMOTE_ENTRIES_JS: Object.entries(JSON.parse(process.env.REMOTE_URLS))
+      .map(([name, entry]) => `<script defer key="${name}_url" src="${entry}/remote-entry.js"></script>`)
+      .join(''),
   }
 
   Object.keys(htmlReplacements).forEach(key => {

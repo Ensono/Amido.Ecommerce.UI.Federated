@@ -1,7 +1,5 @@
-import 'node-self'
 import path from 'path'
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {helmetGuard, htmlMiddleware, httpLogger, prerenderMiddleware} from '@batman/middlewares'
 import {json} from 'body-parser'
 import compression from 'compression'
@@ -20,6 +18,7 @@ app.use(helmetGuard)
 
 app.use('/app', htmlMiddleware, renderMiddleware)
 app.use('/prerender', json(), prerenderMiddleware('mfe_footer', remoteEntry))
+// TODO: this works in production mode but not dev
 app.use('/', express.static(publicPath))
 
 export default app

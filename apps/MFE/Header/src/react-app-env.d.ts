@@ -11,7 +11,7 @@ declare namespace Express {
     themeVersion: string
     theme: Theme
     html: string
-    lallero:string
+    lallero: string
     body: {
       module: string
       props: {[key: string]: any}
@@ -27,6 +27,7 @@ declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: 'development' | 'production' | 'test'
     readonly PUBLIC_URL: string
+    readonly REMOTE_URLS: string
   }
 }
 

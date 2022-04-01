@@ -1,6 +1,5 @@
 import {Component} from 'react'
 
-import 'custom-event-polyfill'
 import {Logger} from '@batman/core-logger'
 
 import App, {ReduxProvider} from '../App'
@@ -24,12 +23,12 @@ export class ClientApp extends Component<any, {hasError: boolean}> {
   }
 
   componentDidCatch(error: any, errorInfo: any) {
-    Logger.error(`${error}, ${errorInfo}`, document.cookie)
+    Logger.error(`${error}, ${errorInfo}`)
   }
 
   render() {
     if (this.state.hasError) {
-      return <div data-testid="client-error" className="x-next-plat-mod" />
+      return <div data-testid="client-error" />
     }
     return (
       <ReduxProvider value={{}}>

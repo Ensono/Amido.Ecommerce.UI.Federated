@@ -2,8 +2,6 @@ import React from 'react'
 
 import {context, federateComponent} from '@batman/federate-component'
 
-import './index.css'
-
 export {context}
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

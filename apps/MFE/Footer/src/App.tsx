@@ -2,8 +2,6 @@ import {StrictMode, createContext} from 'react'
 
 import Footer from './Footer'
 
-import './App.css'
-
 const ThemeContext = createContext(null)
 const ReduxContext = createContext(null)
 

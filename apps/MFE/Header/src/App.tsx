@@ -3,7 +3,6 @@ import {StrictMode, createContext} from 'react'
 import {Text} from '@batman-ui-components/text'
 
 import Header from './Header'
-import './App.css'
 
 const ThemeContext = createContext(null)
 const ReduxContext = createContext(null)
