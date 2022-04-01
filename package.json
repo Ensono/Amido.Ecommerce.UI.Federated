@@ -48,7 +48,8 @@
     "logger:test": "npm run test -w @batman/core-logger --if-present",
     "middlewares:build": "npm run build -w @batman/middlewares --if-present",
     "middlewares:lint": "npm run lint -w @batman/middlewares --if-present",
-    "middlewares:test": "npm run test -w @batman/middlewares --if-present"
+    "middlewares:test": "npm run test -w @batman/middlewares --if-present",
+    "remote-urls:build": "npm run build -w @batman/remote-urls --if-present"
   },
   "repository": {
     "type": "git",
@@ -66,6 +67,7 @@
     "./libs/framework/eslint-config",
     "./libs/framework/prettier-config",
     "./libs/framework/logger",
+    "./libs/framework/remote-urls",
     "./libs/framework/federate-component",
     "./libs/framework/middlewares",
     "./libs/ui-components/Text",

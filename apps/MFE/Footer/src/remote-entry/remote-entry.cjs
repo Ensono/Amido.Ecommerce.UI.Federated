@@ -1000,7 +1000,7 @@ if (true) {
 
 var moduleMap = {
 	"./footer": () => {
-		return __webpack_require__.e(485).then(() => (() => ((__webpack_require__(3485)))));
+		return __webpack_require__.e(518).then(() => (() => ((__webpack_require__(518)))));
 	}
 };
 var get = (module, getScope) => {
@@ -1441,7 +1441,7 @@ module.exports = require("zlib");
 /******/ 		};
 /******/ 		// no consumes in initial chunks
 /******/ 		var chunkMapping = {
-/******/ 			"485": [
+/******/ 			"518": [
 /******/ 				3662
 /******/ 			]
 /******/ 		};
