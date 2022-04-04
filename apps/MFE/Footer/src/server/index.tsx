@@ -26,7 +26,7 @@ app.use(httpLogger(process.env.NODE_ENV === 'development'))
 app.use(helmetGuard)
 
 app.use('/app', htmlMiddleware, renderMiddleware(renderOptions))
-app.use('/prerender', json(), prerenderMiddleware('mfe_footer', remoteEntry))
+app.use('/prerender', json(), prerenderMiddleware(remoteEntry))
 // TODO: this works in production mode but not dev
 app.use('/', express.static(publicPath))
 

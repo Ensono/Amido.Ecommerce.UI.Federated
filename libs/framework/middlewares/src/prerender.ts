@@ -5,14 +5,13 @@ import {getRemoteUrls} from '@batman/remote-urls'
 import {NextFunction} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
-
 /**
  * Generates payload of downstream client remote entry files and renders the react module exposed
  * in remote-entry.cjs of each application
  *
  * @param remoteEntry - built remote-entry.cjs, generated in config/webpack/remote.js
  */
-export const prerenderMiddleware = (mfeName: string, remoteEntry) => {
+export const prerenderMiddleware = remoteEntry => {
   const remoteInitPromise = (remoteEntry as any).init({
     react: {
       [React.version]: {
@@ -35,6 +34,7 @@ export const prerenderMiddleware = (mfeName: string, remoteEntry) => {
       await remoteInitPromise
 
       const factory = await (remoteEntry as any).get(module)
+
       let Component = factory()
       Component = (Component && Component.default) || Component
 
@@ -55,6 +55,12 @@ export const prerenderMiddleware = (mfeName: string, remoteEntry) => {
           console.error(x)
         },
       })
+
+      // after 5 seconds we should close the connection
+      setTimeout(() => {
+        res.statusCode = 503
+        res.end()
+      }, 5000)
     } catch (err) {
       console.log('err', err)
       next(err)
