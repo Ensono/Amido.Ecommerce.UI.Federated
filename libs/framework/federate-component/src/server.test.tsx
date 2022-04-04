@@ -142,6 +142,7 @@ describe('getServerComponent', () => {
   })
 
   describe('if the prerender endpoint is unavailable', () => {
+    /* eslint-disable no-console */
     const oldError = console.error
 
     beforeAll(() => {
@@ -151,6 +152,7 @@ describe('getServerComponent', () => {
     afterAll(() => {
       console.error = oldError
     })
+    /* eslint-enable no-console */
 
     it('throws and logs an error', async () => {
       const err = new Error('oh no')

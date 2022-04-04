@@ -28,7 +28,7 @@ describe('prerender middleware', () => {
       },
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, func-names
     const asyncConstructor = Object.getPrototypeOf(async function () {}).constructor
 
     expect(mockInit).toHaveBeenCalled()
