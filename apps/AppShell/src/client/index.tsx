@@ -3,17 +3,14 @@ import {Logger} from '@batman/core-logger'
 import {hydrateRoot} from 'react-dom/client'
 
 import reportWebVitals from '../reportWebVitals'
+import {spliceAllToHead} from '../utils/spliceAllToHead'
 import App from './client_app'
 
-const links: any = document.body.getElementsByTagName('link')
-for (const link of links) {
-  document.head.appendChild(link)
-}
+const links = document.body.getElementsByTagName('link')
+const scripts = document.body.getElementsByTagName('script')
 
-const scripts: any = document.body.getElementsByTagName('script')
-for (const script of scripts) {
-  document.head.appendChild(script)
-}
+spliceAllToHead(links)
+spliceAllToHead(scripts)
 
 const root = document.getElementById('federated_modules_root_id')
 
