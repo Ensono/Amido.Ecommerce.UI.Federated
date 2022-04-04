@@ -3,7 +3,6 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'no-param-reassign': 'off',
-    'no-console': 'off',
     'no-underscore-dangle': 'off',
     'no-shadow': 'off',
     'no-plusplus': 'off',
