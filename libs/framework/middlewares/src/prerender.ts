@@ -41,6 +41,8 @@ export const prerenderMiddleware = remoteEntry => {
       const stringifiedChunks = `${JSON.stringify([...REMOTE_ENTRIES])}`
       let didError = false
 
+      let timeout
+
       const {pipe} = renderToPipeableStream(React.createElement(Component, props || {}, `\u200Cchildren\u200C`), {
         onAllReady() {
           // If something errored before we started streaming, we set the error code appropriately.
@@ -49,20 +51,21 @@ export const prerenderMiddleware = remoteEntry => {
           res.write(stringifiedChunks)
           res.write(constants.SERIALISED_RESPONSE_SEPARATOR)
           pipe(res)
+          clearTimeout(timeout)
         },
         onError(x: Error) {
           didError = true
-          console.error(x)
+          clearTimeout(timeout)
+          throw x
         },
       })
 
       // after 5 seconds we should close the connection
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         res.statusCode = 503
         res.end()
       }, 5000)
     } catch (err) {
-      console.log('err', err)
       next(err)
     }
   }
