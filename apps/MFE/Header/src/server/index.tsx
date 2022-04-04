@@ -6,6 +6,7 @@ import compression from 'compression'
 import express from 'express'
 
 import ReactApp, {ReduxProvider} from '../App'
+//@ts-ignore
 import remoteEntry from '../remote-entry/remote-entry.cjs'
 
 const publicPath = path.join(__dirname, '/public')
