@@ -3,9 +3,7 @@
 import {FC, StrictMode, createContext} from 'react'
 
 import {Text} from '@batman-ui-components/text'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {context, federateComponent} from '@batman/federate-component'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {getRemoteUrls} from '@batman/remote-urls'
 
 import logo from './logo.svg'

@@ -1,12 +1,8 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {StrictMode, createContext} from 'react'
 
 import {Text} from '@batman-ui-components/text'
-// import {federateComponent} from '@batman/federate-component'
 
-import logo from './logo.svg'
-import './App.css'
+import TextPositioner from './TextPositioner'
 
 const ThemeContext = createContext(null)
 const ReduxContext = createContext(null)
@@ -41,15 +37,9 @@ const App: React.FC = () => {
   return (
     <StrictMode>
       <ThemeProvider value={{}}>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p onClick={() => console.log('lallero')}>
-              Edit <code>src/App.tsx</code> and save to reload.
-            </p>
-            <Text />
-          </header>
-        </div>
+        <TextPositioner position="top">Positioned top by text positioner</TextPositioner>
+        <Text />
+        <TextPositioner position="bottom">Positioned bottom by text positioner</TextPositioner>
       </ThemeProvider>
     </StrictMode>
   )

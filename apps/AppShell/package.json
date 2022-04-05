@@ -16,9 +16,10 @@
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
-    "@batman-ui-components/text": "1.0.0",
+    "@batman-ui-components/text": "*",
     "@batman/core-logger": "*",
-    "@batman/middlewares": "^8.0.0",
+    "@batman/federate-component": "*",
+    "@batman/middlewares": "*",
     "@batman/remote-urls": "*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
