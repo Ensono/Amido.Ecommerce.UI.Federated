@@ -38,6 +38,12 @@
     "federate-component:lint": "npm run lint -w @batman/federate-component --if-present",
     "federate-component:test": "npm run test -w @batman/federate-component --if-present",
     "federate-component:ratchet": "npm run jest-ratchet -w @batman/federate-component --if-present",
+    "text-positioner:dev": "npm run dev -w @batman/text-positioner --if-present",
+    "text-positioner:build": "npm run build -w @batman/text-positioner --if-present",
+    "text-positioner:build-ci": "npm run build-ci -w @batman/text-positioner --if-present",
+    "text-positioner:lint": "npm run lint -w @batman/text-positioner --if-present",
+    "text-positioner:test": "npm run test -w @batman/text-positioner --if-present",
+    "text-positioner:ratchet": "npm run jest-ratchet -w @batman/text-positioner --if-present",
     "@batman-ui-components/text:build": "npm run build -w batman-ui-components/text --if-present",
     "@batman-ui-components/text:lint": "npm run lint -w @batman-ui-components/text --if-present",
     "@batman-ui-components/text:test": "npm run test -w @batman-ui-components/text --if-present",
@@ -74,7 +80,8 @@
     "./tools/CLI",
     "./apps/AppShell",
     "./apps/MFE/Header",
-    "./apps/MFE/Footer"
+    "./apps/MFE/Footer",
+    "./apps/MFE/TextPositioner"
   ],
   "dependencies": {
     "@babel/core": "^7.16.7",

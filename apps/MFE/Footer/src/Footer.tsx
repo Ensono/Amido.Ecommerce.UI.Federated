@@ -8,14 +8,14 @@ export {context}
 
 const remotesUrls = getRemoteUrls()
 
-const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_header)
+const TextPositioner = federateComponent('mfe_text_positioner', './text-positioner', remotesUrls.mfe_text_positioner)
 
 const Footer: React.FC = ({children}) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-    <footer data-testid="module-federated-footer" onClick={() => alert('ciao mamma footer')}>
-      THIS IS THE FOOTER
-      <Header errorFallback={<div>{children}</div>}>{children}</Header>
+    <footer data-testid="moodule-federated-footer" onClick={() => alert('ciao mamma footer')}>
+      <strong>I AM THE FOOTER</strong>
+      <TextPositioner>{children}</TextPositioner>
     </footer>
   )
 }

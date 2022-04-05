@@ -1,18 +1,14 @@
-// import ReactDOM from 'react-dom'
 import {Logger} from '@batman/core-logger'
 import {hydrateRoot} from 'react-dom/client'
 
 import reportWebVitals from '../reportWebVitals'
-import {spliceAllToHead} from '../utils/spliceAllToHead'
 import App from './client_app'
 
-const links = document.body.getElementsByTagName('link')
-const scripts = document.body.getElementsByTagName('script')
-
-spliceAllToHead(links)
-spliceAllToHead(scripts)
-
-const root = document.getElementById('federated_modules_root_id')
+const links: any = document.body.getElementsByTagName('link')
+for (const link of links) {
+  document.head.appendChild(link)
+}
+const root = document.getElementById('platform_modernisation_root_id')
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 hydrateRoot(root!, <App />)
