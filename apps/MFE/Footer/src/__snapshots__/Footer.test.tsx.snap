@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer renders as expected 1`] = `
+<div>
+  <footer
+    data-testid="moodule-federated-footer"
+  >
+    <strong>
+      I AM THE FOOTER
+    </strong>
+    loading!
+  </footer>
+</div>
+`;

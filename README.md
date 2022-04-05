@@ -34,7 +34,12 @@ npm run footer:dev
 npm run header:dev
 ```
 
-Once the servers have successfully compiled visit `http://localhost:3000/app` to access the application.
+Once the servers have successfully compiled visit [`http://localhost:3000/app`](http://localhost:3000/app) to access the
+App Shell.
+
+Each federated micro-frontend exposes a `/prerender` endpoint for parent components to consume, and is available
+standalone at `/app`, e.g. the footer can be viewed (along with any micro-frontends it consumes) at
+[`http://localhost:3003/app`](http://localhost:3003/app).
 
 ### Production
 

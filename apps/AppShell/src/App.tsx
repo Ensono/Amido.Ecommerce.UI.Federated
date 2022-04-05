@@ -3,9 +3,7 @@
 import {FC, StrictMode, createContext} from 'react'
 
 import {Text} from '@batman-ui-components/text'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {context, federateComponent} from '@batman/federate-component'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {getRemoteUrls} from '@batman/remote-urls'
 
 import logo from './logo.svg'
@@ -31,22 +29,9 @@ const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_heade
 const Footer = federateComponent('mfe_footer', './footer', remotesUrls.mfe_footer)
 
 /**
- * What is the app single responsibility?
+ * Host app that consumes micro-front-ends and renders them together
  * @remarks
  *
- * * This is an example from CRA typescript
- *
- * @example
- * ```typescript
- *    ReactDOM.render(
- *      <StrictMode>
- *        <App />
- *      </StrictMode>,
- *      document.getElementById('root')
- *    );
- * ```
- *
- * @alpha
  */
 const App: FC = () => {
   return (
@@ -58,6 +43,7 @@ const App: FC = () => {
         <div className="App">
           <section className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
+            {/* eslint-disable-next-line no-console */}
             <p onClick={() => console.log('lallero')}>Page 1</p>
             <Text />
           </section>

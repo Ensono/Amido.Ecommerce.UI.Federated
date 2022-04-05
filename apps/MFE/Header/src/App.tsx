@@ -1,12 +1,8 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {StrictMode, createContext} from 'react'
 
 import {Text} from '@batman-ui-components/text'
-// import {federateComponent} from '@batman/federate-component'
 
-import logo from './logo.svg'
-import './App.css'
+import Header from './Header'
 
 const ThemeContext = createContext(null)
 const ReduxContext = createContext(null)
@@ -20,36 +16,17 @@ export const ReduxProvider = ({children, data}: any) => {
 }
 
 /**
- * What is the app single responsibility?
- * @remarks
- *
- * * This is an example from CRA typescript
- *
- * @example
- * ```typescript
- *    ReactDOM.render(
- *      <React.StrictMode>
- *        <App />
- *      </React.StrictMode>,
- *      document.getElementById('root')
- *    );
- * ```
- *
- * @alpha
+ * Renders the Header MFE in a standalone page.
+ * Not used by consumers of the Header federated module.
  */
 const App: React.FC = () => {
   return (
     <StrictMode>
       <ThemeProvider value={{}}>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p onClick={() => console.log('lallero')}>
-              Edit <code>src/App.tsx</code> and save to reload.
-            </p>
-            <Text />
-          </header>
-        </div>
+        <Header>
+          This is the header children with a text component
+          <Text />
+        </Header>
       </ThemeProvider>
     </StrictMode>
   )

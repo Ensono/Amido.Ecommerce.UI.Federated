@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules 
+/node_modules
 /.pnp
 .pnp.js
 
@@ -12,8 +12,6 @@
 /dist
 /build
 /lib
-/src/remote-entry/static
-/src/remote-entry/app.html
 # misc
 .DS_Store
 .env.local
@@ -32,11 +30,10 @@ coverage
 build
 dist
 lib
-src/remote-entry/static
-src/remote-entry/app.html
 .vscode
 .next
 .vs
 cypress/screenshots/
 **/.lighthouseci
 docs
+**/remote-entry
