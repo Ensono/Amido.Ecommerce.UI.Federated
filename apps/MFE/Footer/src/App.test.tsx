@@ -2,10 +2,12 @@ import {render, screen, waitFor} from '@testing-library/react'
 
 import App from './App'
 
-test('renders', async () => {
-  render(<App />)
-  const footerText = screen.getByText(`THIS IS THE FOOTER`)
-  await waitFor(() => {
-    expect(footerText).toBeInTheDocument()
+describe('footer container app', () => {
+  it('renders', async () => {
+    render(<App />)
+    const footerText = screen.getByText(`I AM THE FOOTER`)
+    await waitFor(() => {
+      expect(footerText).toBeInTheDocument()
+    })
   })
 })

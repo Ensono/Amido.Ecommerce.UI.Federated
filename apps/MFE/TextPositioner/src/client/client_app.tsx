@@ -1,6 +1,5 @@
 import {Component} from 'react'
 
-import 'custom-event-polyfill'
 import {Logger} from '@batman/core-logger'
 
 import App, {ReduxProvider} from '../App'

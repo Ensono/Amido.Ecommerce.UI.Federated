@@ -48,6 +48,7 @@ describe('getClientComponent', () => {
     })
 
     describe("if the ModulesContainer doesn't exist", () => {
+      /* eslint-disable no-console */
       const oldError = console.error
       beforeAll(() => {
         // don't log errors we're deliberately causing, that's just noise
@@ -57,6 +58,7 @@ describe('getClientComponent', () => {
       afterAll(() => {
         console.error = oldError
       })
+      /* eslint-enable no-console */
 
       it('throws an error', async () => {
         ;(window as any).coolRemote = undefined

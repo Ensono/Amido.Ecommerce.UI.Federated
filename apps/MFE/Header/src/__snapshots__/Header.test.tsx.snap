@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders as expected 1`] = `
+<div>
+  <div>
+    <div>
+      <p
+        data-testid="paragraph-in-header"
+      >
+        I am the HEADERRRRR'"
+      </p>
+    </div>
+    <div>
+      loading text positioner...
+    </div>
+  </div>
+</div>
+`;

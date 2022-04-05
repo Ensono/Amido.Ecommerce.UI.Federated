@@ -15,7 +15,9 @@ const Footer: React.FC = ({children}) => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <footer data-testid="moodule-federated-footer" onClick={() => alert('ciao mamma footer')}>
       <strong>I AM THE FOOTER</strong>
-      <TextPositioner>{children}</TextPositioner>
+      <TextPositioner loadingFallback="loading!" errorFallback="oh no!">
+        {children}
+      </TextPositioner>
     </footer>
   )
 }

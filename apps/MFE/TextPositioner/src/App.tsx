@@ -16,22 +16,8 @@ export const ReduxProvider = ({children, data}: any) => {
 }
 
 /**
- * What is the app single responsibility?
- * @remarks
- *
- * * This is an example from CRA typescript
- *
- * @example
- * ```typescript
- *    ReactDOM.render(
- *      <React.StrictMode>
- *        <App />
- *      </React.StrictMode>,
- *      document.getElementById('root')
- *    );
- * ```
- *
- * @alpha
+ * Renders the TextPositioner MFE as a standalone app.
+ * Not used by consumers of the TextPositioner federated module.
  */
 const App: React.FC = () => {
   return (
