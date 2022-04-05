@@ -1,7 +1,6 @@
 import React from 'react'
 
 import {context, federateComponent} from '@batman/federate-component'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {getRemoteUrls} from '@batman/remote-urls'
 
 export {context}

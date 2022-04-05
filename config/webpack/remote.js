@@ -2,7 +2,6 @@ const {merge} = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
 
 const paths = require('../paths')
-// eslint-disable-next-line import/no-dynamic-require
 const baseClientConfig = require('./client.base')
 const {remoteLoaders} = require('./loaders/remoteLoaders')
 const {remotePlugins} = require('./plugins/remotePlugins')

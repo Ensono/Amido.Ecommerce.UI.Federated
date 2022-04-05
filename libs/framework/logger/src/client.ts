@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /* istanbul ignore file */
 /* eslint-disable no-console */
 const {LOG_LEVEL = 'warn', NODE_ENV, VSCODE_GIT_ASKPASS_NODE} = process.env
