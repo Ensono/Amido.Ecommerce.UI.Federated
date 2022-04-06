@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /* istanbul ignore file */
 /* eslint-disable no-console */
 import {defaultClient} from 'applicationinsights'

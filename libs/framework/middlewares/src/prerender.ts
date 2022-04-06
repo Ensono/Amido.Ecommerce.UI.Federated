@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {constants} from '@batman/constants'
+import {Logger} from '@batman/core-logger'
 import {getRemoteUrls} from '@batman/remote-urls'
 import {NextFunction} from 'express'
 // @ts-ignore
@@ -56,9 +57,9 @@ export const prerenderMiddleware = remoteEntry => {
           clearTimeout(timeout)
         },
         onError(x: Error) {
+          Logger.error(x.message)
           didError = true
           clearTimeout(timeout)
-          throw x
         },
       })
 

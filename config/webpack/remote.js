@@ -2,7 +2,6 @@ const {merge} = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
 
 const paths = require('../paths')
-// eslint-disable-next-line import/no-dynamic-require
 const baseClientConfig = require('./client.base')
 const {remoteLoaders} = require('./loaders/remoteLoaders')
 const {remotePlugins} = require('./plugins/remotePlugins')
@@ -12,6 +11,7 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
 
 module.exports = webpackEnv => {
   const baseConfig = baseClientConfig(webpackEnv)
+  const isProduction = webpackEnv === 'production'
   const remoteConfig = {
     target: 'node',
     externals: [nodeExternals()],
@@ -22,8 +22,7 @@ module.exports = webpackEnv => {
       path: `${paths.appSrc}/remote-entry`,
     },
     optimization: {
-      // TODO needs further investigation as if set to true it breaks remote-entry
-      minimize: false,
+      minimize: isProduction,
       splitChunks: false,
     },
     plugins: [...remotePlugins(webpackEnv)].filter(Boolean),
