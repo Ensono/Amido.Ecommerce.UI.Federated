@@ -45,7 +45,7 @@
     "text-positioner:test": "npm run test -w @batman/text-positioner --if-present",
     "text-positioner:ratchet": "npm run jest-ratchet -w @batman/text-positioner --if-present",
     "text-positioner:serve": "npm run serve -w @batman/text-positioner --if-present",
-    "@batman-ui-components/text:build": "npm run build -w batman-ui-components/text --if-present",
+    "@batman-ui-components/text:build": "npm run build -w @batman-ui-components/text --if-present",
     "@batman-ui-components/text:lint": "npm run lint -w @batman-ui-components/text --if-present",
     "@batman-ui-components/text:test": "npm run test -w @batman-ui-components/text --if-present",
     "@batman-ui-components/text:ratchet": "npm run jest-ratchet -w @batman-ui-components/text --if-present",
