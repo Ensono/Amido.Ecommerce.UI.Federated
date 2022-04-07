@@ -11,7 +11,7 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
 
 module.exports = webpackEnv => {
   const baseConfig = baseClientConfig(webpackEnv)
-  const isProduction = webpackEnv === 'production'
+  // const isProduction = webpackEnv === 'production'
   const remoteConfig = {
     target: 'node',
     externals: [nodeExternals()],
@@ -22,7 +22,7 @@ module.exports = webpackEnv => {
       path: `${paths.appSrc}/remote-entry`,
     },
     optimization: {
-      minimize: isProduction,
+      minimize: false,
       splitChunks: false,
     },
     plugins: [...remotePlugins(webpackEnv)].filter(Boolean),

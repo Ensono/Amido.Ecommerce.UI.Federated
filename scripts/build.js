@@ -54,7 +54,6 @@ const build = async previousFileSizes => {
     // remove the remote-entry generated static files that we don't need anymore
     const remoteEntryFolder = `${paths.appSrc}/remote-entry`
     fs.rmSync(`${remoteEntryFolder}/static`, {recursive: true, force: true})
-    fs.rmSync(`${remoteEntryFolder}/app.html`, {force: true})
 
     // remove remote-entry if the folder is empty
     const files = fs.readdirSync(remoteEntryFolder)
