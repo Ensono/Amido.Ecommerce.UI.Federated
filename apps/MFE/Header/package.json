@@ -18,6 +18,7 @@
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@batman-ui-components/text": "1.0.0",
+    "@batman/contexts": "*",
     "@batman/core-logger": "*",
     "@batman/federate-component": "*",
     "@batman/middlewares": "*",

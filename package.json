@@ -78,6 +78,7 @@
     "./libs/framework/federate-component",
     "./libs/framework/middlewares",
     "./libs/ui-components/Text",
+    "./libs/contexts",
     "./tools/CLI",
     "./apps/AppShell",
     "./apps/MFE/Header",

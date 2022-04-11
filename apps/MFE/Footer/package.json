@@ -19,6 +19,7 @@
     "@babel/core": "^7.16.0",
     "@batman-ui-components/text": "1.0.0",
     "@batman/core-logger": "*",
+    "@batman/contexts": "*",
     "@batman/federate-component": "*",
     "@batman/middlewares": "*",
     "@batman/remote-urls": "*",
