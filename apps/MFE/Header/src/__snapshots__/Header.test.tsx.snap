@@ -9,6 +9,15 @@ exports[`Header renders as expected 1`] = `
       >
         I am the HEADERRRRR'"
       </p>
+      <div>
+        <p>
+          Counter: 
+          0
+        </p>
+        <button>
+          Increment
+        </button>
+      </div>
     </div>
     <div>
       loading text positioner...
