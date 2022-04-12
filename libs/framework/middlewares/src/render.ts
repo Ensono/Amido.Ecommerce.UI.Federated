@@ -25,6 +25,7 @@ export const renderMiddleware = ({app, errorStatusCode, htmlReplacements}: Rende
     let timeout
     let didError = false
     let html = (req as any).html
+    const App = app(req.originalUrl)
 
     htmlReplacements = {
       ...defaultHtmlReplacements,
@@ -37,7 +38,7 @@ export const renderMiddleware = ({app, errorStatusCode, htmlReplacements}: Rende
     })
     const [first, last] = html.split('__HTML__')
 
-    const {pipe, abort} = renderToPipeableStream(app, {
+    const {pipe, abort} = renderToPipeableStream(App, {
       onAllReady() {
         // If something errored before we started streaming, we set the error code appropriately.
         res.statusCode = didError ? errorStatusCode : 200

@@ -1,4 +1,6 @@
 // import ReactDOM from 'react-dom'
+import {BrowserRouter} from 'react-router-dom'
+
 import {Logger} from '@batman/core-logger'
 import {hydrateRoot} from 'react-dom/client'
 
@@ -15,7 +17,12 @@ spliceAllToHead(scripts)
 const root = document.getElementById('federated_modules_root_id')
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-hydrateRoot(root!, <App />)
+hydrateRoot(
+  root!,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

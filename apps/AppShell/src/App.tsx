@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import {FC, StrictMode, createContext} from 'react'
+import {Link, Route, Routes} from 'react-router-dom'
 
 import {Text} from '@batman-ui-components/text'
 import {context, federateComponent} from '@batman/federate-component'
@@ -27,6 +28,7 @@ const remotesUrls = getRemoteUrls()
 
 const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_header)
 const Footer = federateComponent('mfe_footer', './footer', remotesUrls.mfe_footer)
+const ProductListing = federateComponent('mfe_product_listing', './product-listing', remotesUrls.mfe_product_listing)
 
 /**
  * Host app that consumes micro-front-ends and renders them together
@@ -48,6 +50,21 @@ const App: FC = () => {
             <Text />
           </section>
         </div>
+        <Routes>
+          <Route path="/app" element={<h3>Home Page</h3>} />
+          <Route
+            path="/app/productListing"
+            element={
+              <ProductListing
+                loadingFallback={<div>Loading product listing...</div>}
+                errorFallback={<div>Error loading product listing</div>}
+              />
+            }
+          />
+          <Route path="/app/productDetails" element={<h1>Product Details</h1>} />
+        </Routes>
+        <Link to="/app/productListing">Product Listing</Link>
+        <Link to="/app/productDetails">Product Details</Link>
         <Footer loadingFallback={<div>Loading footer...</div>} errorFallback={<div>Error loading footer</div>}>
           SSR footer!
         </Footer>

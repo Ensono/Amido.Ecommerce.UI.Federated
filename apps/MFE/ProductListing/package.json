@@ -1,22 +1,22 @@
 {
-  "name": "@batman/app-shell",
-  "version": "0.0.1",
+  "name": "@batman/product-listing",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "nodemon ../../scripts/dev.js --config ../../nodemon.config.json",
-    "build": "node ../../scripts/build.js",
+    "dev": "nodemon ../../../scripts/dev.js --config ../../../nodemon.config.json",
+    "build": "node ../../../scripts/build.js",
     "serve": " node build/server.js",
-    "watch": "nodemon --exec \"npm run build && npm run serve\" --config ../../nodemon.config.json",
-    "test": "node ../../scripts/test.js --coverage --watchAll=false",
+    "watch": "nodemon --exec \"npm run build && npm run serve\" --config ../../../nodemon.config.json",
+    "test": "node ../../../scripts/test.js --coverage --watchAll=false",
+    "test:watch": "node ../../../scripts/test.js --watch",
     "jest-ratchet_DISABLED": "jest-coverage-ratchet",
-    "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix --ignore-path '../../.eslintignore'",
+    "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix --ignore-path '../../../.eslintignore'",
     "prettier": "prettier 'src/**/*.{jsx,js,tsx,ts}' --write",
-    "docs": "typedoc --out ../../docs/app-shell src/*.*",
+    "docs": "typedoc --out ../../../docs/product-listing src/*.*",
     "tsc": "tsc"
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
-    "@batman-ui-components/text": "*",
     "@batman/core-logger": "*",
     "@batman/federate-component": "*",
     "@batman/middlewares": "*",
@@ -26,9 +26,11 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^14.0.0-alpha.18",
+    "@types/body-parser": "^1.19.2",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.13",
+    "axios": "^0.26.0",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",
@@ -64,7 +66,6 @@
     "react-dev-utils": "^12.0.0",
     "react-dom": "^18.0.0",
     "react-refresh": "^0.11.0",
-    "react-router-dom": "^6.3.0",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
     "sass-loader": "^12.3.0",
@@ -112,7 +113,8 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
+      "!src/**/*.d.ts",
+      "!src/remote-entry/*"
     ],
     "setupFiles": [
       "react-app-polyfill/jsdom"
@@ -126,9 +128,9 @@
     ],
     "testEnvironment": "jsdom",
     "transform": {
-      "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "../../config/jest/babelTransform.js",
-      "^.+\\.css$": "../../config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "../../config/jest/fileTransform.js"
+      "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "../../../config/jest/babelTransform.js",
+      "^.+\\.css$": "../../../config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "../../../config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$",

@@ -33,6 +33,13 @@
     "footer:serve": "npm run serve -w @batman/footer --if-present",
     "footer:watch": "npm run watch -w @batman/footer --if-present",
     "footer:ratchet": "npm run jest-ratchet -w @batman/footer --if-present",
+    "product-listing:lint": "npm run lint -w @batman/product-listing --if-present",
+    "product-listing:build": "npm run build -w @batman/product-listing --if-present",
+    "product-listing:test": "npm run test -w @batman/product-listing --if-present",
+    "product-listing:dev": "npm run dev -w @batman/product-listing --if-present",
+    "product-listing:serve": "npm run serve -w @batman/product-listing --if-present",
+    "product-listing:watch": "npm run watch -w @batman/product-listing --if-present",
+    "product-listing:ratchet": "npm run jest-ratchet -w @batman/product-listing --if-present",
     "federate-component:build": "npm run build -w @batman/federate-component --if-present",
     "federate-component:build-ci": "npm run build-ci -w @batman/federate-component --if-present",
     "federate-component:lint": "npm run lint -w @batman/federate-component --if-present",
@@ -82,6 +89,7 @@
     "./apps/AppShell",
     "./apps/MFE/Header",
     "./apps/MFE/Footer",
+    "./apps/MFE/ProductListing",
     "./apps/MFE/TextPositioner"
   ],
   "dependencies": {
