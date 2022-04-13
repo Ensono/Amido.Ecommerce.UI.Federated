@@ -8,7 +8,6 @@ import {AbortRenderToPipe, RenderMiddlewareOptions, StringMap} from '../types'
 
 const defaultHtmlReplacements: StringMap = {
   INITIAL_STATE: JSON.stringify({}),
-  APP_PROPS: JSON.stringify({}),
   DIRECTION: 'ltr',
   lang: 'lang=en',
   // TODO: not sure this is right - Next-specific

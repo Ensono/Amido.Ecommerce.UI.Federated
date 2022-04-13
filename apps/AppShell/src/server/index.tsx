@@ -1,20 +1,32 @@
 import path from 'path'
 
+import {Provider as ReduxProvider} from 'react-redux'
+
 import {helmetGuard, htmlMiddleware, httpLogger, renderMiddleware} from '@batman/middlewares'
 import compression from 'compression'
 import express from 'express'
 
-import ReactApp, {ReduxProvider} from '../App'
+import ReactApp from '../App'
+import {set} from '../ducks/counter'
+import {store} from '../store'
+
+// set some initial values in the store
+// TODO: this needs to be per-request not per-build
+store.dispatch(set(Math.floor(Math.random() * 100)))
+
+const initialState = store.getState()
 
 const publicPath = path.join(__dirname, '/public')
-const theme = {}
 const renderOptions = {
   app: (
-    <ReduxProvider value={theme}>
+    <ReduxProvider store={store}>
       <ReactApp />
     </ReduxProvider>
   ),
   errorStatusCode: 206,
+  htmlReplacements: {
+    INITIAL_STATE: JSON.stringify(initialState),
+  },
 }
 
 const app = express()
