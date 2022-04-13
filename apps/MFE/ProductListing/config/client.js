@@ -7,7 +7,7 @@ const getFederationConfig = REMOTES => ({
   exposes: {
     './product-listing': './src/ProductListing.tsx',
   },
-  shared: ['react', 'react-dom'],
+  shared: ['react', 'react-dom', 'react-router-dom'],
 })
 
 module.exports = {getFederationConfig}
