@@ -1,12 +1,12 @@
 const {dependencies} = require('../package.json')
 
 const getFederationConfig = REMOTES => ({
-  name: 'mfe_product_listing',
+  name: 'mfe_product_details',
   filename: 'remote-entry.cjs',
   library: {type: 'commonjs'},
   remotes: REMOTES,
   exposes: {
-    './product-listing': './src/ProductListing.tsx',
+    './product-details': './src/ProductDetails.tsx',
   },
   shared: {
     react: {

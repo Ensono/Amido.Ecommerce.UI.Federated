@@ -29,6 +29,7 @@ const remotesUrls = getRemoteUrls()
 const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_header)
 const Footer = federateComponent('mfe_footer', './footer', remotesUrls.mfe_footer)
 const ProductListing = federateComponent('mfe_product_listing', './product-listing', remotesUrls.mfe_product_listing)
+const ProductDetails = federateComponent('mfe_product_details', './product-details', remotesUrls.mfe_product_details)
 
 /**
  * Host app that consumes micro-front-ends and renders them together
@@ -41,17 +42,23 @@ const App: FC = () => {
       <ThemeProvider value={{}}>
         <Header loadingFallback={<div>Loading header...</div>} errorFallback={<div>Error loading header</div>}>
           SSR header!
+          <Link to="/app">Home</Link>
+          <Link to="/app/productListing">Product Listing</Link>
         </Header>
-        <div className="App">
-          <section className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            {/* eslint-disable-next-line no-console */}
-            <p onClick={() => console.log('lallero')}>Page 1</p>
-            <Text />
-          </section>
-        </div>
         <Routes>
-          <Route path="/app" element={<h3>Home Page</h3>} />
+          <Route
+            path="/app"
+            element={
+              <div className="App">
+                <section className="App-header">
+                  <img src={logo} className="App-logo" alt="logo" />
+                  {/* eslint-disable-next-line no-console */}
+                  <p onClick={() => console.log('lallero')}>Page 1</p>
+                  <Text />
+                </section>
+              </div>
+            }
+          />
           <Route
             path="/app/productListing"
             element={
@@ -61,10 +68,16 @@ const App: FC = () => {
               />
             }
           />
-          <Route path="/app/productDetails" element={<h1>Product Details</h1>} />
+          <Route
+            path="/app/productDetails/:id"
+            element={
+              <ProductDetails
+                loadingFallback={<div>Loading product details...</div>}
+                errorFallback={<div>Error loading product details</div>}
+              />
+            }
+          />
         </Routes>
-        <Link to="/app/productListing">Product Listing</Link>
-        <Link to="/app/productDetails">Product Details</Link>
         <Footer loadingFallback={<div>Loading footer...</div>} errorFallback={<div>Error loading footer</div>}>
           SSR footer!
         </Footer>
