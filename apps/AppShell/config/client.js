@@ -5,6 +5,7 @@ const getFederationConfig = REMOTES => ({
   filename: 'remote-entry.js',
   remotes: REMOTES,
   shared: {
+    ...dependencies,
     react: {
       singleton: true,
       eager: true,
