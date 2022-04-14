@@ -1,4 +1,4 @@
-# Next.Ecommerce.UI.Federated
+# Amido.Ecommerce.UI.Federated
 
 Federated Modules Production Grade boilerplate
 
