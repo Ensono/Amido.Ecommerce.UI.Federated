@@ -31,29 +31,20 @@ const productData = [
   },
 ]
 
-const getProduct = (productId: number) => {
-  return productData
-    .filter(({id}) => id === productId)
-    .map(({id, title, img, price, description}) => (
-      <section className="product" key={id}>
-        <h3>{title}</h3>
-        <img src={img} alt={title} className="product-image" />
-        <p>{description}</p>
-        <p>{price}</p>
-      </section>
-    ))
-}
-
 const ProductDetails: React.FC = () => {
   const {id} = useParams()
   const sanitisedId = Number(id)
+  const product = productData.find(data => data.id === sanitisedId)
 
-  return id ? (
-    <>{getProduct(sanitisedId)}</>
-  ) : (
-    <section>
-      <p>Error retreving your product</p>
+  return product ? (
+    <section className="product" key={id}>
+      <h3>{product.title}</h3>
+      <img src={product.img} alt={product.title} className="product-image" />
+      <p>{product.description}</p>
+      <p>{product.price}</p>
     </section>
+  ) : (
+    <section>Error getting product</section>
   )
 }
 
