@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductDetails displays an error when no context is provided 1`] = `
+<div>
+  <section>
+    <p>
+      Error retreving your product
+    </p>
+  </section>
+</div>
+`;

@@ -44,7 +44,7 @@ const getProduct = (productId: number) => {
     ))
 }
 
-const ProductListing: React.FC = () => {
+const ProductDetails: React.FC = () => {
   const {id} = useParams()
   const sanitisedId = Number(id)
 
@@ -57,4 +57,4 @@ const ProductListing: React.FC = () => {
   )
 }
 
-export default ProductListing
+export default ProductDetails
