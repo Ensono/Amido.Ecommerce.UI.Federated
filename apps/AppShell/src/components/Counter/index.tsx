@@ -1,7 +1,8 @@
 import {useDispatch, useSelector} from 'react-redux'
 
-import {increment, set} from '../../ducks/counter'
-import {RootState} from '../../store'
+import {RootState, counterActions} from '../../store'
+
+const {increment, set} = counterActions
 
 const Counter = () => {
   const count = useSelector((state: RootState) => state.counter.value)

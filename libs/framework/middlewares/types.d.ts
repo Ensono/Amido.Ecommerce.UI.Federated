@@ -20,7 +20,7 @@ declare namespace Express {
 }
 
 export type RenderMiddlewareOptions = {
-  app: any
+  app?: any
   errorStatusCode?: number
   htmlReplacements?: StringMap
 }
