@@ -15,12 +15,7 @@ const getFederationConfig = REMOTES => ({
       requiredVersion: dependencies.react,
       shareScope: 'default',
     },
-    'react-router-dom': {
-      singleton: true,
-      eager: true,
-      requiredVersion: dependencies['react-router-dom'],
-      shareScope: 'default',
-    },
+    'react-router-dom': {},
   },
 })
 
