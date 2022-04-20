@@ -61,3 +61,44 @@ Testing can be done from the root via commands like `npm run host:eslint`
 ## Docs
 
 Build tsdocs with `npm run docs` and serve docs locally with `npm run docs:serve`
+
+## Working with npm 8 workspaces
+
+[npm 8 workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces) have a number of features which make working with
+large monorepo projects simpler. Workspaces are defined in the root package's `package.json`, e.g.
+
+```
+  "workspaces": [
+    "./cool-package-1",
+    "./cool-package-2",
+  ],
+```
+
+We can then run scripts from those packages without having to change directory, e.g.
+
+```
+$ npm run build -w cool-package-1
+```
+
+or run the same script in all workspaces
+
+```
+$ npm run build --ws
+```
+
+Note the `-w` argument refers to the name defined in the workspace's `package.json`, not the path used above.
+
+### Shared dependencies
+
+When installing dependencies, by default they will be installed into the root package's `node_modules` and symlinked
+into the child packages. This speeds up installation and reduces the amount of disk space required when using the same
+dependency across different packages.
+
+### Local libraries
+
+Functionality can be shared across packages without the overhead of publishing to a registry like npm, e.g.
+
+```
+// cool-package-1/index.js
+import coolFunction from 'cool-package-2'
+```
