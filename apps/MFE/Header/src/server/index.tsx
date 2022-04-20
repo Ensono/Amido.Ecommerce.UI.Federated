@@ -1,19 +1,23 @@
 import path from 'path'
 
+import {Provider as ReduxProvider} from 'react-redux'
+
 import {helmetGuard, htmlMiddleware, httpLogger, prerenderMiddleware, renderMiddleware} from '@batman/middlewares'
 import {json} from 'body-parser'
 import compression from 'compression'
 import express from 'express'
 
-import ReactApp, {ReduxProvider} from '../App'
+import ReactApp from '../App'
 //@ts-ignore
 import remoteEntry from '../remote-entry/remote-entry.cjs'
 
 const publicPath = path.join(__dirname, '/public')
-const theme = {}
+
+const store = {}
+// TODO: should redux be in here? /app and /prerender need to have per-request stores
 const renderOptions = {
   app: (
-    <ReduxProvider value={theme}>
+    <ReduxProvider store={store as any}>
       <ReactApp />
     </ReduxProvider>
   ),

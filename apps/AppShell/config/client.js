@@ -16,6 +16,11 @@ const getFederationConfig = REMOTES => ({
       eager: true,
       requiredVersion: dependencies['react-dom'],
     },
+    'react-redux': {
+      singleton: true,
+      eager: true,
+      requiredVersion: dependencies['react-redux'],
+    },
   },
 })
 
