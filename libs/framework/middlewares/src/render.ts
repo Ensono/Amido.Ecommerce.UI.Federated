@@ -28,17 +28,18 @@ export const renderMiddleware = ({app, errorStatusCode, htmlReplacements}: Rende
 
     app = app ?? unsafeReq?.renderOptions?.app
 
-    if (unsafeReq?.renderOptions.htmlReplacements) {
-      htmlReplacements = unsafeReq?.renderOptions.htmlReplacements
-    }
-
-    htmlReplacements = {
+    const mergedHtmlReplacements = {
       ...defaultHtmlReplacements,
-      ...htmlReplacements,
+      ...(htmlReplacements && {
+        ...htmlReplacements,
+      }),
+      ...(unsafeReq?.renderOptions?.htmlReplacements && {
+        ...unsafeReq.renderOptions.htmlReplacements,
+      }),
     }
 
-    Object.keys(htmlReplacements).forEach(key => {
-      const value = htmlReplacements[key]
+    Object.keys(mergedHtmlReplacements).forEach(key => {
+      const value = mergedHtmlReplacements[key]
       html = html.replace(new RegExp(`__${key}__`, 'g'), value)
     })
     const [first, last] = html.split('__HTML__')
