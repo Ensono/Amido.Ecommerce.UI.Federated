@@ -1,25 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from '@reduxjs/toolkit'
 
 export interface HeaderCounterState {
-    value: number
+  value: number
 }
 
 const initialState: HeaderCounterState = {
-    value: 0
+  value: 0,
 }
 
 export const headerCounterSlice = createSlice({
-    name: 'headerCounter',
-    initialState,
-    reducers: {
-        increment: state => {
-            state.value += 1
-        },
-        decrement: state => {
-            state.value -= 1
-        }
-    }
+  name: 'headerCounter',
+  initialState,
+  reducers: {
+    increment: state => {
+      state.value += 1
+    },
+    decrement: state => {
+      state.value -= 1
+    },
+  },
 })
 
-export const { increment, decrement } = headerCounterSlice.actions
+export const {increment, decrement} = headerCounterSlice.actions
 export default headerCounterSlice.reducer

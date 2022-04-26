@@ -1,10 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import headerCounterReducer, { headerCounterSlice } from "./ducks/headerCounter";
+import {configureStore} from '@reduxjs/toolkit'
+
+import headerCounterReducer, {headerCounterSlice} from './ducks/headerCounter'
 
 export const headerStore = configureStore({
-    reducer: {
-        headerCounter: headerCounterReducer,
-    },
+  reducer: {
+    headerCounter: headerCounterReducer,
+  },
 })
 
 export const headerCounterActions = headerCounterSlice.actions

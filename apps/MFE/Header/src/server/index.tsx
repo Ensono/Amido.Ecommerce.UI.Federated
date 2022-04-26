@@ -1,15 +1,15 @@
 import path from 'path'
+
+import {Provider as ReduxProvider} from 'react-redux'
+
 import {helmetGuard, htmlMiddleware, httpLogger, prerenderMiddleware, renderMiddleware} from '@batman/middlewares'
 import {json} from 'body-parser'
 import compression from 'compression'
 import express from 'express'
 
-import {Provider as ReduxProvider} from 'react-redux'
-import {headerStore} from '../store'
-
 import ReactApp from '../App'
-//@ts-ignore
 import remoteEntry from '../remote-entry/remote-entry.cjs'
+import {headerStore} from '../store'
 
 const publicPath = path.join(__dirname, '/public')
 
