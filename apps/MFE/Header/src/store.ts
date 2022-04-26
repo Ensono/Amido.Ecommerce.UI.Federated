@@ -12,5 +12,3 @@ export const headerCounterActions = headerCounterSlice.actions
 
 export type RootState = ReturnType<typeof headerStore.getState>
 export type AppDispatch = typeof headerStore.dispatch
-
-export default headerCounterReducer

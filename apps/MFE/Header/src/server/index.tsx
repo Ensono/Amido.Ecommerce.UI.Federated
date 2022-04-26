@@ -2,7 +2,14 @@ import path from 'path'
 
 import {Provider as ReduxProvider} from 'react-redux'
 
-import {helmetGuard, htmlMiddleware, httpLogger, prerenderMiddleware, renderMiddleware} from '@batman/middlewares'
+import {
+  helmetGuard,
+  htmlMiddleware,
+  httpLogger,
+  prerenderMiddleware,
+  renderMiddleware,
+  stateMiddleware,
+} from '@batman/middlewares'
 import {json} from 'body-parser'
 import compression from 'compression'
 import express from 'express'
@@ -29,7 +36,7 @@ app.use(httpLogger(process.env.NODE_ENV === 'development'))
 app.use(helmetGuard)
 
 app.use('/app', htmlMiddleware, renderMiddleware(renderOptions))
-app.use('/prerender', json(), prerenderMiddleware(remoteEntry))
+app.use('/prerender', json(), stateMiddleware(headerStore.getState()), prerenderMiddleware(remoteEntry))
 app.use('/', express.static(publicPath))
 
 export default app

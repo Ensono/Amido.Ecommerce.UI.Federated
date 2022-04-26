@@ -85,12 +85,16 @@ export const prerenderMiddleware = remoteEntry => {
         </ReduxProvider>
       )
 
+      const initialState = res?.initialState ? JSON.stringify(res.initialState) : 'NO STATE'
+
       const {pipe} = renderToPipeableStream(el, {
         onAllReady() {
           // If something errored before we started streaming, we set the error code appropriately.
           res.statusCode = didError ? 206 : 200
           res.contentType('text/plain')
           res.write(stringifiedChunks)
+          res.write(constants.SERIALISED_RESPONSE_SEPARATOR)
+          res.write(initialState)
           res.write(constants.SERIALISED_RESPONSE_SEPARATOR)
           pipe(res)
           clearTimeout(timeout)
