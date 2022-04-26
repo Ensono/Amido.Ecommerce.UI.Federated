@@ -2,6 +2,7 @@ import React from 'react'
 
 import {federateComponent} from '@batman/federate-component'
 import {getRemoteUrls} from '@batman/remote-urls'
+
 import HeaderCounter from './components/headerCounter'
 
 const REMOTES = getRemoteUrls()

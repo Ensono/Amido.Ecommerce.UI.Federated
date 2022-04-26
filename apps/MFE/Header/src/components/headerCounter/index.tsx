@@ -5,7 +5,6 @@ import {RootState, headerCounterActions} from '../../store'
 const {increment, decrement} = headerCounterActions
 
 const HeaderCounter = () => {
-    
   const count = useSelector((state: RootState) => state?.headerCounter?.value)
   const dispatch = useDispatch()
 
