@@ -1,9 +1,11 @@
 import path from 'path'
-
 import {helmetGuard, htmlMiddleware, httpLogger, prerenderMiddleware, renderMiddleware} from '@batman/middlewares'
 import {json} from 'body-parser'
 import compression from 'compression'
 import express from 'express'
+
+import {Provider as ReduxProvider} from 'react-redux'
+import {headerStore} from '../store'
 
 import ReactApp from '../App'
 //@ts-ignore
@@ -13,7 +15,11 @@ const publicPath = path.join(__dirname, '/public')
 
 // TODO: should redux be in here? /app and /prerender need to have per-request stores
 const renderOptions = {
-  app: <ReactApp />,
+  app: (
+    <ReduxProvider store={headerStore}>
+      <ReactApp />
+    </ReduxProvider>
+  ),
   errorStatusCode: 206,
 }
 const app = express()
