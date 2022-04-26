@@ -1,9 +1,10 @@
 import path from 'path'
 
+import {StaticRouter} from 'react-router-dom'
+
 import {helmetGuard, htmlMiddleware, httpLogger, renderMiddleware} from '@batman/middlewares'
 import compression from 'compression'
 import express from 'express'
-import {StaticRouter} from 'react-router-dom/server'
 
 import ReactApp, {ReduxProvider} from '../App'
 

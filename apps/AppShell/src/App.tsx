@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import {FC, StrictMode, createContext} from 'react'
-import {Link, Route, Routes} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 
 import {Text} from '@batman-ui-components/text'
 import {context, federateComponent} from '@batman/federate-component'
@@ -42,42 +42,43 @@ const App: FC = () => {
       <ThemeProvider value={{}}>
         <Header loadingFallback={<div>Loading header...</div>} errorFallback={<div>Error loading header</div>}>
           SSR header!
-          <Link to="/app">Home</Link>
-          <Link to="/app/productListing">Product Listing</Link>
         </Header>
-        <Routes>
-          <Route
-            path="/app"
-            element={
-              <div className="App">
-                <section className="App-header">
-                  <img src={logo} className="App-logo" alt="logo" />
-                  {/* eslint-disable-next-line no-console */}
-                  <p onClick={() => console.log('lallero')}>Page 1</p>
-                  <Text />
-                </section>
-              </div>
-            }
-          />
-          <Route
-            path="/app/productListing"
-            element={
-              <ProductListing
-                loadingFallback={<div>Loading product listing...</div>}
-                errorFallback={<div>Error loading product listing</div>}
-              />
-            }
-          />
-          <Route
-            path="/app/productDetails/:id"
-            element={
+        <Route
+          exact
+          path="/app"
+          render={() => (
+            <div className="App">
+              <section className="App-header">
+                <img src={logo} className="App-logo" alt="logo" />
+                {/* eslint-disable-next-line no-console */}
+                <p onClick={() => console.log('lallero')}>Page 1</p>
+                <Text />
+              </section>
+            </div>
+          )}
+        />
+        <Route
+          exact
+          path="/app/productListing"
+          render={() => (
+            <ProductListing
+              loadingFallback={<div>Loading product listing...</div>}
+              errorFallback={<div>Error loading product listing</div>}
+            />
+          )}
+        />
+        <Route
+          path="/app/productDetails/:id"
+          render={({match}) => {
+            return (
               <ProductDetails
                 loadingFallback={<div>Loading product details...</div>}
                 errorFallback={<div>Error loading product details</div>}
+                id={match.params?.id}
               />
-            }
-          />
-        </Routes>
+            )
+          }}
+        />
         <Footer loadingFallback={<div>Loading footer...</div>} errorFallback={<div>Error loading footer</div>}>
           SSR footer!
         </Footer>

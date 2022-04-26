@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
-import {useParams} from 'react-router-dom'
 import './ProductDetails.css'
 
 const productData = [
@@ -31,8 +30,7 @@ const productData = [
   },
 ]
 
-const ProductDetails: React.FC = () => {
-  const {id} = useParams()
+const ProductDetails: React.FC<any> = ({id}: {id: string}) => {
   const sanitisedId = Number(id)
   const product = productData.find(data => data.id === sanitisedId)
 

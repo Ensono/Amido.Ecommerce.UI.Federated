@@ -1,5 +1,4 @@
-import React, {createContext, useContext} from 'react'
-import type {RouteMatch, RouteObject} from 'react-router'
+import React from 'react'
 import * as ReactRouterDom from 'react-router-dom'
 
 import {constants} from '@batman/constants'
@@ -8,58 +7,6 @@ import {getRemoteUrls} from '@batman/remote-urls'
 import {NextFunction} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
-import {StaticRouter} from 'react-router-dom/server'
-
-export type RouteObjectWithKey = RouteObject & {
-  key: number
-  children?: RouteObjectWithKey[]
-  props?: Record<string, unknown>
-  metadata?: unknown
-  preloadedData?: unknown
-}
-
-export type RouteMatchWithKey = RouteMatch & {route: RouteObjectWithKey}
-
-export interface RootContext {
-  version: string | null
-  routes: RouteObjectWithKey[]
-  matchedRoutes: RouteMatchWithKey[]
-  matchedRoutesAssets: string[]
-  mainAssets: string[]
-  devServerPort?: number
-}
-
-const ctx = React.createContext<RootContext | null>(null)
-
-export const useRootContext = () => {
-  const value = useContext(ctx)
-
-  if (value == null) {
-    throw new Error('You must wrap your app in either <RootServer /> or <RootBrowser />')
-  }
-
-  return value
-}
-
-export const RootContextProvider: React.FC<{value: RootContext}> = ({value, children}) => {
-  return <ctx.Provider value={value}>{children}</ctx.Provider>
-}
-
-const pendingContext = createContext<boolean | undefined>(undefined)
-
-export const useIsRoutePending = () => {
-  const contextValue = useContext(pendingContext)
-
-  if (contextValue == null) {
-    throw new Error('You must use useIsRoutePending in a descendant of either <RootBrowser /> or <RootServer />')
-  }
-
-  return contextValue
-}
-
-export const RoutePendingContextProvider: React.FC<{value: boolean}> = ({value, children}) => {
-  return <pendingContext.Provider value={value}>{children}</pendingContext.Provider>
-}
 
 /**
  * Generates payload of downstream client remote entry files and renders the react module exposed
@@ -108,13 +55,9 @@ export const prerenderMiddleware = remoteEntry => {
       // RoutePendingContextPorivder . Do we need it?
       // StaticRouter . Do we need it? Supply the correct location through the request somehow
       const el = (
-        <RootContextProvider value={{} as RootContext}>
-          <RoutePendingContextProvider value={false}>
-            <StaticRouter location="/">
-              <Component {...props}>{`\u200Cchildren\u200C`}/</Component>
-            </StaticRouter>
-          </RoutePendingContextProvider>
-        </RootContextProvider>
+        <ReactRouterDom.StaticRouter location="/">
+          <Component {...props}>{`\u200Cchildren\u200C`}</Component>
+        </ReactRouterDom.StaticRouter>
       )
 
       const {pipe} = renderToPipeableStream(el, {
