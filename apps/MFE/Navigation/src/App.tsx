@@ -2,7 +2,7 @@ import {StrictMode, createContext} from 'react'
 
 import {Text} from '@batman-ui-components/text'
 
-import TextPositioner from './TextPositioner'
+import Navigation from './Navigation'
 
 const ThemeContext = createContext(null)
 const ReduxContext = createContext(null)
@@ -16,16 +16,16 @@ export const ReduxProvider = ({children, data}: any) => {
 }
 
 /**
- * Renders the TextPositioner MFE as a standalone app.
- * Not used by consumers of the TextPositioner federated module.
+ * Renders the Navigation MFE as a standalone app.
+ * Not used by consumers of the Navigation federated module.
  */
 const App: React.FC = () => {
   return (
     <StrictMode>
       <ThemeProvider value={{}}>
-        <TextPositioner position="top">Positioned top by text positioner</TextPositioner>
+        <Navigation position="top">Positioned top by navigation</Navigation>
         <Text />
-        <TextPositioner position="bottom">Positioned bottom by text positioner</TextPositioner>
+        <Navigation position="bottom">Positioned bottom by text positioner</Navigation>
       </ThemeProvider>
     </StrictMode>
   )

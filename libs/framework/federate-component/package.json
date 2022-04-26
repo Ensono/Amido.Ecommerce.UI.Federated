@@ -17,9 +17,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@batman/header": "^0.1.1",
     "axios": "^0.26.0",
     "html-to-react": "^1.4.5",
-    "json-stringify-deterministic": "1.0.1"
+    "json-stringify-deterministic": "1.0.1",
+    "react-router-dom": "^5.3.1"
   },
   "peerDependencies": {
     "@batman/constants": "*",

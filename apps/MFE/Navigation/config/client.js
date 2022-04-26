@@ -1,13 +1,13 @@
 // const {dependencies} = require('../package.json')
 
 const getFederationConfig = REMOTES => ({
-  name: 'mfe_text_positioner',
+  name: 'mfe_navigation',
   filename: 'remote-entry.js',
   remotes: REMOTES,
   exposes: {
-    './text-positioner': './src/TextPositioner.tsx',
+    './navigation': './src/Navigation.tsx',
   },
-  shared: ['react', 'react-dom'],
+  shared: ['react', 'react-dom', 'react-router-dom'],
 })
 
 module.exports = {getFederationConfig}

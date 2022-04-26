@@ -7,21 +7,20 @@ import {getRemoteUrls} from '@batman/remote-urls'
 
 const REMOTES = getRemoteUrls()
 
-const TextPositioner = federateComponent('mfe_text_positioner', './text-positioner', REMOTES.mfe_text_positioner)
+const Navigation = federateComponent('mfe_navigation', './navigation', REMOTES.mfe_navigation)
 
 const Header: React.FC = ({children}) => {
   return (
     <div>
-      <div onClick={() => alert('ciao mamma header')}>
+      <div onClick={() => console.log('ciao mamma header')}>
         <p data-testid="paragraph-in-header">I am the HEADERRRRR'"</p>
       </div>
-      <TextPositioner
-        loadingFallback={<div>loading text positioner...</div>}
-        errorFallback={<div>error loading text positioner!</div>}
+      <Navigation
+        loadingFallback={<div>loading navigation...</div>}
+        errorFallback={<div>error loading navigation!</div>}
         position="bottom"
-      >
-        {children}
-      </TextPositioner>
+      />
+      <div>{children}</div>
     </div>
   )
 }

@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
+import {Link} from 'react-router-dom'
 
-const TextPositioner: React.FC<{position: 'top' | 'bottom'}> = ({position = 'top', children}) => {
+const Navigation: React.FC<{position: 'top' | 'bottom'}> = ({position = 'top'}) => {
   return (
     <div
-      onClick={() => alert(position)}
+      onClick={() => console.log(position)}
       style={{
         display: 'flex',
         height: '200px',
@@ -13,9 +14,10 @@ const TextPositioner: React.FC<{position: 'top' | 'bottom'}> = ({position = 'top
         justifyContent: position === 'top' ? 'flex-start' : 'flex-end',
       }}
     >
-      <p style={{display: 'inline', margin: 0}}>positioned by TextPositioner: "{children}"</p>
+      <Link to="/app">Home</Link>
+      <Link to="/app/productListing">Products</Link>
     </div>
   )
 }
 
-export default TextPositioner
+export default Navigation

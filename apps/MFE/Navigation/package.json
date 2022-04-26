@@ -1,5 +1,5 @@
 {
-  "name": "@batman/text-positioner",
+  "name": "@batman/navigation",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,13 +11,14 @@
     "jest-ratchet_DISABLED": "jest-coverage-ratchet",
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix --ignore-path '../../../.eslintignore'",
     "prettier": "prettier 'src/**/*.{jsx,js,tsx,ts}' --write",
-    "docs": "typedoc --out ../../../docs/text-positioner src/*.*",
+    "docs": "typedoc --out ../../../docs/navigation src/*.*",
     "tsc": "tsc"
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@batman-ui-components/text": "*",
     "@batman/core-logger": "*",
+    "@batman/header": "^0.1.1",
     "@batman/middlewares": "*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
@@ -65,6 +66,7 @@
     "react-dev-utils": "^12.0.0",
     "react-dom": "^18.0.0",
     "react-refresh": "^0.11.0",
+    "react-router-dom": "^5.3.1",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
     "sass-loader": "^12.3.0",

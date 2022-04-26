@@ -11,7 +11,10 @@ exports[`Header renders as expected 1`] = `
       </p>
     </div>
     <div>
-      loading text positioner...
+      loading navigation...
+    </div>
+    <div>
+      foo bar
     </div>
   </div>
 </div>

@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@batman/core-logger": "*",
+    "@batman/header": "^0.1.1",
     "@batman/remote-urls": "*",
     "babel-preset-jest": "^27.5.1",
     "helmet": "^3.21.2",

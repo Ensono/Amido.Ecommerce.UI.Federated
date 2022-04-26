@@ -64,7 +64,6 @@ module.exports = {
         allowSeparatedGroups: true,
       },
     ],
-    'no-alert': 'off',
     'import/no-named-as-default': 'off',
     'prefer-object-spread': 'off',
     'arrow-body-style': 'off',
