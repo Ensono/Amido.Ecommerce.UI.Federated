@@ -1,11 +1,16 @@
-import {render, screen, waitFor} from '@testing-library/react'
+import {MemoryRouter} from 'react-router-dom'
+
+import {render, waitFor} from '@testing-library/react'
 
 import App from './App'
 
 test('renders external components', async () => {
-  render(<App />)
+  const {container} = render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>,
+  )
   await waitFor(() => {
-    const sharedTextComponent = screen.getByText(/I am the HEADERRRRR/)
-    expect(sharedTextComponent).toBeInTheDocument()
+    expect(container).toMatchSnapshot()
   })
 })

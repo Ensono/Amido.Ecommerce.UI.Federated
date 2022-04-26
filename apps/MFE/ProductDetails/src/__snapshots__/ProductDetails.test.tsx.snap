@@ -23,29 +23,6 @@ exports[`ProductDetails displays a product when provided the correct id 1`] = `
 </div>
 `;
 
-exports[`ProductDetails displays a product when provided the correct path 1`] = `
-<div>
-  <section
-    class="product"
-  >
-    <h3>
-      Jacket
-    </h3>
-    <img
-      alt="Jacket"
-      class="product-image"
-      src="https://c2.staticflickr.com/8/7769/17963181310_29566ea829_b.jpg"
-    />
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in mi nibh. Sed bibendum dignissim massa, quis dignissim velit congue in. Curabitur interdum interdum turpis, vitae pretium dui sollicitudin gravida. Duis nec lobortis ex, nec sodales massa. In vel justo semper mauris scelerisque condimentum non nec velit. Nullam iaculis, neque sed lobortis auctor, sapien enim luctus justo, vel faucibus turpis ipsum eget nunc. Ut nec venenatis mauris, ut malesuada ante. Ut molestie diam elit, ut tristique ligula cursus at. Donec laoreet orci est, id posuere mi vulputate in.
-    </p>
-    <p>
-      £100
-    </p>
-  </section>
-</div>
-`;
-
 exports[`ProductDetails displays an error when no context is provided 1`] = `
 <div>
   <section>

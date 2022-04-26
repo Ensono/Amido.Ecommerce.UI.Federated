@@ -1,4 +1,5 @@
 import React from 'react'
+import * as ReactRouterDom from 'react-router-dom'
 
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
@@ -24,6 +25,11 @@ describe('prerender middleware', () => {
       react: {
         [React.version]: {
           get: () => () => React,
+        },
+      },
+      'react-router-dom': {
+        '5.3.1': {
+          get: () => () => ReactRouterDom,
         },
       },
     })

@@ -22,7 +22,7 @@ export const prerenderMiddleware = remoteEntry => {
       },
     },
     'react-router-dom': {
-      '6.3.0': {
+      '5.3.1': {
         get: () => () => ReactRouterDom,
       },
     },
