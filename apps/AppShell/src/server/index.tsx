@@ -8,7 +8,6 @@ import express, {NextFunction} from 'express'
 
 import ReactApp from '../App'
 import {counterActions, store} from '../store'
-// import {set} from '../ducks/counter'
 
 const {set} = counterActions
 

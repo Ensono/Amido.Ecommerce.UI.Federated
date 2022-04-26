@@ -6,6 +6,7 @@ const getFederationConfig = REMOTES => ({
   remotes: REMOTES,
   exposes: {
     './header': './src/Header.tsx',
+    './store': './src/store.ts',
   },
   shared: {
     ...dependencies,

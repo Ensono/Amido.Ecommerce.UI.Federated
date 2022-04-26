@@ -2,6 +2,8 @@ import {Provider as ReduxProvider} from 'react-redux'
 
 import {Logger} from '@batman/core-logger'
 import {configureStore} from '@reduxjs/toolkit'
+//@ts-ignore
+import headerReducer from 'mfe_header/store'
 import {hydrateRoot} from 'react-dom/client'
 
 import counterSlice from '../ducks/counter'
@@ -17,9 +19,14 @@ spliceAllToHead(scripts)
 
 const root = document.getElementById('federated_modules_root_id')
 
-// TODO: type this properly
-// TODO: generate from arbitrary reducers
-const store = configureStore({reducer: {counter: counterSlice}, preloadedState: (window as any).initialState})
+const {initialState} = window as any
+// TODO: this should come via prerender
+initialState.headerCounter = {value: ''}
+
+const store = configureStore({
+  reducer: {counter: counterSlice, headerCounter: headerReducer},
+  preloadedState: initialState,
+})
 delete (window as any).initialState
 
 hydrateRoot(
