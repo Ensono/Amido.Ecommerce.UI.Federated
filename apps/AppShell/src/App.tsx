@@ -36,6 +36,7 @@ const ProductDetails = federateComponent('mfe_product_details', './product-detai
  * @remarks
  *
  */
+// TODO: Add error page for invalid route
 const App: FC = () => {
   return (
     <StrictMode>
