@@ -160,7 +160,8 @@
     ],
     "resetMocks": true,
     "coverageReporters": [
-      "json-summary"
+      "json-summary",
+      "text"
     ],
     "coverageThreshold": {
       "global": {

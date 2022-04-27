@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import path from 'path'
 
 import {helmetGuard, htmlMiddleware, httpLogger, prerenderMiddleware, renderMiddleware} from '@batman/middlewares'

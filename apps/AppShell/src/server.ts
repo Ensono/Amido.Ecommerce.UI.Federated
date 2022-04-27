@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import {Logger} from '@batman/core-logger'
 
 import server from './server/'

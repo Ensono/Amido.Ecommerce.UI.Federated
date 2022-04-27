@@ -16,7 +16,7 @@
     "docs": "typedoc --out ../../../docs/middlewares src/*.*",
     "lint": "eslint --ext .tsx,.ts src/",
     "tsc": "tsc",
-    "test": "jest src/"
+    "test": "jest src/ --coverage"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.1",
@@ -50,5 +50,17 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
-  "gitHead": ""
+  "gitHead": "",
+  "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text"
+    ]
+  }
 }
