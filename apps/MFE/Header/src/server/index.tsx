@@ -36,7 +36,7 @@ app.use(httpLogger(process.env.NODE_ENV === 'development'))
 app.use(helmetGuard)
 
 app.use('/app', htmlMiddleware, renderMiddleware(renderOptions))
-app.use('/prerender', json(), stateMiddleware(headerStore.getState()), prerenderMiddleware(remoteEntry))
+app.use('/prerender', json(), stateMiddleware(headerStore), prerenderMiddleware(remoteEntry))
 app.use('/', express.static(publicPath))
 
 export default app

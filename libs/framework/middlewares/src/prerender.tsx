@@ -50,11 +50,14 @@ export const prerenderMiddleware = remoteEntry => {
 
       let timeout
 
-      const el = (
-        <Component {...props}>{`\u200Cchildren\u200C`}</Component>
-      )
+      const initialState = res.initialState ? JSON.stringify(res.initialState) : 'NO STATE'
+      const MyProvider = res.provider
 
-      const initialState = res?.initialState ? JSON.stringify(res.initialState) : 'NO STATE'
+      const el = (
+        initialState !== 'NO STATE'
+          ? <MyProvider store={res.initialStore}><Component {...props}>{`\u200Cchildren\u200C`}</Component></MyProvider>
+          : <Component {...props}>{`\u200Cchildren\u200C`}</Component>
+      )
 
       const {pipe} = renderToPipeableStream(el, {
         onAllReady() {

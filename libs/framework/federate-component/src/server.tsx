@@ -52,7 +52,8 @@ export const getServerComponent = (
         },
       })
       let parsedChunks: Array<any>
-      const [chunks, html] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
+      const [chunks, html, state] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
+      
       try {
         parsedChunks = JSON.parse(chunks)
       } catch (err: any) {
@@ -124,6 +125,8 @@ export const getServerComponent = (
                   <script key={chunk} defer src={chunk} />
                 ),
               )}
+              {/* output the initial state from each MFE module  */}
+              { <div className="hidden-state" data-state={module}>{state}</div> }
               {/* Render the re-constructed react element */}
               {reactElement}
             </>
