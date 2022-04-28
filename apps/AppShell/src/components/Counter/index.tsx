@@ -1,19 +1,18 @@
-import {useDispatch, useSelector} from 'react-redux'
+import connect from './connect'
 
-import {RootState, counterActions} from '../../store'
+interface CounterProps {
+  count: number
+  increment: () => void
+  reset: () => void
+}
 
-const {increment, set} = counterActions
-
-const Counter = () => {
-  const count = useSelector((state: RootState) => state.counter.value)
-  const dispatch = useDispatch()
-
+export const Counter = ({count, increment, reset}: CounterProps) => {
   return (
     <div>
       <h2>Count: {count}</h2>
-      <button onClick={() => dispatch(increment())}>Make number go up plz</button>
-      <button onClick={() => dispatch(set(0))}>Reset</button>
+      <button onClick={increment}>Make number go up plz</button>
+      <button onClick={reset}>Reset</button>
     </div>
   )
 }
-export default Counter
+export default connect(Counter)

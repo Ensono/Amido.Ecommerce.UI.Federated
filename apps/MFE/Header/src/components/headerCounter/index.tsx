@@ -1,19 +1,12 @@
-import {useDispatch, useSelector} from 'react-redux'
+import connect from './connect'
 
-import {RootState, headerCounterActions} from '../../store'
-
-const {increment, decrement} = headerCounterActions
-
-const HeaderCounter = () => {
-  const count = useSelector((state: RootState) => state?.headerCounter?.value)
-  const dispatch = useDispatch()
-
+export const HeaderCounter = ({count, increment, decrement}) => {
   return (
     <div>
       <h2>Header Count: {count}</h2>
-      <button onClick={() => dispatch(increment())}>Make number go up plz</button>
-      <button onClick={() => dispatch(decrement())}>Make number go down pretty plz</button>
+      <button onClick={increment}>Make number go up plz</button>
+      <button onClick={decrement}>Make number go down pretty plz</button>
     </div>
   )
 }
-export default HeaderCounter
+export default connect(HeaderCounter)
