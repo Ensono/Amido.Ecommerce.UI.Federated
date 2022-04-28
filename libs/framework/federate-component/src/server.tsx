@@ -126,7 +126,7 @@ export const getServerComponent = (
                 ),
               )}
               {/* output the initial state from each MFE module  */}
-              { <div style={display: 'none'} className="hidden-state" data-state={module}>{state}</div> }
+              { state === 'NO STATE' ? null : <div className="hidden-state" style={{display: 'none'}} data-state={module}>{state}</div> }
               {/* Render the re-constructed react element */}
               {reactElement}
             </>
