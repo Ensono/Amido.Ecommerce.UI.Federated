@@ -8,11 +8,13 @@ import {hydrateRoot} from 'react-dom/client'
 
 import counterSlice from '../ducks/counter'
 import reportWebVitals from '../reportWebVitals'
+import {combineInitialState} from '../utils/combineInitialStates'
 import {spliceAllToHead} from '../utils/spliceAllToHead'
 import App from './client_app'
 
 const links = document.body.getElementsByTagName('link')
 const scripts = document.body.getElementsByTagName('script')
+const state = document.querySelectorAll('div.hidden-state')
 
 spliceAllToHead(links)
 spliceAllToHead(scripts)
@@ -20,12 +22,12 @@ spliceAllToHead(scripts)
 const root = document.getElementById('federated_modules_root_id')
 
 const {initialState} = window as any
-// TODO: this should come via prerender
-initialState.headerCounter = {value: ''}
+
+const combinedStates = combineInitialState(initialState, state)
 
 const store = configureStore({
   reducer: {counter: counterSlice, headerCounter: headerReducer},
-  preloadedState: initialState,
+  preloadedState: combinedStates,
 })
 delete (window as any).initialState
 

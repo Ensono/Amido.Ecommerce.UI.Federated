@@ -1,11 +1,9 @@
 import React from 'react'
-import {Provider as ReduxProvider} from 'react-redux'
 import * as ReactRedux from 'react-redux'
 
 import {constants} from '@batman/constants'
 import {Logger} from '@batman/core-logger'
 import {getRemoteUrls} from '@batman/remote-urls'
-import {PayloadAction, configureStore, createSlice} from '@reduxjs/toolkit'
 import {NextFunction} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
@@ -16,32 +14,6 @@ import {renderToPipeableStream} from 'react-dom/server'
  *
  * @param remoteEntry - built remote-entry.cjs, generated in config/webpack/remote.js
  */
-
-// TODO: this should all be federated from app-shell
-export interface CounterState {
-  value: number
-}
-
-const initialState: CounterState = {
-  value: 10,
-}
-
-export const counterSlice = createSlice({
-  name: 'counter',
-  initialState,
-  reducers: {
-    increment: state => {
-      state.value += 1
-    },
-    set: (state, action: PayloadAction<number>) => {
-      state.value = action.payload
-    },
-  },
-})
-
-export const {increment, set} = counterSlice.actions
-export default counterSlice.reducer
-
 export const prerenderMiddleware = remoteEntry => {
   const remoteInitPromise = (remoteEntry as any).init({
     react: {
@@ -78,11 +50,13 @@ export const prerenderMiddleware = remoteEntry => {
 
       let timeout
 
-      const store = configureStore({reducer: {counter: counterSlice.reducer}})
+      const initialState = res.initialState ? JSON.stringify(res.initialState) : 'NO STATE'
+      const MyProvider = res.provider
+
       const el = (
-        <ReduxProvider store={store}>
-          <Component {...props}>{`\u200Cchildren\u200C`}</Component>
-        </ReduxProvider>
+        initialState !== 'NO STATE'
+          ? <MyProvider store={res.initialStore}><Component {...props}>{`\u200Cchildren\u200C`}</Component></MyProvider>
+          : <Component {...props}>{`\u200Cchildren\u200C`}</Component>
       )
 
       const {pipe} = renderToPipeableStream(el, {
@@ -93,6 +67,8 @@ export const prerenderMiddleware = remoteEntry => {
           res.write(stringifiedChunks)
           res.write(constants.SERIALISED_RESPONSE_SEPARATOR)
           pipe(res)
+          res.write(constants.SERIALISED_RESPONSE_SEPARATOR)
+          res.write(initialState)
           clearTimeout(timeout)
         },
         onError(x: Error) {
