@@ -6,7 +6,7 @@ interface CounterProps {
   reset: () => void
 }
 
-const Counter = ({count, increment, reset}: CounterProps) => {
+export const Counter = ({count, increment, reset}: CounterProps) => {
   return (
     <div>
       <h2>Count: {count}</h2>

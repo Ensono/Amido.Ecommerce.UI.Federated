@@ -1,9 +1,7 @@
 import {decrement, increment} from '../../ducks/headerCounter'
-import {headerStore} from '../../store'
 import {mapStateToProps, mergeProps} from './connect'
 
-// TODO: this should be mocked out
-const mockState = headerStore.getState()
+const mockState = {headerCounter: {value: 0}}
 const mockDispatch = jest.fn()
 
 describe('headerCounter - connect', () => {
