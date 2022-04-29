@@ -15,9 +15,6 @@ exports[`Header renders as expected 1`] = `
         Make number go down pretty plz
       </button>
     </div>
-    <div>
-      loading text positioner...
-    </div>
   </div>
 </div>
 `;
