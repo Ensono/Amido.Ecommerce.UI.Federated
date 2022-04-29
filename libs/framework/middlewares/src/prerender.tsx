@@ -51,9 +51,6 @@ export const prerenderMiddleware = remoteEntry => {
 
       let timeout
 
-      // RootContextProvider . Do we need it? What to supply as context?
-      // RoutePendingContextPorivder . Do we need it?
-      // StaticRouter . Do we need it? Supply the correct location through the request somehow
       const el = (
         <ReactRouterDom.StaticRouter location="/">
           <Component {...props}>{`\u200Cchildren\u200C`}</Component>
