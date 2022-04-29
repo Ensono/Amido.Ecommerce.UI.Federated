@@ -11,5 +11,8 @@
     "build": "rollup -c"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@batman/core-logger": "^7.3.1"
+  }
 }

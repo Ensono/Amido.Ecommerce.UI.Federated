@@ -1,3 +1,5 @@
+import {Logger} from '@batman/core-logger'
+
 export const getRemoteUrls = () => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -8,7 +10,8 @@ export const getRemoteUrls = () => {
       }
     })
     return remotes
-  } catch {
+  } catch (err: any) {
+    Logger.error(err)
     return {}
   }
 }
