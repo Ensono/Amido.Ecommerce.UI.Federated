@@ -1,26 +1,17 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {FC, StrictMode, createContext} from 'react'
 
 import {Text} from '@batman-ui-components/text'
-import {context, federateComponent} from '@batman/federate-component'
+import {federateComponent} from '@batman/federate-component'
 import {getRemoteUrls} from '@batman/remote-urls'
 
-import logo from './logo.svg'
+import Counter from './components/Counter'
+
 import './App.css'
 
-// TODO: what is this?
-export {context}
-
 const ThemeContext = createContext(null)
-const ReduxContext = createContext(null)
 
 export const ThemeProvider = ({children, data}: any) => {
   return <ThemeContext.Provider value={data}>{children}</ThemeContext.Provider>
-}
-
-export const ReduxProvider = ({children, data}: any) => {
-  return <ReduxContext.Provider value={data}>{children}</ReduxContext.Provider>
 }
 
 const remotesUrls = getRemoteUrls()
@@ -42,9 +33,7 @@ const App: FC = () => {
         </Header>
         <div className="App">
           <section className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            {/* eslint-disable-next-line no-console */}
-            <p onClick={() => console.log('lallero')}>Page 1</p>
+            <Counter />
             <Text />
           </section>
         </div>

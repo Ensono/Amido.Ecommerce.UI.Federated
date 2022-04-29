@@ -1,4 +1,5 @@
 import React from 'react'
+import * as ReactRedux from 'react-redux'
 
 import {constants} from '@batman/constants'
 import {Logger} from '@batman/core-logger'
@@ -6,6 +7,7 @@ import {getRemoteUrls} from '@batman/remote-urls'
 import {NextFunction} from 'express'
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
+
 /**
  * Generates payload of downstream client remote entry files and renders the react module exposed
  * in remote-entry.cjs of each application
@@ -17,6 +19,12 @@ export const prerenderMiddleware = remoteEntry => {
     react: {
       [React.version]: {
         get: () => () => React,
+      },
+    },
+    // TODO: can this be automated?
+    'react-redux': {
+      '7.2.8': {
+        get: () => () => ReactRedux,
       },
     },
   })
@@ -33,9 +41,7 @@ export const prerenderMiddleware = remoteEntry => {
       const REMOTE_ENTRIES = Object.entries(remoteUrls).map(([, entry]) => `${entry}/remote-entry.js`)
 
       await remoteInitPromise
-
       const factory = await (remoteEntry as any).get(module)
-
       let Component = factory()
       Component = (Component && Component.default) || Component
 
@@ -44,7 +50,14 @@ export const prerenderMiddleware = remoteEntry => {
 
       let timeout
 
-      const el = React.createElement(Component, props || {}, `\u200Cchildren\u200C`)
+      const initialState = req.initialState ? JSON.stringify(req.initialState) : 'NO STATE'
+      const InitialStateProvider = req.provider
+
+      const el = (
+        initialState !== 'NO STATE'
+          ? <InitialStateProvider store={req.initialStore}><Component {...props}>{`\u200Cchildren\u200C`}</Component></InitialStateProvider>
+          : <Component {...props}>{`\u200Cchildren\u200C`}</Component>
+      )
 
       const {pipe} = renderToPipeableStream(el, {
         onAllReady() {
@@ -54,6 +67,8 @@ export const prerenderMiddleware = remoteEntry => {
           res.write(stringifiedChunks)
           res.write(constants.SERIALISED_RESPONSE_SEPARATOR)
           pipe(res)
+          res.write(constants.SERIALISED_RESPONSE_SEPARATOR)
+          res.write(initialState)
           clearTimeout(timeout)
         },
         onError(x: Error) {

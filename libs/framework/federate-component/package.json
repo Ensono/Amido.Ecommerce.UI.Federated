@@ -9,6 +9,7 @@
     "docs": "typedoc --out ../../../docs/federate-component src/*.*",
     "lint": "eslint 'src/**/*.{jsx,js,tsx,ts}' --fix",
     "build": "rollup -c",
+    "watch": "rollup -c -w",
     "build-ci": "rollup -c rollup.prod.config.js",
     "test": "node ../../../scripts/test.js --coverage --watchAll=false",
     "test:watch": "node ../../../scripts/test.js"

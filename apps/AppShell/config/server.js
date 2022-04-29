@@ -6,6 +6,7 @@ const getFederationConfig = REMOTES => ({
   library: {type: 'commonjs'},
   remotes: REMOTES,
   shared: {
+    ...dependencies,
     react: {
       singleton: true,
       eager: true,

@@ -1,23 +1,8 @@
-// import ReactDOM from 'react-dom'
-import {Logger} from '@batman/core-logger'
-import {hydrateRoot} from 'react-dom/client'
+/**
+ * This import structure is required so Webpack splits chunks correctly, so shared
+ * modules are loaded when running the micro-frontend on its own.
+ * See {@link https://webpack.js.org/concepts/module-federation/#uncaught-error-shared-module-is-not-available-for-eager-consumption}
+ */
 
-import reportWebVitals from '../reportWebVitals'
-import {spliceAllToHead} from '../utils/spliceAllToHead'
-import App from './client_app'
-
-const links = document.body.getElementsByTagName('link')
-const scripts = document.body.getElementsByTagName('script')
-
-spliceAllToHead(links)
-spliceAllToHead(scripts)
-
-const root = document.getElementById('federated_modules_root_id')
-
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-hydrateRoot(root!, <App />)
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals(Logger.info)
+import('./bootstrap')
+export default {}

@@ -1,4 +1,5 @@
 import React from 'react'
+import * as ReactRedux from 'react-redux'
 
 // @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
@@ -24,6 +25,11 @@ describe('prerender middleware', () => {
       react: {
         [React.version]: {
           get: () => () => React,
+        },
+      },
+      'react-redux': {
+        '7.2.8': {
+          get: () => () => ReactRedux,
         },
       },
     })

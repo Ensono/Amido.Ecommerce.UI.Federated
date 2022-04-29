@@ -102,3 +102,23 @@ Functionality can be shared across packages without the overhead of publishing t
 // cool-package-1/index.js
 import coolFunction from 'cool-package-2'
 ```
+
+## Federated Redux
+
+- Each MFE has its own Redux state, and can render standalone at `http://localhost:[port]/app`
+- When the module is federated into the app-shell, that state is read from the app-shell's top-level store
+- initial state is passed from the MFE to the app-shell via prerender middleware and the `federate-component` package,
+  and collated together when the app-shell client bootstraps itself
+- each MFE exports a reducer via client-side module federation, which get combined with the app-shell reducer before the
+  app hydrates on the client
+- this way, although the MFEs share a common store, they can't (or at least shouldn't) affect the state of other MFEs.
+
+### Adding Redux to a remote
+
+- Add redux to standalone app using redux toolkit, build state, reducers etc and apply to components using `connect`
+- export the reducer as a default export
+- add the file that exports the reducer to the MFE's `exposes` config, e.g. `exposes: {'./store': './src/store.ts',}`
+- in the consumer, update the REMOTE_URLS env variable to use the format `"mfe_name":"mfe_name@mfe_url"`
+- in the consumer's client bootstrap file, import the reducer from the remote `import mfe_reducer from 'mfe_name/store`
+- when initialising redux on the client, combine the reducers from all the remotes with the initial state that gets
+  passed through the initial state middleware

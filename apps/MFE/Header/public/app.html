@@ -7,12 +7,8 @@
     <link rel="shortcut icon" href="__FAV_ICON_PATH__" type="image/x-icon" />
     <link rel="icon" href="__FAV_ICON_PATH__" type="image/x-icon" />
     <meta name="Batman's header" content="batman is a guy in a fancy outfit" />
-    <script id="state-init-script">
-      window.ssrClientSettings = window.ssrClientSettings || {}
-      window.ssrClientSettings.appshell = {
-        _STATE_: __INITIAL_STATE__,
-        appProps: __APP_PROPS__,
-      }
+    <script>
+      window.initialState = __INITIAL_STATE__
     </script>
     __REMOTE_ENTRIES_JS__
     <title>Batman: Header MFE</title>

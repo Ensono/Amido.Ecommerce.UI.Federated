@@ -2,12 +2,9 @@ import {Component} from 'react'
 
 import {Logger} from '@batman/core-logger'
 
-import App, {ReduxProvider} from '../App'
+import App from '../App'
 
 export class ClientApp extends Component<any, {hasError: boolean}> {
-  // eslint-disable-next-line react/static-property-placement
-  static displayName = 'C_App_Component'
-
   constructor(props: any) {
     super(props)
     this.state = {
@@ -23,23 +20,14 @@ export class ClientApp extends Component<any, {hasError: boolean}> {
   }
 
   componentDidCatch(error: any, errorInfo: any) {
-    Logger.error(`${error}, ${errorInfo}`, document.cookie)
+    Logger.error(`${error}, ${errorInfo}`)
   }
 
   render() {
     if (this.state.hasError) {
-      return (
-        <div data-testid="client-error" className="x-next-plat-mod">
-          {' '}
-          ERROR
-        </div>
-      )
+      return <div>ERROR</div>
     }
-    return (
-      <ReduxProvider value={{}}>
-        <App {...this.props} />
-      </ReduxProvider>
-    )
+    return <App {...this.props} />
   }
 }
 
