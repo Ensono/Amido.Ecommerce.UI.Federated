@@ -53,7 +53,7 @@ export const getServerComponent = (
       })
       let parsedChunks: Array<any>
       const [chunks, html, state] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
-      
+
       try {
         parsedChunks = JSON.parse(chunks)
       } catch (err: any) {
@@ -126,7 +126,11 @@ export const getServerComponent = (
                 ),
               )}
               {/* output the initial state from each MFE module  */}
-              { state === 'NO STATE' ? null : <div className="hidden-state" style={{display: 'none'}} data-state={module}>{state}</div> }
+              {state === 'NO STATE' ? null : (
+                <div className="hidden-state" style={{display: 'none'}} data-state={module}>
+                  {state}
+                </div>
+              )}
               {/* Render the re-constructed react element */}
               {reactElement}
             </>
