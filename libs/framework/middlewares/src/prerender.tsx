@@ -50,12 +50,12 @@ export const prerenderMiddleware = remoteEntry => {
 
       let timeout
 
-      const initialState = res.initialState ? JSON.stringify(res.initialState) : 'NO STATE'
-      const MyProvider = res.provider
+      const initialState = req.initialState ? JSON.stringify(req.initialState) : 'NO STATE'
+      const InitialStateProvider = req.provider
 
       const el = (
         initialState !== 'NO STATE'
-          ? <MyProvider store={res.initialStore}><Component {...props}>{`\u200Cchildren\u200C`}</Component></MyProvider>
+          ? <InitialStateProvider store={req.initialStore}><Component {...props}>{`\u200Cchildren\u200C`}</Component></InitialStateProvider>
           : <Component {...props}>{`\u200Cchildren\u200C`}</Component>
       )
 
