@@ -1,4 +1,4 @@
-// const {dependencies} = require('../package.json')
+const {dependencies} = require('../package.json')
 
 const getFederationConfig = REMOTES => ({
   name: 'mfe_header',
@@ -6,8 +6,11 @@ const getFederationConfig = REMOTES => ({
   remotes: REMOTES,
   exposes: {
     './header': './src/Header.tsx',
+    './store': './src/store.ts',
   },
-  shared: ['react', 'react-dom'],
+  shared: {
+    ...dependencies,
+  },
 })
 
 module.exports = {getFederationConfig}

@@ -82,8 +82,7 @@
     "webpack-federated-stats-plugin": "2.0.5",
     "webpack-manifest-plugin": "^4.0.2",
     "webpack-node-externals": "3.0.0",
-    "webpack-stats-plugin": "1.0.3",
-    "workbox-webpack-plugin": "^6.4.1"
+    "webpack-stats-plugin": "1.0.3"
   },
   "devDependencies": {
     "@batman/eslint-config": "1.0.0",

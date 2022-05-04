@@ -9,6 +9,7 @@ const getFederationConfig = REMOTES => ({
     './header': './src/Header.tsx',
   },
   shared: {
+    ...dependencies,
     react: {
       singleton: true,
       eager: true,

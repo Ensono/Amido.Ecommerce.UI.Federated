@@ -14,6 +14,18 @@ exports[`Header renders as expected 1`] = `
       loading navigation...
     </div>
     <div>
+      <h2>
+        Header Count: 
+        0
+      </h2>
+      <button>
+        Make number go up plz
+      </button>
+      <button>
+        Make number go down pretty plz
+      </button>
+    </div>
+    <div>
       foo bar
     </div>
   </div>

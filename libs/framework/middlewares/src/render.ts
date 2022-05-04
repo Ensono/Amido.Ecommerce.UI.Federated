@@ -8,37 +8,43 @@ import {AbortRenderToPipe, RenderMiddlewareOptions, StringMap} from '../types'
 
 const defaultHtmlReplacements: StringMap = {
   INITIAL_STATE: JSON.stringify({}),
-  APP_PROPS: JSON.stringify({}),
   DIRECTION: 'ltr',
   lang: 'lang=en',
-  // TODO: not sure this is right - Next-specific
-  FAV_ICON_PATH: (process.env.ASSETS_PATH || '/static-content', 'next'),
+  FAV_ICON_PATH: 'favicon.ico',
   REMOTE_ENTRIES_JS: Object.entries(getRemoteUrls())
     .map(([, entry]) => `<script defer src="${entry}/remote-entry.js"></script>`)
     .join(''),
 }
-
-export const renderMiddleware = ({app, errorStatusCode, htmlReplacements}: RenderMiddlewareOptions) => {
+// TODO: remove these params and do it all through the req
+export const renderMiddleware = ({app, errorStatusCode, htmlReplacements}: RenderMiddlewareOptions = {}) => {
   errorStatusCode = errorStatusCode ?? 500
 
   const handler: Handler = (req, res, next) => {
     let timeout
     let didError = false
-    let html = (req as any).html
-    const App = app(req.originalUrl)
+    // TODO: type this properly
+    const unsafeReq = req as any
+    let html = unsafeReq.html
 
-    htmlReplacements = {
+    app = app ?? unsafeReq?.renderOptions?.app()
+
+    const mergedHtmlReplacements = {
       ...defaultHtmlReplacements,
-      ...htmlReplacements,
+      ...(htmlReplacements && {
+        ...htmlReplacements,
+      }),
+      ...(unsafeReq?.renderOptions?.htmlReplacements && {
+        ...unsafeReq.renderOptions.htmlReplacements,
+      }),
     }
 
-    Object.keys(htmlReplacements).forEach(key => {
-      const value = htmlReplacements[key]
+    Object.keys(mergedHtmlReplacements).forEach(key => {
+      const value = mergedHtmlReplacements[key]
       html = html.replace(new RegExp(`__${key}__`, 'g'), value)
     })
     const [first, last] = html.split('__HTML__')
 
-    const {pipe, abort} = renderToPipeableStream(App, {
+    const {pipe, abort} = renderToPipeableStream(app, {
       onAllReady() {
         // If something errored before we started streaming, we set the error code appropriately.
         res.statusCode = didError ? errorStatusCode : 200

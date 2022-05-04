@@ -1,4 +1,4 @@
-# Next.Ecommerce.UI.Federated
+# Amido.Ecommerce.UI.Federated
 
 Federated Modules Production Grade boilerplate
 
@@ -61,3 +61,64 @@ Testing can be done from the root via commands like `npm run host:eslint`
 ## Docs
 
 Build tsdocs with `npm run docs` and serve docs locally with `npm run docs:serve`
+
+## Working with npm 8 workspaces
+
+[npm 8 workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces) have a number of features which make working with
+large monorepo projects simpler. Workspaces are defined in the root package's `package.json`, e.g.
+
+```
+  "workspaces": [
+    "./cool-package-1",
+    "./cool-package-2",
+  ],
+```
+
+We can then run scripts from those packages without having to change directory, e.g.
+
+```
+$ npm run build -w cool-package-1
+```
+
+or run the same script in all workspaces
+
+```
+$ npm run build --ws
+```
+
+Note the `-w` argument refers to the name defined in the workspace's `package.json`, not the path used above.
+
+### Shared dependencies
+
+When installing dependencies, by default they will be installed into the root package's `node_modules` and symlinked
+into the child packages. This speeds up installation and reduces the amount of disk space required when using the same
+dependency across different packages.
+
+### Local libraries
+
+Functionality can be shared across packages without the overhead of publishing to a registry like npm, e.g.
+
+```
+// cool-package-1/index.js
+import coolFunction from 'cool-package-2'
+```
+
+## Federated Redux
+
+- Each MFE has its own Redux state, and can render standalone at `http://localhost:[port]/app`
+- When the module is federated into the app-shell, that state is read from the app-shell's top-level store
+- initial state is passed from the MFE to the app-shell via prerender middleware and the `federate-component` package,
+  and collated together when the app-shell client bootstraps itself
+- each MFE exports a reducer via client-side module federation, which get combined with the app-shell reducer before the
+  app hydrates on the client
+- this way, although the MFEs share a common store, they can't (or at least shouldn't) affect the state of other MFEs.
+
+### Adding Redux to a remote
+
+- Add redux to standalone app using redux toolkit, build state, reducers etc and apply to components using `connect`
+- export the reducer as a default export
+- add the file that exports the reducer to the MFE's `exposes` config, e.g. `exposes: {'./store': './src/store.ts',}`
+- in the consumer, update the REMOTE_URLS env variable to use the format `"mfe_name":"mfe_name@mfe_url"`
+- in the consumer's client bootstrap file, import the reducer from the remote `import mfe_reducer from 'mfe_name/store`
+- when initialising redux on the client, combine the reducers from all the remotes with the initial state that gets
+  passed through the initial state middleware

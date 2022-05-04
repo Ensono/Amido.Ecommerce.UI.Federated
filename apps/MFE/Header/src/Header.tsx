@@ -1,9 +1,9 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 
 import {federateComponent} from '@batman/federate-component'
 import {getRemoteUrls} from '@batman/remote-urls'
+
+import HeaderCounter from './components/headerCounter'
 
 const REMOTES = getRemoteUrls()
 
@@ -12,7 +12,7 @@ const Navigation = federateComponent('mfe_navigation', './navigation', REMOTES.m
 const Header: React.FC = ({children}) => {
   return (
     <div>
-      <div onClick={() => console.log('ciao mamma header')}>
+      <div>
         <p data-testid="paragraph-in-header">I am the HEADERRRRR'"</p>
       </div>
       <Navigation
@@ -20,6 +20,7 @@ const Header: React.FC = ({children}) => {
         errorFallback={<div>error loading navigation!</div>}
         position="bottom"
       />
+      <HeaderCounter />
       <div>{children}</div>
     </div>
   )

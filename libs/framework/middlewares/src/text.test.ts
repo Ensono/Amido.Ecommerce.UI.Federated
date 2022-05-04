@@ -42,6 +42,10 @@ jest.mock('fs', () => ({
   },
 }))
 
+jest.mock('@batman/remote-urls', () => ({
+  getRemoteUrls: () => ({mfe_footer: 'http://localhost:3003'}),
+}))
+
 describe('textMiddleware', () => {
   describe('Working scenario with text available from cache', () => {
     const cache = {
@@ -118,8 +122,9 @@ describe('textMiddleware', () => {
       expect(cache.get).toHaveBeenCalledWith(textUrl)
       expect(cache.get).toReturnWith(null)
     })
-    it('Should call readFile', () => {
-      expect(fs.promises.readFile).toHaveBeenCalled()
+
+    it('Should call readFile', async () => {
+      expect(await fs.promises.readFile).toHaveBeenCalled()
 
       expect(fs.promises.readFile).toHaveBeenCalledWith('publicPath/text/default-text.json')
     })

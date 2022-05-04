@@ -37,11 +37,14 @@
     "@batman/core-logger": "*",
     "@batman/header": "^0.1.1",
     "@batman/remote-urls": "*",
+    "@reduxjs/toolkit": "^1.8.1",
     "babel-preset-jest": "^27.5.1",
     "helmet": "^3.21.2",
     "morgan": "^1.10.0",
+    "react-redux": "^8.0.0",
     "react-router": "^5.3.1",
     "react-router-dom": "^5.3.1",
+    "redux": "^4.2.0",
     "uuid": "^3.4.0"
   },
   "peerDependencies": {

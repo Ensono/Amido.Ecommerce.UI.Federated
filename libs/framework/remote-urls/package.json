@@ -6,13 +6,15 @@
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "jest src/ --coverage --watchAll=false",
+    "test:watch": "jest src/ --watch",
     "build": "rollup -c"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@batman/header": "^0.1.1",
-    "react-router-dom": "^5.3.1"
+    "react-router-dom": "^5.3.1",
+    "@batman/core-logger": "^7.3.1"
   }
 }

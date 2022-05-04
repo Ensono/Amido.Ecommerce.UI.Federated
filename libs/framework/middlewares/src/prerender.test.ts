@@ -1,4 +1,5 @@
 import React from 'react'
+import * as ReactRedux from 'react-redux'
 import * as ReactRouterDom from 'react-router-dom'
 
 // @ts-ignore
@@ -30,6 +31,11 @@ describe('prerender middleware', () => {
       'react-router-dom': {
         '5.3.1': {
           get: () => () => ReactRouterDom,
+        },
+      },
+      'react-redux': {
+        '7.2.8': {
+          get: () => () => ReactRedux,
         },
       },
     })

@@ -2,7 +2,7 @@ import {Component} from 'react'
 
 import {Logger} from '@batman/core-logger'
 
-import App, {ReduxProvider} from '../App'
+import App from '../App'
 
 export class ClientApp extends Component<any, {hasError: boolean}> {
   // eslint-disable-next-line react/static-property-placement
@@ -30,11 +30,7 @@ export class ClientApp extends Component<any, {hasError: boolean}> {
     if (this.state.hasError) {
       return <div data-testid="client-error" />
     }
-    return (
-      <ReduxProvider value={{}}>
-        <App {...this.props} />
-      </ReduxProvider>
-    )
+    return <App {...this.props} />
   }
 }
 

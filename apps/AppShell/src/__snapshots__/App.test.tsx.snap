@@ -11,17 +11,22 @@ exports[`App Routes should naviagate successfully to the /app page 1`] = `
     <section
       class="App-header"
     >
-      <img
-        alt="logo"
-        class="App-logo"
-        src="logo.svg"
-      />
       <p>
         Page 1
       </p>
       <div>
-        Shared text
+        <h2>
+          Count: 
+          0
+        </h2>
+        <button>
+          Make number go up plz
+        </button>
+        <button>
+          Reset
+        </button>
       </div>
+      Shared text
     </section>
   </div>
   <section>

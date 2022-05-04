@@ -1,8 +1,10 @@
+import {Provider} from 'react-redux'
 import {MemoryRouter} from 'react-router-dom'
 
-import {fireEvent, render, screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
 
 import App from './App'
+import {store} from './store'
 
 jest.mock('@batman/federate-component', () => {
   return {
@@ -19,29 +21,13 @@ describe('App', () => {
     const routes = ['/app', '/app/productListing', '/app/productDetails/1', '/app/error-example']
     it.each(routes)('should naviagate successfully to the %s page', route => {
       const {container} = render(
-        <MemoryRouter initialEntries={[route]}>
-          <App />
-        </MemoryRouter>,
+        <Provider store={store}>
+          <MemoryRouter initialEntries={[route]}>
+            <App />
+          </MemoryRouter>
+        </Provider>,
       )
       expect(container).toMatchSnapshot()
-    })
-  })
-
-  describe('Page 1', () => {
-    it('should display a log in the console when clicked', async () => {
-      const consoleLogMock = jest.spyOn(console, 'log').mockImplementation()
-
-      render(
-        <MemoryRouter initialEntries={['/app']}>
-          <App />
-        </MemoryRouter>,
-      )
-
-      expect(consoleLogMock).not.toBeCalled()
-      fireEvent.click(screen.getByText('Page 1'))
-      expect(consoleLogMock).toBeCalled()
-
-      consoleLogMock.mockRestore()
     })
   })
 })
