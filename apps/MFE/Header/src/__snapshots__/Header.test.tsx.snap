@@ -4,6 +4,15 @@ exports[`Header renders as expected 1`] = `
 <div>
   <div>
     <div>
+      <div>
+        Local State Counter: 
+        0
+      </div>
+      <button>
+        Increase local state counter
+      </button>
+    </div>
+    <div>
       <h2>
         Header Count: 
         0

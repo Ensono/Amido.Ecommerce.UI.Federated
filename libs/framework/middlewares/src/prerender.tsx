@@ -53,11 +53,14 @@ export const prerenderMiddleware = remoteEntry => {
       const initialState = req.initialState ? JSON.stringify(req.initialState) : 'NO STATE'
       const InitialStateProvider = req.provider
 
-      const el = (
-        initialState !== 'NO STATE'
-          ? <InitialStateProvider store={req.initialStore}><Component {...props}>{`\u200Cchildren\u200C`}</Component></InitialStateProvider>
-          : <Component {...props}>{`\u200Cchildren\u200C`}</Component>
-      )
+      const el =
+        initialState !== 'NO STATE' ? (
+          <InitialStateProvider store={req.initialStore}>
+            <Component {...props}>{`\u200Cchildren\u200C`}</Component>
+          </InitialStateProvider>
+        ) : (
+          <Component {...props}>{`\u200Cchildren\u200C`}</Component>
+        )
 
       const {pipe} = renderToPipeableStream(el, {
         onAllReady() {
