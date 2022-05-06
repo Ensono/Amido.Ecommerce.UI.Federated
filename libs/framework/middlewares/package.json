@@ -35,7 +35,6 @@
   },
   "dependencies": {
     "@batman/core-logger": "*",
-    "@batman/header": "^0.1.1",
     "@batman/remote-urls": "*",
     "@reduxjs/toolkit": "^1.8.1",
     "babel-preset-jest": "^27.5.1",

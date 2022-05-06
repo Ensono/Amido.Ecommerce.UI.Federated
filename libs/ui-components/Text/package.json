@@ -47,7 +47,6 @@
     "typescript-plugin-styled-components": "^1.5.0"
   },
   "dependencies": {
-    "@batman/header": "^0.1.1",
     "react-router-dom": "^5.3.1"
   }
 }

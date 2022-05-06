@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@batman/header": "^0.1.1",
     "react-router-dom": "^5.3.1"
   }
 }

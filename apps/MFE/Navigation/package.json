@@ -18,7 +18,6 @@
     "@babel/core": "^7.16.0",
     "@batman-ui-components/text": "*",
     "@batman/core-logger": "*",
-    "@batman/header": "^0.1.1",
     "@batman/middlewares": "*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
