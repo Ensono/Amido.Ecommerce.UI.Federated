@@ -20,7 +20,6 @@
     "@batman-ui-components/text": "*",
     "@batman/core-logger": "*",
     "@batman/federate-component": "*",
-    "@batman/header": "^0.1.1",
     "@batman/middlewares": "*",
     "@batman/remote-urls": "*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
