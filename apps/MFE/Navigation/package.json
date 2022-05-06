@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
-    "@batman-ui-components/text": "*",
+    "@batman-ui-components/text": "1.0.0",
     "@batman/core-logger": "*",
     "@batman/middlewares": "*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
