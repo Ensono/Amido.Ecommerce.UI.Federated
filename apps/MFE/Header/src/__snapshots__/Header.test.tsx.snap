@@ -4,6 +4,16 @@ exports[`Header renders as expected 1`] = `
 <div>
   <div>
     <div>
+      <p
+        data-testid="paragraph-in-header"
+      >
+        I am the HEADERRRRR'"
+      </p>
+    </div>
+    <div>
+      loading navigation...
+    </div>
+    <div>
       <h2>
         Header Count: 
         0
@@ -14,6 +24,9 @@ exports[`Header renders as expected 1`] = `
       <button>
         Make number go down pretty plz
       </button>
+    </div>
+    <div>
+      foo bar
     </div>
   </div>
 </div>

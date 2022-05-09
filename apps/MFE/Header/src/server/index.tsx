@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import path from 'path'
 
 import {Provider as ReduxProvider} from 'react-redux'

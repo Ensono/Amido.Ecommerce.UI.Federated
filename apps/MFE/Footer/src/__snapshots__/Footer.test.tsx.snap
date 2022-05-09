@@ -8,7 +8,7 @@ exports[`Footer renders as expected 1`] = `
     <strong>
       I AM THE FOOTER
     </strong>
-    loading!
+    foo bar
   </footer>
 </div>
 `;

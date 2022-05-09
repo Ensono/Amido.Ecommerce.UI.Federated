@@ -1,20 +1,33 @@
 import {Provider} from 'react-redux'
+import {MemoryRouter} from 'react-router-dom'
 
-import {render, screen, waitFor} from '@testing-library/react'
+import {render} from '@testing-library/react'
 
 import App from './App'
 import {store} from './store'
 
-test('renders external components', async () => {
-  render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-  )
+jest.mock('@batman/federate-component', () => {
+  return {
+    __esModule: true,
+    federateComponent: (remote: string) =>
+      function mockComponent() {
+        return <section>{remote}</section>
+      },
+  }
+})
 
-  await waitFor(() => {
-    const sharedTextComponent = screen.getByText(/Shared text/i)
-
-    expect(sharedTextComponent).toBeInTheDocument()
+describe('App', () => {
+  describe('Routes', () => {
+    const routes = ['/app', '/app/productListing', '/app/productDetails/1', '/app/error-example']
+    it.each(routes)('should naviagate successfully to the %s page', route => {
+      const {container} = render(
+        <Provider store={store}>
+          <MemoryRouter initialEntries={[route]}>
+            <App />
+          </MemoryRouter>
+        </Provider>,
+      )
+      expect(container).toMatchSnapshot()
+    })
   })
 })

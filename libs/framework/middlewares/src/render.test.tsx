@@ -10,7 +10,7 @@ const configObjectCache = {
   obj: null,
 }
 
-const mockApp = <div>foo</div>
+const mockApp = () => <div>foo</div>
 const mockHtml = `
 <!DOCTYPE html>
 <html __lang__ dir="__DIRECTION__">

@@ -1,4 +1,5 @@
 import {Provider as ReduxProvider} from 'react-redux'
+import {BrowserRouter} from 'react-router-dom'
 
 import {Logger} from '@batman/core-logger'
 import {configureStore} from '@reduxjs/toolkit'
@@ -34,7 +35,9 @@ delete (window as any).initialState
 hydrateRoot(
   root!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
   <ReduxProvider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </ReduxProvider>,
 )
 
