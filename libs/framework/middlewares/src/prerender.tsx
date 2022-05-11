@@ -1,5 +1,6 @@
 import React from 'react'
 import * as ReactRedux from 'react-redux'
+import * as ReactRouterDom from 'react-router-dom'
 
 import {constants} from '@batman/constants'
 import {Logger} from '@batman/core-logger'
@@ -19,6 +20,11 @@ export const prerenderMiddleware = remoteEntry => {
     react: {
       [React.version]: {
         get: () => () => React,
+      },
+    },
+    'react-router-dom': {
+      '5.3.1': {
+        get: () => () => ReactRouterDom,
       },
     },
     // TODO: can this be automated?
@@ -56,10 +62,14 @@ export const prerenderMiddleware = remoteEntry => {
       const el =
         initialState !== 'NO STATE' ? (
           <InitialStateProvider store={req.initialStore}>
-            <Component {...props}>{`\u200Cchildren\u200C`}</Component>
+            <ReactRouterDom.StaticRouter location="/">
+              <Component {...props}>{`\u200Cchildren\u200C`}</Component>
+            </ReactRouterDom.StaticRouter>
           </InitialStateProvider>
         ) : (
-          <Component {...props}>{`\u200Cchildren\u200C`}</Component>
+          <ReactRouterDom.StaticRouter location="/">
+            <Component {...props}>{`\u200Cchildren\u200C`}</Component>
+          </ReactRouterDom.StaticRouter>
         )
 
       const {pipe} = renderToPipeableStream(el, {

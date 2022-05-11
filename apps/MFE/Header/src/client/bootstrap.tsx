@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import {Provider as ReduxProvider} from 'react-redux'
 
 import {configureStore} from '@reduxjs/toolkit'

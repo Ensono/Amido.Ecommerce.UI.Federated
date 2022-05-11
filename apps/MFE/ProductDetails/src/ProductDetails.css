@@ -1,0 +1,10 @@
+.product {
+  max-width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-image {
+  width: 200px;
+}

@@ -1,6 +1,8 @@
+/* istanbul ignore file */
 import path from 'path'
 
 import {Provider as ReduxProvider} from 'react-redux'
+import {StaticRouter} from 'react-router-dom'
 
 import {helmetGuard, htmlMiddleware, httpLogger, renderMiddleware} from '@batman/middlewares'
 import compression from 'compression'
@@ -31,9 +33,11 @@ const renderOptionsMiddleware = async (req: any, res: any, next: NextFunction) =
   const initialState = store.getState()
 
   const renderOptions = {
-    app: (
+    app: (location: string) => (
       <ReduxProvider store={store}>
-        <ReactApp />
+        <StaticRouter location={location}>
+          <ReactApp />
+        </StaticRouter>
       </ReduxProvider>
     ),
     errorStatusCode: 206,

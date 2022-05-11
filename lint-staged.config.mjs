@@ -2,10 +2,10 @@ export default {
   'apps/AppShell/**/*.*': () => ['npm run app-shell:lint', 'npm run app-shell:test', 'npm run app-shell:ratchet'],
   'apps/MFE/Header/**/*.*': () => ['npm run header:lint', 'npm run header:test', 'npm run header:ratchet'],
   'apps/MFE/Footer/**/*.*': () => ['npm run footer:lint', 'npm run footer:test', 'npm run footer:ratchet'],
-  'apps/MFE/TextPositioner/**/*.*': () => [
-    'npm run text-positioner:lint',
-    'npm run text-positioner:test',
-    'npm run text-positioner:ratchet',
+  'apps/MFE/Navigation/**/*.*': () => [
+    'npm run navigation:lint',
+    'npm run navigation:test',
+    'npm run navigation:ratchet',
   ],
   'libs/framework/federate-component/**/*.*': () => [
     'npm run federate-component:lint',

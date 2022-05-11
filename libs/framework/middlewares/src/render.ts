@@ -26,7 +26,7 @@ export const renderMiddleware = ({app, errorStatusCode, htmlReplacements}: Rende
     const unsafeReq = req as any
     let html = unsafeReq.html
 
-    app = app ?? unsafeReq?.renderOptions?.app
+    app = app ?? unsafeReq?.renderOptions?.app()
 
     const mergedHtmlReplacements = {
       ...defaultHtmlReplacements,

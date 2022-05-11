@@ -1,6 +1,14 @@
 import React, {useEffect, useState} from 'react'
 
+import {federateComponent} from '@batman/federate-component'
+import {getRemoteUrls} from '@batman/remote-urls'
+
 import HeaderCounter from './components/headerCounter'
+
+const REMOTES = getRemoteUrls()
+
+const Navigation = federateComponent('mfe_navigation', './navigation', REMOTES.mfe_navigation)
+
 /**
  * Example custom hook.
  * @returns boolean
@@ -22,7 +30,7 @@ const usePageBottom = () => {
   return bottom
 }
 
-const Header: React.FC = () => {
+const Header: React.FC = ({children}) => {
   // const themeState = useThemeState()
   const [counter, setCounter] = useState(0)
   const isBottom = usePageBottom()
@@ -47,7 +55,16 @@ const Header: React.FC = () => {
         <div>Local State Counter: {counter}</div>
         <button onClick={() => setCounter(counter + 1)}>Increase local state counter</button>
       </div>
+
+      <Navigation
+        loadingFallback={<div>loading navigation...</div>}
+        errorFallback={<div>error loading navigation!</div>}
+        position="bottom"
+      />
+
       <HeaderCounter />
+
+      <div>{children}</div>
     </div>
   )
 }

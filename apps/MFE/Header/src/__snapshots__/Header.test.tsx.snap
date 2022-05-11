@@ -12,6 +12,9 @@ exports[`Header renders as expected 1`] = `
         Increase local state counter
       </button>
     </div>
+    <section>
+      mfe_navigation
+    </section>
     <div>
       <h2>
         Header Count: 
@@ -23,6 +26,9 @@ exports[`Header renders as expected 1`] = `
       <button>
         Make number go down pretty plz
       </button>
+    </div>
+    <div>
+      foo bar
     </div>
   </div>
 </div>

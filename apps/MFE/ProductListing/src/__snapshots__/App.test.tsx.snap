@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders external components 1`] = `
+<div>
+  <section
+    class="product-list"
+  >
+    <a
+      href="/app/productDetails/1"
+    >
+      <h3>
+        Belt
+      </h3>
+      <img
+        alt="Belt"
+        class="product-image"
+        src="https://live.staticflickr.com/7376/16529891306_3fed99f91c_b.jpg"
+      />
+      <p>
+        £12
+      </p>
+    </a>
+    <a
+      href="/app/productDetails/2"
+    >
+      <h3>
+        Jacket
+      </h3>
+      <img
+        alt="Jacket"
+        class="product-image"
+        src="https://c2.staticflickr.com/8/7769/17963181310_29566ea829_b.jpg"
+      />
+      <p>
+        £100
+      </p>
+    </a>
+    <a
+      href="/app/productDetails/3"
+    >
+      <h3>
+        Shoes
+      </h3>
+      <img
+        alt="Shoes"
+        class="product-image"
+        src="https://live.staticflickr.com/7671/17278913184_95385f21c7_b.jpg"
+      />
+      <p>
+        £75
+      </p>
+    </a>
+  </section>
+</div>
+`;

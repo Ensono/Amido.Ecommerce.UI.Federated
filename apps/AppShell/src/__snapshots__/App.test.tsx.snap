@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Routes should naviagate successfully to the /app page 1`] = `
+<div>
+  <section>
+    mfe_header
+  </section>
+  <div
+    class="App"
+  >
+    <section
+      class="App-header"
+    >
+      <p>
+        Page 1
+      </p>
+      <div>
+        <h2>
+          Count: 
+          0
+        </h2>
+        <button>
+          Make number go up plz
+        </button>
+        <button>
+          Reset
+        </button>
+      </div>
+      Shared text
+    </section>
+  </div>
+  <section>
+    mfe_footer
+  </section>
+</div>
+`;
+
+exports[`App Routes should naviagate successfully to the /app/error-example page 1`] = `
+<div>
+  <section>
+    mfe_header
+  </section>
+  <section>
+    mfe_footer
+  </section>
+</div>
+`;
+
+exports[`App Routes should naviagate successfully to the /app/productDetails/1 page 1`] = `
+<div>
+  <section>
+    mfe_header
+  </section>
+  <section>
+    mfe_product_details
+  </section>
+  <section>
+    mfe_footer
+  </section>
+</div>
+`;
+
+exports[`App Routes should naviagate successfully to the /app/productListing page 1`] = `
+<div>
+  <section>
+    mfe_header
+  </section>
+  <section>
+    mfe_product_listing
+  </section>
+  <section>
+    mfe_footer
+  </section>
+</div>
+`;
