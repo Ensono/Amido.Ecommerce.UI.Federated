@@ -5,16 +5,16 @@ import {Logger} from '@batman/core-logger'
 import {NextFunction} from 'express'
 import {AnyAction, Store} from 'redux'
 
-export const stateMiddleware = (store: Store<any, AnyAction>) => {
-  const provider = ({providerStore, children}) => {
-    return <ReduxProvider store={providerStore}>{children}</ReduxProvider>
+export const stateMiddleware = (middlewareStore: Store<any, AnyAction>) => {
+  const provider = ({store, children}) => {
+    return <ReduxProvider store={store}>{children}</ReduxProvider>
   }
 
   try {
     return async (req: any, res: any, next: NextFunction) => {
-      req.initialState = store.getState()
+      req.initialState = middlewareStore.getState()
       req.provider = provider
-      req.initialStore = store
+      req.initialStore = middlewareStore
       next()
     }
   } catch (error) {
