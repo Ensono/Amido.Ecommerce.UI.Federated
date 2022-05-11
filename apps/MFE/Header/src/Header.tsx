@@ -55,15 +55,12 @@ const Header: React.FC = ({children}) => {
         <div>Local State Counter: {counter}</div>
         <button onClick={() => setCounter(counter + 1)}>Increase local state counter</button>
       </div>
-
       <Navigation
         loadingFallback={<div>loading navigation...</div>}
         errorFallback={<div>error loading navigation!</div>}
         position="bottom"
       />
-
       <HeaderCounter />
-
       <div>{children}</div>
     </div>
   )
