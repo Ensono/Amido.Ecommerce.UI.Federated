@@ -5,6 +5,16 @@ import {render, waitFor} from '@testing-library/react'
 import Header from './Header'
 import {headerStore} from './store'
 
+jest.mock('@batman/federate-component', () => {
+  return {
+    __esModule: true,
+    federateComponent: (remote: string) =>
+      function mockComponent() {
+        return <section>{remote}</section>
+      },
+  }
+})
+
 describe('Header', () => {
   it('renders as expected', async () => {
     const {container} = render(

@@ -4,15 +4,17 @@ exports[`Header renders as expected 1`] = `
 <div>
   <div>
     <div>
-      <p
-        data-testid="paragraph-in-header"
-      >
-        I am the HEADERRRRR'"
-      </p>
+      <div>
+        Local State Counter: 
+        0
+      </div>
+      <button>
+        Increase local state counter
+      </button>
     </div>
-    <div>
-      loading navigation...
-    </div>
+    <section>
+      mfe_navigation
+    </section>
     <div>
       <h2>
         Header Count: 
