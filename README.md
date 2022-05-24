@@ -13,7 +13,7 @@ To run this project the following package versions are required:
 
 ### Installing dependencies
 
-1. Run `npm i` at the root of the Monorepo to install the required node modules
+1. Run `npm i` at the root of the Monorepo to install the required node modules and symlink all the libraries (they will also need to build).
 2. Run `npm run build-all` to build all of the applications and libraries
 
 ## Running the project
@@ -43,7 +43,7 @@ standalone at `/app`, e.g. the footer can be viewed (along with any micro-fronte
 
 ### Production
 
-To run the application in production mode replace the `dev` command with `watch`:
+To run the application in production mode (with Hot Module Reloading) replace the `dev` command with `watch`:
 
 ```
 // Terminal 1
