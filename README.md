@@ -122,3 +122,14 @@ import coolFunction from 'cool-package-2'
 - in the consumer's client bootstrap file, import the reducer from the remote `import mfe_reducer from 'mfe_name/store`
 - when initialising redux on the client, combine the reducers from all the remotes with the initial state that gets
   passed through the initial state middleware
+
+## Architecture Diagrams
+
+### Complete Architecture Example:
+![Complete Architecture Example](/readme/images/Screenshot%202022-04-21%20at%2009.24.02.png)
+
+### Low Level:
+![Low Level](/readme/images/Screenshot%202022-04-21%20at%2009.26.05.png)
+
+### Daisy Chaining MFE through FC (Federated Component) package:
+![Daisy Chaining MFE through FC (Federated Component) package](/readme/images/Screenshot%202022-04-21%20at%2009.26.31.png)
