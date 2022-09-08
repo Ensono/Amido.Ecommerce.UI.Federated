@@ -37,3 +37,9 @@ cypress/screenshots/
 **/.lighthouseci
 docs
 **/remote-entry
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/

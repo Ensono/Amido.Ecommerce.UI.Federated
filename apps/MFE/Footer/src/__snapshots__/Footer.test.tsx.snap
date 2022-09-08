@@ -3,7 +3,7 @@
 exports[`Footer renders as expected 1`] = `
 <div>
   <footer
-    data-testid="moodule-federated-footer"
+    data-testid="module-federated-footer"
   >
     <strong>
       I AM THE FOOTER

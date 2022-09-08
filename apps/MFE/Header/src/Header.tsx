@@ -50,9 +50,11 @@ const Header: React.FC = ({children}) => {
   }, [isBottom])
 
   return (
-    <div>
-      <div>
-        <div>Local State Counter: {counter}</div>
+    <header data-testid="module-federated-header">
+      <div className="local_state_counter">
+        <div>
+          Local State Counter: <span>{counter}</span>
+        </div>
         <button onClick={() => setCounter(counter + 1)}>Increase local state counter</button>
       </div>
       <Navigation
@@ -62,7 +64,7 @@ const Header: React.FC = ({children}) => {
       />
       <HeaderCounter />
       <div>{children}</div>
-    </div>
+    </header>
   )
 }
 
