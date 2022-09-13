@@ -2,10 +2,14 @@
 
 exports[`headerCounter matches the snapshot 1`] = `
 <div>
-  <div>
+  <div
+    class="header_counter"
+  >
     <h2>
       Header Count: 
-      0
+      <span>
+        0
+      </span>
     </h2>
     <button>
       Make number go up plz

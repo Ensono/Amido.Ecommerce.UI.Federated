@@ -2,11 +2,17 @@
 
 exports[`Header renders as expected 1`] = `
 <div>
-  <div>
-    <div>
+  <header
+    data-testid="module-federated-header"
+  >
+    <div
+      class="local_state_counter"
+    >
       <div>
         Local State Counter: 
-        0
+        <span>
+          0
+        </span>
       </div>
       <button>
         Increase local state counter
@@ -15,10 +21,14 @@ exports[`Header renders as expected 1`] = `
     <section>
       mfe_navigation
     </section>
-    <div>
+    <div
+      class="header_counter"
+    >
       <h2>
         Header Count: 
-        0
+        <span>
+          0
+        </span>
       </h2>
       <button>
         Make number go up plz
@@ -30,6 +40,6 @@ exports[`Header renders as expected 1`] = `
     <div>
       foo bar
     </div>
-  </div>
+  </header>
 </div>
 `;

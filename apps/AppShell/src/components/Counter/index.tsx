@@ -9,9 +9,13 @@ interface CounterProps {
 export const Counter = ({count, increment, reset}: CounterProps) => {
   return (
     <div>
-      <h2>Count: {count}</h2>
-      <button onClick={increment}>Make number go up plz</button>
-      <button onClick={reset}>Reset</button>
+      <h2 data-testid="count">Count: {count}</h2>
+      <button data-testid="increment-button" onClick={increment}>
+        Make number go up plz
+      </button>
+      <button data-testid="reset-button" onClick={reset}>
+        Reset
+      </button>
     </div>
   )
 }

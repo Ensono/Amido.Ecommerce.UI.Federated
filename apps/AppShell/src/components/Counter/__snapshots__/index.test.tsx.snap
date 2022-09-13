@@ -3,14 +3,20 @@
 exports[`Counter matches the snapshot 1`] = `
 <div>
   <div>
-    <h2>
+    <h2
+      data-testid="count"
+    >
       Count: 
       0
     </h2>
-    <button>
+    <button
+      data-testid="increment-button"
+    >
       Make number go up plz
     </button>
-    <button>
+    <button
+      data-testid="reset-button"
+    >
       Reset
     </button>
   </div>
