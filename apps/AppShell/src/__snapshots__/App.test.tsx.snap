@@ -19,7 +19,9 @@ exports[`App Routes should naviagate successfully to the /app page 1`] = `
           data-testid="count"
         >
           Count: 
-          0
+          <span>
+            0
+          </span>
         </h2>
         <button
           data-testid="increment-button"

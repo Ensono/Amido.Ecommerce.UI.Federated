@@ -7,7 +7,9 @@ exports[`Counter matches the snapshot 1`] = `
       data-testid="count"
     >
       Count: 
-      0
+      <span>
+        0
+      </span>
     </h2>
     <button
       data-testid="increment-button"
