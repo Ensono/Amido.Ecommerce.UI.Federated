@@ -12,7 +12,7 @@ test('renders external components', async () => {
     </Provider>,
   )
   await waitFor(() => {
-    const sharedTextComponent = screen.getByText(/Header Count: 0/)
-    expect(sharedTextComponent).toBeInTheDocument()
+    const sharedTextComponent = screen.getByRole('heading')
+    expect(sharedTextComponent).toHaveTextContent(/Header Count: 0/)
   })
 })
