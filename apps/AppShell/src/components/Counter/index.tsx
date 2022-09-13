@@ -9,7 +9,9 @@ interface CounterProps {
 export const Counter = ({count, increment, reset}: CounterProps) => {
   return (
     <div>
-      <h2 data-testid="count">Count: {count}</h2>
+      <h2 data-testid="count">
+        Count: <span>{count}</span>
+      </h2>
       <button data-testid="increment-button" onClick={increment}>
         Make number go up plz
       </button>

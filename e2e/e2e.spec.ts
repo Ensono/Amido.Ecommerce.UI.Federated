@@ -37,14 +37,14 @@ test.describe('e2e tests', () => {
   })
   test.describe('App shell module', () => {
     test('App shell counter increases count on button click', async () => {
-      const countValue = parseInt((await testPage.locator('data-testid=count').innerText()).split(' ')[1], 10)
+      const countValue = parseInt(await testPage.locator('[data-testid="count"] >> span').innerText(), 10)
       await expect(testPage.locator('data-testid=count')).toHaveText(`Count: ${countValue}`)
       await testPage.locator('data-testid=increment-button').click()
       await expect(testPage.locator('data-testid=count')).toHaveText(`Count: ${countValue + 1}`)
     })
 
     test('App shell updates count to 0 on reset button click', async () => {
-      const countValue = parseInt((await testPage.locator('data-testid=count').innerText()).split(' ')[1], 10)
+      const countValue = parseInt(await testPage.locator('[data-testid="count"] >> span').innerText(), 10)
       await expect(testPage.locator('data-testid=count')).toHaveText(`Count: ${countValue}`)
       await testPage.locator('data-testid=reset-button').click()
       await expect(testPage.locator('data-testid=count')).toHaveText('Count: 0')
