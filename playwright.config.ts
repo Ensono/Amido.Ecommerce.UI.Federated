@@ -66,17 +66,72 @@ const config: PlaywrightTestConfig = {
       },
     },
 
+    {
+      name: 'edge',
+      use: {
+        ...devices['Desktop Edge'],
+      },
+    },
+
     /* Test against mobile viewports. */
     {
-      name: 'Mobile Chrome',
+      name: 'Pixel 5',
       use: {
         ...devices['Pixel 5'],
       },
     },
     {
-      name: 'Mobile Safari',
+      name: 'Galaxy S9+',
+      use: {
+        ...devices['Galaxy S9+'],
+      },
+    },
+    {
+      name: 'iPhone 12',
       use: {
         ...devices['iPhone 12'],
+      },
+    },
+    {
+      name: 'iPhone 12 Pro Max',
+      use: {
+        ...devices['iPhone 12 Pro Max'],
+      },
+    },
+    {
+      name: 'iPad (gen 7)',
+      use: {
+        ...devices['iPad (gen 7)'],
+      },
+    },
+    {
+      name: 'iPad Mini',
+      use: {
+        ...devices['iPad Mini'],
+      },
+    },
+    {
+      name: 'iPad Pro 11',
+      use: {
+        ...devices['iPad Pro 11'],
+      },
+    },
+    {
+      name: 'iPhone 13',
+      use: {
+        ...devices['iPhone 13'],
+      },
+    },
+    {
+      name: 'iPhone 13 Pro Max',
+      use: {
+        ...devices['iPhone 13 Pro Max'],
+      },
+    },
+    {
+      name: 'iPhone 13 Mini',
+      use: {
+        ...devices['iPhone 13 Mini'],
       },
     },
 
