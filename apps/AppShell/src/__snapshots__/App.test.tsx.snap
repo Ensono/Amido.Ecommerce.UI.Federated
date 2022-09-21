@@ -15,14 +15,22 @@ exports[`App Routes should naviagate successfully to the /app page 1`] = `
         Page 1
       </p>
       <div>
-        <h2>
+        <h2
+          data-testid="count"
+        >
           Count: 
-          0
+          <span>
+            0
+          </span>
         </h2>
-        <button>
+        <button
+          data-testid="increment-button"
+        >
           Make number go up plz
         </button>
-        <button>
+        <button
+          data-testid="reset-button"
+        >
           Reset
         </button>
       </div>
