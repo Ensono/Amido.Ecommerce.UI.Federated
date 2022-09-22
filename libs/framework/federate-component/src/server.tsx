@@ -31,6 +31,9 @@ export const getServerComponent = (
   // do one fetch for multiple references of a remote component.
   const id = stringify({remote, module, props})
 
+  console.log(12345)
+  Logger.info(12345)
+
   let Component = ctx[id] as Module
 
   if (Component) {
@@ -53,6 +56,12 @@ export const getServerComponent = (
       })
       let parsedChunks: Array<any>
       const [chunks, html, state] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
+
+      console.log('res.data')
+      console.log(res.data)
+      console.log('res.data')
+
+      Logger.info(res.data)
 
       try {
         parsedChunks = JSON.parse(chunks)

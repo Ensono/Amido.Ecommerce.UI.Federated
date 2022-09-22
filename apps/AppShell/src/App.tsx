@@ -17,7 +17,11 @@ export const ThemeProvider = ({children, data}: any) => {
 
 const remotesUrls = getRemoteUrls()
 
+console.log(remotesUrls)
+
 const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_header)
+console.log(Header)
+
 const Footer = federateComponent('mfe_footer', './footer', remotesUrls.mfe_footer)
 const ProductListing = federateComponent('mfe_product_listing', './product-listing', remotesUrls.mfe_product_listing)
 const ProductDetails = federateComponent('mfe_product_details', './product-details', remotesUrls.mfe_product_details)
