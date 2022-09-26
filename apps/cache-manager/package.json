@@ -2,7 +2,29 @@
   "name": "@batman/cache-manager",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "dev": "ts-node -T ./src/azuriteServer.ts"
+  },
   "dependencies": {
-    "@azure/data-tables": "^13.2.0"
+    "@azure/data-tables": "^13.2.0",
+    "@babel/core": "^7.16.0",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.13",
+    "express": "^4.17.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  },
+  "devDependencies": {
+    "@batman/eslint-config": "1.0.0",
+    "@types/react": "^18.0.5",
+    "@types/react-dom": "^18.0.0",
+    "babel-plugin-styled-components": "^2.0.2",
+    "eslint-webpack-plugin": "^3.1.1",
+    "jest-coverage-ratchet": "^0.2.3",
+    "nodemon": "^2.0.15",
+    "react-ssr-dev-utils": "^2.2.1",
+    "ts-node": "^10.4.0",
+    "url-loader": "^4.1.1"
   }
 }

@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const {TableServiceClient, TableClient} = require('@azure/data-tables')
+import {TableClient, TableServiceClient} from '@azure/data-tables'
 
 // const tableServiceClient = new TableServiceClient(`https://127.0.0.1:10002/${account}/cacheManager`, credential)
 // console.log(tableServiceClient.listTables())
 // const sharedKeyCredential = new AzureNamedKeyCredential(account, accountKey)
 
-class AzureTableStorage {
+export class AzureTableStorage {
   // CONNECT - Method to connect to Azure table instance
   static connectTableClient = async (connectionString: string, tableName: string) => {
     let client
@@ -34,7 +33,7 @@ class AzureTableStorage {
 
       const tableClient = await this.connectTableClient(connectionString, tableName)
 
-      result = await tableClient.createEntity(task)
+      result = await tableClient?.createEntity(task)
     } catch (error) {
       console.log(`[createTable] The following error occurred: ${error}`)
     }
@@ -47,14 +46,14 @@ class AzureTableStorage {
     try {
       const tableClient = await this.connectTableClient(connectionString, tableName)
 
-      result = await tableClient.deleteTable(tableName)
+      result = await tableClient?.deleteTable()
     } catch (error) {
       console.log(`[deleteTable] The following error occurred: ${error}`)
     }
     return result
   }
 
-  // GET - Method to get existing item with provided patitionKey & sortKey
+  // GET - Method to get existing item with provided partitionKey & sortKey
   static getTableItem = async (client, partitionKey, rowKey) => {
     let tableItem
     try {
@@ -89,8 +88,4 @@ class AzureTableStorage {
 
     return tableItem
   }
-}
-
-module.exports = {
-  AzureTableStorage,
 }

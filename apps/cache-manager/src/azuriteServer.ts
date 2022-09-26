@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-self-import
-const {AzureTableStorage} = require('./utils.ts')
-const {CONNECTION_STRING, STORAGE_ACCOUNT, TABLE_NAME} = require('./globals.ts')
+import {CONNECTION_STRING, STORAGE_ACCOUNT, TABLE_NAME} from './globals'
+import {AzureTableStorage} from './utils'
 
 const runServer = async () => {
   const client = await AzureTableStorage.connectTableClient(CONNECTION_STRING, TABLE_NAME)
@@ -12,21 +12,23 @@ const runServer = async () => {
     //   dueDate: new Date(2020, 6, 22),
   }
 
+  console.log(123)
+
   console.log(process.argv[2])
 
-  // const deleteTable = await CacheManager.deleteTableItem(client, 'joel', 'header')
+  // const deleteTable = await AzureTableStorage.deleteTableItem(client, 'joel', 'header')
   // console.log(deleteTable)
 
-  // const deleteTable = await CacheManager.deleteTable(CONNECTION_STRING, 'newTable')
+  // const deleteTable = await AzureTableStorage.deleteTable(CONNECTION_STRING, 'newTable')
   // console.log(deleteTable)
 
-  // const create = await CacheManager.createTable(CONNECTION_STRING, 'newTable')
+  // const create = await AzureTableStorage.createTable(CONNECTION_STRING, 'newTable')
   // console.log(create)
 
-  // const get = await CacheManager.getTableItem(client, 'federation', 'header')
+  // const get = await AzureTableStorage.getTableItem(client, 'federation', 'header')
   // console.log(get)
 
-  // const set = await CacheManager.upsertTableItem(client, task)
+  // const set = await AzureTableStorage.upsertTableItem(client, task)
   // console.log(set)
 }
 
