@@ -1,0 +1,8 @@
+{
+  "name": "@batman/cache-manager",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@azure/data-tables": "^13.2.0"
+  }
+}

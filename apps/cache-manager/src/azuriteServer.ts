@@ -1,27 +1,33 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const {TableServiceClient, TableClient, AzureNamedKeyCredential} = require('@azure/data-tables')
-const {DefaultAzureCredential, StorageSharedKeyCredential, Uri} = require('@azure/identity')
+// eslint-disable-next-line import/no-self-import
+const {AzureTableStorage} = require('./utils.ts')
+const {CONNECTION_STRING, STORAGE_ACCOUNT, TABLE_NAME} = require('./globals.ts')
 
-const account = 'devstoreaccount1'
-const accountKey = 'Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw=='
-const credential = new DefaultAzureCredential()
-const connectionString =
-  'DefaultEndpointsProtocol=http;UseDevelopmentStorage=true;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;'
+const runServer = async () => {
+  const client = await AzureTableStorage.connectTableClient(CONNECTION_STRING, TABLE_NAME)
 
-// const tableServiceClient = new TableServiceClient(`https://127.0.0.1:10002/${account}/cacheManager`, credential)
-// console.log(tableServiceClient.listTables())
-// const sharedKeyCredential = new AzureNamedKeyCredential(account, accountKey)
+  const task = {
+    partitionKey: 'joel',
+    rowKey: 'headers',
+    description: 'fe dev full stack',
+    //   dueDate: new Date(2020, 6, 22),
+  }
 
-const client = TableClient.fromConnectionString(connectionString, 'cacheManager')
+  console.log(process.argv[2])
 
-const task = {
-  PartitionKey: 'hometasks',
-  RowKey: '1',
-  //   description: 'lorem ipsum',
-  //   dueDate: new Date(2020, 6, 22),
+  // const deleteTable = await CacheManager.deleteTableItem(client, 'joel', 'header')
+  // console.log(deleteTable)
+
+  // const deleteTable = await CacheManager.deleteTable(CONNECTION_STRING, 'newTable')
+  // console.log(deleteTable)
+
+  // const create = await CacheManager.createTable(CONNECTION_STRING, 'newTable')
+  // console.log(create)
+
+  // const get = await CacheManager.getTableItem(client, 'federation', 'header')
+  // console.log(get)
+
+  // const set = await CacheManager.upsertTableItem(client, task)
+  // console.log(set)
 }
 
-let result = client.createEntity(task)
-// console.log(result)
-
-// Entity create
+runServer()
