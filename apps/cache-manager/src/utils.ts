@@ -1,5 +1,7 @@
 import {TableClient, TableServiceClient} from '@azure/data-tables'
 
+import {UpsertTableItem} from './types'
+
 // const tableServiceClient = new TableServiceClient(`https://127.0.0.1:10002/${account}/cacheManager`, credential)
 // console.log(tableServiceClient.listTables())
 // const sharedKeyCredential = new AzureNamedKeyCredential(account, accountKey)
@@ -54,10 +56,10 @@ export class AzureTableStorage {
   }
 
   // GET - Method to get existing item with provided partitionKey & sortKey
-  static getTableItem = async (client, partitionKey, rowKey) => {
+  static getTableItem = async (client: TableClient | undefined, partitionKey: string, rowKey: string) => {
     let tableItem
     try {
-      tableItem = await client.getEntity(partitionKey, rowKey)
+      tableItem = await client?.getEntity(partitionKey, rowKey)
     } catch (error) {
       console.log(`[getTableItem] The following error occurred: ${error}`)
     }
@@ -66,10 +68,10 @@ export class AzureTableStorage {
   }
 
   // SET - Method to insert new item or update existing item with provided key value pairs
-  static upsertTableItem = async (client, item) => {
+  static upsertTableItem = async (client: TableClient | undefined, item: UpsertTableItem) => {
     let tableItem
     try {
-      tableItem = await client.upsertEntity(item)
+      tableItem = await client?.upsertEntity(item)
     } catch (error) {
       console.log(`[upsertTableItem] The following error occurred: ${error}`)
     }
@@ -78,10 +80,10 @@ export class AzureTableStorage {
   }
 
   // DELETE - Method to delete existing item in table with provided partitionKey & sortKey
-  static deleteTableItem = async (client, partitionKey, rowKey) => {
+  static deleteTableItem = async (client: TableClient | undefined, partitionKey: string, rowKey: string) => {
     let tableItem
     try {
-      tableItem = await client.deleteEntity(partitionKey, rowKey)
+      tableItem = await client?.deleteEntity(partitionKey, rowKey)
     } catch (error) {
       console.log(`[deleteTableItem] The following error occurred: ${error}`)
     }
