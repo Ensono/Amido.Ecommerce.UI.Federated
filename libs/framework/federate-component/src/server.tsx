@@ -20,6 +20,7 @@ import {Module, RemotesContext} from './types'
  * @param remoteUrl - host url of prerender endpoint
  * @returns React component with required <script> and <style> tags to load on client-side
  */
+
 export const getServerComponent = (
   ctx: RemotesContext,
   remote: string,
@@ -31,20 +32,19 @@ export const getServerComponent = (
   // do one fetch for multiple references of a remote component.
   const id = stringify({remote, module, props})
 
-  console.log(12345)
-  Logger.info(12345)
-
   let Component = ctx[id] as Module
 
-  if (Component) {
-    // component is already in the cache, use that
-    return Component
-  }
+  // if (Component) {
+  //   // component is already in the cache, use that
+  //   return Component
+  // }
+
+  const cacheManagerUrl = `${remoteUrl.split(':')[0]}:${remoteUrl.split(':')[1]}:9000/${remoteUrl.split(':')[2]}`
 
   Component = lazy(async () => {
     // Do the post request to pre-render the federated component
     try {
-      const res = await axios(`${remoteUrl}/prerender`, {
+      const res = await axios(`${cacheManagerUrl}/prerender`, {
         method: 'POST',
         data: {
           module,
@@ -56,10 +56,6 @@ export const getServerComponent = (
       })
       let parsedChunks: Array<any>
       const [chunks, html, state] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
-
-      console.log('res.data')
-      console.log(res.data)
-      console.log('res.data')
 
       Logger.info(res.data)
 
@@ -147,6 +143,7 @@ export const getServerComponent = (
         },
       }
     } catch (err: any) {
+      // console.log(err)
       Logger.error(err.message)
       throw new Error(err.message)
     }

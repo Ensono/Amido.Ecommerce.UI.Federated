@@ -1,60 +1,49 @@
-const express = require('express')
-const fetch = require('node-fetch')
-const NodeCache = require('node-cache')
-const fs = require('fs')
-const http = require('http')
+import axios from 'axios'
+import express from 'express'
 
-const myCache = new NodeCache({stdTTL: 600})
+import {CONNECTION_STRING, TABLE_NAME} from './globals'
+import {AzureTableStorage} from './utils'
 
-const remoteUrl = 'http://localhost:3001/remote-entry.js'
-
-async function getHeader() {
-  const response = await fetch(`http://localhost:3001/remote-entry.js`)
-
-  if (!response.ok) {
-    throw new Error(response.statusText)
-  }
-
-  console.log('=======================================================')
-  console.log('response')
-  console.log(response.body)
-  console.log('=======================================================')
-
-  return response.json()
+async function getComponent(data: object, port: string) {
+  const res = await axios(`http://localhost:${port}/prerender`, {
+    method: 'POST',
+    data,
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+  return res
 }
 
 const app = express()
+app.use(express.json())
 
-app.get('/localhost:3001/remote-entry.js', async (req, res) => {
+app.post('/:port/prerender', async (req, res) => {
   try {
-    const readFile = http.get(remoteUrl)
-
-    console.log('readFile')
-    console.log(readFile)
-    console.log('readFile')
-
-    res.write(readFile)
-    res.end()
-
-    // try to get the posts from the cache
-    let header = myCache.get('getHeader')
-    console.log('=======================================================')
-    console.log('yoyoyoyoy')
-    // console.log(req.body)
-    console.log('=======================================================')
-    // if header does not exist in the cache, retrieve it from the
-    // original source and store it in the cache
-    if (header == null) {
-      header = await getHeader()
-      // time-to-live is set to 300 seconds. After this period
-      // the entry for `getHeader` will be removed from the cache
-      // and the next request will hit the API again
-      myCache.set('getHeader', header, 300)
+    const client = await AzureTableStorage.connectTableClient(CONNECTION_STRING, TABLE_NAME)
+    let component
+    const tableRes = await AzureTableStorage.getTableItem(
+      client,
+      req.body.module.replace('/', ''),
+      JSON.stringify(req.body).replace('/', ''),
+    )
+    if (tableRes === undefined) {
+      const response = await getComponent(req.body, req.params.port)
+      component = response.data
+      const tableItem = {
+        partitionKey: req.body.module.replace('/', ''),
+        rowKey: JSON.stringify(req.body).replace('/', ''),
+        value: response.data,
+      }
+      const set = await AzureTableStorage.upsertTableItem(client, tableItem)
+      if (set === undefined) {
+        console.log('cache failed to store')
+      }
+    } else {
+      component = tableRes.value
     }
-
-    res.status(200).send(header)
+    res.status(200).send(component)
   } catch (err) {
-    console.log(err)
     res.sendStatus(500)
   }
 })
