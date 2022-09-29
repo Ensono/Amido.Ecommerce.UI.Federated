@@ -34,12 +34,14 @@ export const getServerComponent = (
 
   let Component = ctx[id] as Module
 
-  // if (Component) {
-  //   // component is already in the cache, use that
-  //   return Component
-  // }
+  if (Component) {
+    // component is already in the cache, use that
+    return Component
+  }
 
-  const cacheManagerUrl = `${remoteUrl.split(':')[0]}:${remoteUrl.split(':')[1]}:9000/${remoteUrl.split(':')[2]}`
+  const [protocol, host, port] = remoteUrl.split(':')
+
+  const cacheManagerUrl = `${protocol}:${host}:9000/${port}`
 
   Component = lazy(async () => {
     // Do the post request to pre-render the federated component
@@ -52,6 +54,7 @@ export const getServerComponent = (
         },
         headers: {
           'content-type': 'application/json',
+          'remote-name': remote,
         },
       })
       let parsedChunks: Array<any>
@@ -143,7 +146,6 @@ export const getServerComponent = (
         },
       }
     } catch (err: any) {
-      // console.log(err)
       Logger.error(err.message)
       throw new Error(err.message)
     }

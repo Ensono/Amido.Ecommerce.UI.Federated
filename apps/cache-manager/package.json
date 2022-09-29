@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "ts-node -T ./src/azuriteServer.ts"
+    "dev": "ts-node -T ./src/azuriteServer.ts",
+    "server-dev": "ts-node -T ./src/server.ts"
   },
   "dependencies": {
     "@azure/data-tables": "^13.2.0",

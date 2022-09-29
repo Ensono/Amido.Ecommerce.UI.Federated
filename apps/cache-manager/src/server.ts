@@ -20,19 +20,17 @@ app.use(express.json())
 
 app.post('/:port/prerender', async (req, res) => {
   try {
+    const remoteName = req.get('remote-name') || ''
     const client = await AzureTableStorage.connectTableClient(CONNECTION_STRING, TABLE_NAME)
     let component
-    const tableRes = await AzureTableStorage.getTableItem(
-      client,
-      req.body.module.replace('/', ''),
-      JSON.stringify(req.body).replace('/', ''),
-    )
+    const base64Body = Buffer.from(JSON.stringify(req.body)).toString('base64')
+    const tableRes = await AzureTableStorage.getTableItem(client, remoteName, base64Body)
     if (tableRes === undefined) {
       const response = await getComponent(req.body, req.params.port)
       component = response.data
       const tableItem = {
-        partitionKey: req.body.module.replace('/', ''),
-        rowKey: JSON.stringify(req.body).replace('/', ''),
+        partitionKey: remoteName,
+        rowKey: base64Body,
         value: response.data,
       }
       const set = await AzureTableStorage.upsertTableItem(client, tableItem)
@@ -44,6 +42,7 @@ app.post('/:port/prerender', async (req, res) => {
     }
     res.status(200).send(component)
   } catch (err) {
+    console.log(err)
     res.sendStatus(500)
   }
 })
