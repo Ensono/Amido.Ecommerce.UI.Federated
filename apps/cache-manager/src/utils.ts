@@ -1,4 +1,4 @@
-import {TableClient, TableServiceClient} from '@azure/data-tables'
+import {GetTableEntityResponse, TableClient, TableEntityResult, TableServiceClient} from '@azure/data-tables'
 
 import {UpsertTableItem} from './types'
 
@@ -57,7 +57,8 @@ export class AzureTableStorage {
 
   // GET - Method to get existing item with provided partitionKey & sortKey
   static getTableItem = async (client: TableClient | undefined, partitionKey: string, rowKey: string) => {
-    let tableItem
+    let tableItem: GetTableEntityResponse<TableEntityResult<object>> | undefined
+
     try {
       tableItem = await client?.getEntity(partitionKey, rowKey)
     } catch (error) {

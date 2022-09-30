@@ -16,27 +16,22 @@ async function getComponent(data: object, port: string) {
   return res
 }
 
-const cacheExpired = (expiryDate: string, creationTimestamp: Date) => {
-  // Check cache expiry date based on args
-  const cacheExpiryDate = Number(expiryDate) // '31536000' - (1 year in seconds)
-  const timestamp = Math.floor(new Date(creationTimestamp).getTime() / 1000) // in seconds
-  const todaysDate = Math.floor(new Date().getTime() / 1000) // '1664445833' - in seconds
+const currentDateInSeconds = () => Math.floor(new Date().getTime() / 1000)
 
-  return timestamp + cacheExpiryDate <= todaysDate
-}
+const cacheExpired = (expiryDate: number) => currentDateInSeconds() >= expiryDate
 
 const insertNewItem = async (
   partitionKey: string,
   rowKey: string,
   value: string,
   client: TableClient | undefined,
-  expiryDate = 12345,
+  expiryDate = 12,
 ) => {
   const tableItem = {
     partitionKey,
     rowKey,
     value,
-    expiryDate,
+    expiryDate: expiryDate + currentDateInSeconds(),
   }
   const upsert = await AzureTableStorage.upsertTableItem(client, tableItem)
 
@@ -60,13 +55,13 @@ app.post('/:port/prerender', async (req, res) => {
 
     const base64Body = Buffer.from(JSON.stringify(req.body)).toString('base64')
 
-    const tableRes = await AzureTableStorage.getTableItem(client, remoteName, base64Body)
+    const tableRes: any = await AzureTableStorage.getTableItem(client, remoteName, base64Body)
 
     if (tableRes === undefined) {
       const response = await getComponent(req.body, req.params.port)
       component = response.data
       await insertNewItem(remoteName, base64Body, response.data, client)
-    } else if (cacheExpired(tableRes.expiryDate, tableRes.timestamp)) {
+    } else if (cacheExpired(tableRes.expiryDate)) {
       await AzureTableStorage.deleteTableItem(client, tableRes.partitionKey, tableRes.rowKey)
       const response = await getComponent(req.body, req.params.port)
       await insertNewItem(remoteName, base64Body, response.data, client)
