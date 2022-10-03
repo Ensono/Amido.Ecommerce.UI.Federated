@@ -43,3 +43,5 @@ docs
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+azurite
