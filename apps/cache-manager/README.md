@@ -45,10 +45,18 @@ when testing operations.
 
 `partitionKey` - Name of the given Federated Module
 
-`rowKey` - Stringified object of the server component (slashes are not suppored so either we encode/decode or pass just
-the module name without `./`)
+`rowKey` - Object of the server component converted to base64
+
+`value` - String of module and props
+
+`expiryDate` - Set date in seconds for cache expiry
 
 ```js
 partitionKey: 'footer',
-rowKey: '{"module":"./header","props":{},"remote":"mfe_header"}'
+
+rowKey: 'eyJtb2R1bGUiOiIuL2Zvb3RlciIsInByb3BzIjp7fX0='
+
+value: '[]--||||--<footer data-testid="module-federated-footer"><strong>I AM THE FOOTER</strong>‌children‌<!-- --></footer>--||||--NO STATE'
+
+expiryDate: 1664804064
 ```
