@@ -1,46 +1,7 @@
-import {TableClient} from '@azure/data-tables'
-import axios from 'axios'
 import express from 'express'
 
 import {CONNECTION_STRING, TABLE_NAME} from './globals'
-import {AzureTableStorage} from './utils'
-
-async function getComponent(data: object, port: string) {
-  const res = await axios(`http://localhost:${port}/prerender`, {
-    method: 'POST',
-    data,
-    headers: {
-      'content-type': 'application/json',
-    },
-  })
-  return res
-}
-
-const currentDateInSeconds = () => Math.floor(new Date().getTime() / 1000)
-
-const cacheExpired = (expiryDate: number) => currentDateInSeconds() >= expiryDate
-
-const insertNewItem = async (
-  partitionKey: string,
-  rowKey: string,
-  value: string,
-  client: TableClient | undefined,
-  expiryDate = 12,
-) => {
-  const tableItem = {
-    partitionKey,
-    rowKey,
-    value,
-    expiryDate: expiryDate + currentDateInSeconds(),
-  }
-  const upsert = await AzureTableStorage.upsertTableItem(client, tableItem)
-
-  if (upsert === undefined) {
-    console.log('cache failed to store')
-  } else {
-    return upsert
-  }
-}
+import {AzureTableStorage, cacheExpired, getComponent, insertNewItem} from './utils'
 
 const app = express()
 app.use(express.json())

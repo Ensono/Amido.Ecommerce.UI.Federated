@@ -1,25 +1,20 @@
 import {GetTableEntityResponse, TableClient, TableEntityResult, TableServiceClient} from '@azure/data-tables'
+import axios from 'axios'
 
 import {UpsertTableItem} from './types'
 
-// const tableServiceClient = new TableServiceClient(`https://127.0.0.1:10002/${account}/cacheManager`, credential)
-// console.log(tableServiceClient.listTables())
-// const sharedKeyCredential = new AzureNamedKeyCredential(account, accountKey)
-
 export class AzureTableStorage {
-  // CONNECT - Method to connect to Azure table instance
   static connectTableClient = async (connectionString: string, tableName: string) => {
     let client
     try {
       client = TableClient.fromConnectionString(connectionString, tableName)
     } catch (error) {
-      console.log(`${error} Error connecting to table client`)
+      console.log(`[connectTableClient] The following error occurred ${error}`)
     }
 
     return client
   }
 
-  // CREATE - Method to create new table and sample entries with provided tableName
   static createTable = async (connectionString: string, tableName: string) => {
     let result
     try {
@@ -42,7 +37,6 @@ export class AzureTableStorage {
     return result
   }
 
-  // DELETE - Method to delete existing table with provided tableName
   static deleteTable = async (connectionString: string, tableName: string) => {
     let result
     try {
@@ -55,7 +49,6 @@ export class AzureTableStorage {
     return result
   }
 
-  // GET - Method to get existing item with provided partitionKey & sortKey
   static getTableItem = async (client: TableClient | undefined, partitionKey: string, rowKey: string) => {
     let tableItem: GetTableEntityResponse<TableEntityResult<object>> | undefined
 
@@ -68,7 +61,6 @@ export class AzureTableStorage {
     return tableItem
   }
 
-  // SET - Method to insert new item or update existing item with provided key value pairs
   static upsertTableItem = async (client: TableClient | undefined, item: UpsertTableItem) => {
     let tableItem
     try {
@@ -80,7 +72,6 @@ export class AzureTableStorage {
     return tableItem
   }
 
-  // DELETE - Method to delete existing item in table with provided partitionKey & sortKey
   static deleteTableItem = async (client: TableClient | undefined, partitionKey: string, rowKey: string) => {
     let tableItem
     try {
@@ -90,5 +81,42 @@ export class AzureTableStorage {
     }
 
     return tableItem
+  }
+}
+
+export async function getComponent(data: object, port: string) {
+  const res = await axios(`http://localhost:${port}/prerender`, {
+    method: 'POST',
+    data,
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+  return res
+}
+
+export const currentDateInSeconds = () => Math.floor(new Date().getTime() / 1000)
+
+export const cacheExpired = (expiryDate: number) => currentDateInSeconds() >= expiryDate
+
+export const insertNewItem = async (
+  partitionKey: string,
+  rowKey: string,
+  value: string,
+  client: TableClient | undefined,
+  expiryDate = 12,
+) => {
+  const tableItem = {
+    partitionKey,
+    rowKey,
+    value,
+    expiryDate: expiryDate + currentDateInSeconds(),
+  }
+  const upsert = await AzureTableStorage.upsertTableItem(client, tableItem)
+
+  if (upsert === undefined) {
+    console.log('cache failed to store')
+  } else {
+    return upsert
   }
 }

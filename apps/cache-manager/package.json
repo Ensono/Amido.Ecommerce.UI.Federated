@@ -1,24 +1,29 @@
 {
-  "name": "cache-manager",
+  "name": "@batman/cache-manager",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "ts-node -T ./src/azuriteServer.ts",
-    "server-dev": "ts-node -T ./src/server.ts"
+    "server-dev": "ts-node -T ./src/server.ts",
+    "test": "node ../../scripts/test.js --coverage --watchAll=false",
+    "test:watch": "node ../../scripts/test.js --watch"
   },
   "dependencies": {
     "@azure/data-tables": "^13.2.0",
     "@babel/core": "^7.16.0",
+    "@testing-library/jest-dom": "^5.16.1",
     "@types/express": "^4.17.13",
-    "@types/jest": "^27.0.3",
     "@types/node": "^16.11.13",
     "axios": "^0.26.0",
+    "babel-jest": "^27.4.2",
     "express": "^4.17.2",
+    "jest": "^27.4.3",
+    "react-dom": "^18.0.0",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   },
   "devDependencies": {
-    "@batman/eslint-config": "1.0.0",
+    "@types/jest": "^29.1.1",
     "@types/react": "^18.0.5",
     "@types/react-dom": "^18.0.0",
     "babel-plugin-styled-components": "^2.0.2",
@@ -28,5 +33,83 @@
     "react-ssr-dev-utils": "^2.2.1",
     "ts-node": "^10.4.0",
     "url-loader": "^4.1.1"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/remote-entry/*"
+    ],
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+    ],
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "../../config/jest/babelTransform.js",
+      "^.+\\.css$": "../../config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "../../config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "modulePaths": [],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ],
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ],
+    "resetMocks": true,
+    "coverageReporters": [
+      "json-summary",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 0,
+        "statements": 0,
+        "functions": 0,
+        "branches": 0,
+        "branchesTrue": 0
+      }
+    }
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-transform-react-jsx",
+        {
+          "runtime": "automatic"
+        }
+      ]
+    ]
   }
 }
