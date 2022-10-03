@@ -3,7 +3,7 @@ import {TableClient} from '@azure/data-tables'
 import {CONNECTION_STRING} from './globals'
 import {AzureTableStorage, cacheExpired, currentDateInSeconds, insertNewItem} from './utils'
 
-// Requires local azurite emulator to be running
+// Requires local azurite emulator to be running for local testing
 
 describe('utils', () => {
   const tableName = 'jestTable'
