@@ -41,20 +41,24 @@ when testing operations.
 
 ---
 
-### Database Column Naming Conventions
+### Database Property Names
 
-`partitionKey` - Name of the given Federated Module
+`partitionKey: string` - Name of the given Federated Module
 
-`rowKey` - Object of the server component converted to base64
+`rowKey: string` - Object of the server component converted to base64
 
-`value` - String of module and props
+`timestamp: dateTime` - DateTime value of row data entry
 
-`expiryDate` - Set date in seconds for cache expiry
+`value: string` - String of module and props
+
+`expiryDate: int` - Set date in seconds for cache expiry
 
 ```js
 partitionKey: 'footer',
 
 rowKey: 'eyJtb2R1bGUiOiIuL2Zvb3RlciIsInByb3BzIjp7fX0='
+
+timestamp: "2022-10-03T13:34:12.1890000Z"
 
 value: '[]--||||--<footer data-testid="module-federated-footer"><strong>I AM THE FOOTER</strong>‌children‌<!-- --></footer>--||||--NO STATE'
 

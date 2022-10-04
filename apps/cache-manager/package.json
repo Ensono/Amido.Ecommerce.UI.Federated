@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "ts-node -T ./src/azuriteServer.ts",
-    "server-dev": "ts-node -T ./src/server.ts",
+    "server": "ts-node -T ./src/server.ts",
     "test": "node ../../scripts/test.js --coverage --watchAll=false",
     "test:watch": "node ../../scripts/test.js --watch"
   },
