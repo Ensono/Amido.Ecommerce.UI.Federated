@@ -2,13 +2,6 @@
 
 This app is designed to hold all uilities for the Cache Manager.
 
-### Available Scripts
-
-#### `npm run dev`
-#### `npm run server-dev`
-
----
-
 <br>
 
 ## `Azure Table Storage`
@@ -34,13 +27,19 @@ when testing operations.
 
 ## `Misc`
 
+<br>
+
 ### Navigating Files
 
 `utils` - Contains AzureTableStorage class with methods for CRUD operations
 
-`globals` - Contains unique constants used in utils
+`app` - Exports node server config for running the cache manager
 
----
+`server` - Runs node server against app config
+
+<br>
+
+<br>
 
 ### Database Property Names
 
