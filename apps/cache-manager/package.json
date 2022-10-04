@@ -2,7 +2,9 @@
   "name": "@batman/cache-manager",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
+    "build": "NODE_ENV=production webpack",
     "dev": "ts-node -T ./src/azuriteServer.ts",
     "server-dev": "ts-node -T ./src/server.ts",
     "test": "node ../../scripts/test.js --coverage --watchAll=false",

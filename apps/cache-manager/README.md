@@ -5,6 +5,7 @@ This app is designed to hold all uilities for the Cache Manager.
 ### Available Scripts
 
 #### `npm run dev`
+#### `npm run server-dev`
 
 ---
 
