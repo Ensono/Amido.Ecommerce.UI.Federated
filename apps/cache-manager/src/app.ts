@@ -13,7 +13,6 @@ app.post('/:port/prerender', async (req, res) => {
     const remoteName = req.get('remote-name') || 'batman'
 
     const client = await AzureTableStorage.connectTableClient(CONNECTION_STRING, TABLE_NAME)
-
     const base64Body = Buffer.from(JSON.stringify(req.body)).toString('base64')
 
     const tableRes: any = await AzureTableStorage.getTableItem(client, remoteName, base64Body)
@@ -33,8 +32,6 @@ app.post('/:port/prerender', async (req, res) => {
 
     res.status(200).send(component)
   } catch (err) {
-    console.log('error try catch')
-    // console.log(err)
     res.sendStatus(500)
   }
 })
