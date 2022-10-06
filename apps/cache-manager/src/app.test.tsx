@@ -8,9 +8,10 @@ const mockTableResponse = {
   partitionKey: 'test',
   rowKey: 'test',
   etag: 'test',
-  value: '<IAMFOOTER>',
+  value: '<IAMCACHEDMFE>',
 }
 const mockRequestBody = {data: 'data'}
+const mockApiResponse = {data: '<IAMREQUESTEDMFE>'}
 const mockDeleteResponse = {}
 const connectionString = process.env.CONNECTION_STRING || ''
 const tableName = process.env.TABLE_NAME || ''
@@ -33,7 +34,7 @@ beforeEach(() => {
     .spyOn(utils.AzureTableStorage, 'deleteTableItem')
     .mockImplementation(() => Promise.resolve(mockDeleteResponse))
   mockCacheExpired = jest.spyOn(utils, 'cacheExpired').mockImplementation(() => false)
-  mockGetComponent = jest.spyOn(utils, 'getComponent').mockImplementation(() => Promise.resolve({data: '<IAMFOOTER>'}))
+  mockGetComponent = jest.spyOn(utils, 'getComponent').mockImplementation(() => Promise.resolve(mockApiResponse))
   mockInsertNewItem = jest.spyOn(utils, 'insertNewItem').mockImplementation(() => Promise.resolve({}))
 })
 
@@ -54,18 +55,26 @@ describe('prerender cache manager', () => {
     mockGetTableItem.mockImplementation(() => Promise.resolve(undefined))
     const response = await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
     expect(mockGetComponent).toBeCalledWith(mockRequestBody, '3003')
-    expect(mockInsertNewItem).toBeCalledWith('testRemote', base64Body, mockTableResponse.value, {})
+    expect(mockInsertNewItem).toBeCalledWith('testRemote', base64Body, mockApiResponse.data, {})
     expect(response.statusCode).toBe(200)
-    expect(response.text).toBe(mockTableResponse.value)
+    expect(response.text).toBe(mockApiResponse.data)
   })
   it('recalls api, removes old component, saves new component to cache and responds with the component if cache has surpassed expiry', async () => {
     mockCacheExpired.mockImplementation(() => true)
     const response = await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
     expect(mockDeleteTableItem).toBeCalledWith({}, 'test', 'test')
     expect(mockGetComponent).toBeCalledWith(mockRequestBody, '3003')
-    expect(mockInsertNewItem).toBeCalledWith('testRemote', base64Body, mockTableResponse.value, {})
+    expect(mockInsertNewItem).toBeCalledWith('testRemote', base64Body, mockApiResponse.data, {})
     expect(response.statusCode).toBe(200)
-    expect(response.text).toBe(mockTableResponse.value)
+    expect(response.text).toBe(mockApiResponse.data)
+  })
+  it('calls api and responds with the component if error is thrown in connecting to cache tables', async () => {
+    mockConnectTableClient.mockImplementation(() => {
+      throw new Error('test error')
+    })
+    const response = await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
+    expect(response.statusCode).toBe(200)
+    expect(response.text).toBe(mockApiResponse.data)
   })
   it('returns a 500 error if component api request fails', async () => {
     mockGetTableItem.mockImplementation(() => Promise.resolve(undefined))

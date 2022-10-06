@@ -15,25 +15,30 @@ app.post('/:port/prerender', async (req, res) => {
     const connectionString = process.env.CONNECTION_STRING || ''
     const tableName = process.env.TABLE_NAME || ''
 
-    const remoteName = req.get('remote-name') || 'batman'
+    const remoteName = req.get('remote-name') || ''
 
-    const client = await AzureTableStorage.connectTableClient(connectionString, tableName)
+    try {
+      const client = await AzureTableStorage.connectTableClient(connectionString, tableName)
 
-    const base64Body = Buffer.from(JSON.stringify(req.body)).toString('base64')
+      const base64Body = Buffer.from(JSON.stringify(req.body)).toString('base64')
 
-    const tableRes: any = await AzureTableStorage.getTableItem(client, remoteName, base64Body)
+      const tableRes: any = await AzureTableStorage.getTableItem(client, remoteName, base64Body)
 
-    if (tableRes === undefined) {
+      if (tableRes === undefined) {
+        const response = await getComponent(req.body, req.params.port)
+        component = response.data
+        insertNewItem(remoteName, base64Body, response.data, client)
+      } else if (cacheExpired(tableRes.expiryDate)) {
+        await AzureTableStorage.deleteTableItem(client, tableRes.partitionKey, tableRes.rowKey)
+        const response = await getComponent(req.body, req.params.port)
+        insertNewItem(remoteName, base64Body, response.data, client)
+        component = response.data
+      } else {
+        component = tableRes.value
+      }
+    } catch (err) {
       const response = await getComponent(req.body, req.params.port)
       component = response.data
-      insertNewItem(remoteName, base64Body, response.data, client)
-    } else if (cacheExpired(tableRes.expiryDate)) {
-      await AzureTableStorage.deleteTableItem(client, tableRes.partitionKey, tableRes.rowKey)
-      const response = await getComponent(req.body, req.params.port)
-      insertNewItem(remoteName, base64Body, response.data, client)
-      component = response.data
-    } else {
-      component = tableRes.value
     }
 
     res.status(200).send(component)
