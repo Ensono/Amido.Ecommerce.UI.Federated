@@ -1,7 +1,6 @@
 import request from 'supertest'
 
 import app from './app'
-import {CONNECTION_STRING, TABLE_NAME} from './globals'
 import * as utils from './utils'
 
 const mockTableResponse = {
@@ -11,10 +10,10 @@ const mockTableResponse = {
   etag: 'test',
   value: '<IAMFOOTER>',
 }
-
 const mockRequestBody = {data: 'data'}
-
 const mockDeleteResponse = {}
+const connectionString = process.env.CONNECTION_STRING || ''
+const tableName = process.env.TABLE_NAME || ''
 
 let mockConnectTableClient: any
 let mockGetTableItem: any
@@ -43,7 +42,7 @@ describe('prerender cache manager', () => {
 
   it('creates client and requests the item from the cache table', async () => {
     await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
-    expect(mockConnectTableClient).toBeCalledWith(CONNECTION_STRING, TABLE_NAME)
+    expect(mockConnectTableClient).toBeCalledWith(connectionString, tableName)
     expect(mockGetTableItem).toBeCalledWith({}, 'testRemote', base64Body)
   })
   it('responds with the component if it is found in the cache tables', async () => {
@@ -67,5 +66,13 @@ describe('prerender cache manager', () => {
     expect(mockInsertNewItem).toBeCalledWith('testRemote', base64Body, mockTableResponse.value, {})
     expect(response.statusCode).toBe(200)
     expect(response.text).toBe(mockTableResponse.value)
+  })
+  it('returns a 500 error if component api request fails', async () => {
+    mockGetTableItem.mockImplementation(() => Promise.resolve(undefined))
+    mockGetComponent.mockImplementation(() => {
+      throw new Error('test error')
+    })
+    const response = await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
+    expect(response.statusCode).toBe(500)
   })
 })

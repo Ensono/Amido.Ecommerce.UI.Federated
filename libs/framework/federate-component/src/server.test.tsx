@@ -18,7 +18,7 @@ const mockLoggerError = jest.fn()
 Logger.error = mockLoggerError
 
 function renderComponent(context = {}) {
-  const Component = getServerComponent(context, 'coolRemote', 'coolModule', {}, 'htttp://coolRemoteUrl:3000')
+  const Component = getServerComponent(context, 'coolRemote', 'coolModule', {}, 'http://coolRemoteUrl:3000')
   const {container} = render(
     <Suspense fallback="loading">
       <ErrorBoundary>
@@ -45,7 +45,7 @@ describe('getServerComponent', () => {
       renderComponent()
 
       await waitFor(() => {
-        expect(mockGet).toHaveBeenCalledWith('htttp://coolRemoteUrl:9000/3000/prerender', {
+        expect(mockGet).toHaveBeenCalledWith('http://coolRemoteUrl:9000/3000/prerender', {
           data: {module: 'coolModule', props: {}},
           headers: {'content-type': 'application/json', 'remote-name': 'coolRemote'},
           method: 'POST',

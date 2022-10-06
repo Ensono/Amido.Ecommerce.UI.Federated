@@ -1,23 +1,23 @@
 import {TableClient} from '@azure/data-tables'
 
-import {CONNECTION_STRING} from './globals'
 import {AzureTableStorage, cacheExpired, currentDateInSeconds, insertNewItem} from './utils'
 
 // Requires local azurite emulator to be running for local testing
 
 describe('utils', () => {
   const tableName = 'jestTable'
+  const connectionString = process.env.CONNECTION_STRING || ''
 
   let client: TableClient | undefined
 
   beforeAll(async () => {
-    await AzureTableStorage.createTable(CONNECTION_STRING, tableName)
+    await AzureTableStorage.createTable(connectionString, tableName)
   })
   afterAll(async () => {
-    await AzureTableStorage.deleteTable(CONNECTION_STRING, tableName)
+    await AzureTableStorage.deleteTable(connectionString, tableName)
   })
   beforeEach(async () => {
-    client = await AzureTableStorage.connectTableClient(CONNECTION_STRING, tableName)
+    client = await AzureTableStorage.connectTableClient(connectionString, tableName)
   })
 
   describe('AzureTableStorage', () => {
