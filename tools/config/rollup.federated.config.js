@@ -2,7 +2,7 @@ const typescript = require('rollup-plugin-typescript2')
 const localtypescript = require('typescript')
 // const {nodeResolve} = require('@rollup/plugin-node-resolve')
 // const commonjs = require('@rollup/plugin-commonjs')
-const externals = require('rollup-plugin-node-externals')
+const {externals} = require('rollup-plugin-node-externals')
 const del = require('rollup-plugin-delete')
 /**
  * This is the rollup configuration to package up in cjs and esm format,

@@ -8,7 +8,7 @@ describe('ProductListing', () => {
   it('renders as expected', async () => {
     const {container} = render(
       <MemoryRouter>
-        <ProductListing>foo bar</ProductListing>
+        <ProductListing />
       </MemoryRouter>,
     )
     await waitFor(() => {

@@ -9,7 +9,7 @@ import {store} from './store'
 jest.mock('@batman/federate-component', () => {
   return {
     __esModule: true,
-    federateComponent: (remote: string) =>
+    federateComponent: ({remote}: any) =>
       function mockComponent() {
         return <section>{remote}</section>
       },

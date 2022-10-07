@@ -6,8 +6,8 @@ import {NextFunction} from 'express'
 import {AnyAction, Store} from 'redux'
 
 export const stateMiddleware = (middlewareStore: Store<any, AnyAction>) => {
-  const provider = ({store, children}) => {
-    return <ReduxProvider store={store}>{children}</ReduxProvider>
+  const provider = ({children}) => {
+    return <ReduxProvider store={middlewareStore}>{children}</ReduxProvider>
   }
 
   try {

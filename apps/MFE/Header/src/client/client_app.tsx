@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {BrowserRouter} from 'react-router-dom'
 
 import {Logger} from '@batman/core-logger'
 
@@ -30,7 +31,11 @@ export class ClientApp extends Component<any, {hasError: boolean}> {
     if (this.state.hasError) {
       return <div data-testid="client-error" />
     }
-    return <App {...this.props} />
+    return (
+      <BrowserRouter>
+        <App {...this.props} />
+      </BrowserRouter>
+    )
   }
 }
 

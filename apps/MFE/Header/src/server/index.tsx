@@ -14,6 +14,7 @@ import {
 import {json} from 'body-parser'
 import compression from 'compression'
 import express from 'express'
+import {StaticRouter} from 'react-router-dom/server'
 
 import ReactApp from '../App'
 import remoteEntry from '../remote-entry/remote-entry.cjs'
@@ -23,9 +24,11 @@ const publicPath = path.join(__dirname, '/public')
 
 // TODO: should redux be in here? /app and /prerender need to have per-request stores
 const renderOptions = {
-  app: (
+  app: ({location}: {location: string}) => (
     <ReduxProvider store={headerStore}>
-      <ReactApp />
+      <StaticRouter location={location}>
+        <ReactApp />
+      </StaticRouter>
     </ReduxProvider>
   ),
   errorStatusCode: 206,

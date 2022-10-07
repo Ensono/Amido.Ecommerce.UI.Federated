@@ -1,4 +1,5 @@
-import React, {Suspense} from 'react'
+import React, {PropsWithChildren, Suspense, useContext} from 'react'
+import {UNSAFE_RouteContext} from 'react-router-dom'
 
 import {Logger} from '@batman/core-logger'
 
@@ -51,13 +52,43 @@ export class ErrorBoundary extends React.Component<any, {hasError: boolean}> {
  *
  * @returns Suspended, federated React component with an error boundary
  */
-export const federateComponent = (remote: string, module: string, remoteUrl: string, shareScope = 'default') => {
-  const FederatedComponent: React.FC<
-    {loadingFallback?: JSX.Element; errorFallback?: JSX.Element} | Record<string, any>
-  > = ({children, loadingFallback = <> </>, errorFallback = <> </>, ...props}) => {
-    const Component: React.FC =
+type FederatedComponentFactory = {
+  remote: string
+  module: string
+  remoteUrl: string
+  shareScope?: string
+  forwardRoute?: boolean
+}
+export const federateComponent = ({
+  remote,
+  module,
+  remoteUrl,
+  shareScope = 'default',
+  forwardRoute = false,
+}: FederatedComponentFactory) => {
+  const FederatedComponent = ({
+    children,
+    loadingFallback = <> </>,
+    errorFallback = <> </>,
+    ...props
+  }: PropsWithChildren<{loadingFallback?: JSX.Element; errorFallback?: JSX.Element} | Record<string, any>>) => {
+    // As it's not possible to get the active route's path pattern yet
+    // We require something like useRouteMatch hook
+    // Alternatively we can build a fake path using the params, but things like useLocation wouldn't work
+
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const _ctx: any = {}
+    const {matches} = useContext(UNSAFE_RouteContext)
+    // Might need to use useLocation for full path & search
+    if (forwardRoute && matches.length > 0) {
+      const match = matches[matches.length - 1]
+      _ctx.pathname = match.pathname
+      _ctx.pattern = match.route.path || '*'
+    }
+
+    const Component: React.FC<PropsWithChildren<any>> =
       typeof window === 'undefined'
-        ? getServerComponent(context, remote, module, props, remoteUrl)
+        ? getServerComponent(context, remote, module, {...props, _ctx}, remoteUrl)
         : getClientComponent(context, remote, module, shareScope)
 
     return (

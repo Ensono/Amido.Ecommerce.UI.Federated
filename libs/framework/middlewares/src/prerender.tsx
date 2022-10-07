@@ -6,8 +6,8 @@ import {constants} from '@batman/constants'
 import {Logger} from '@batman/core-logger'
 import {getRemoteUrls} from '@batman/remote-urls'
 import {NextFunction} from 'express'
-// @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
+import {StaticRouter} from 'react-router-dom/server'
 
 /**
  * Generates payload of downstream client remote entry files and renders the react module exposed
@@ -18,18 +18,18 @@ import {renderToPipeableStream} from 'react-dom/server'
 export const prerenderMiddleware = remoteEntry => {
   const remoteInitPromise = (remoteEntry as any).init({
     react: {
-      [React.version]: {
+      '18.2.0': {
         get: () => () => React,
       },
     },
     'react-router-dom': {
-      '5.3.1': {
+      '6.4.1': {
         get: () => () => ReactRouterDom,
       },
     },
     // TODO: can this be automated?
     'react-redux': {
-      '7.2.8': {
+      '8.0.4': {
         get: () => () => ReactRedux,
       },
     },
@@ -41,6 +41,7 @@ export const prerenderMiddleware = remoteEntry => {
       next()
       return
     }
+    const {pathname, pattern} = props._ctx ?? {}
 
     try {
       const remoteUrls = getRemoteUrls()
@@ -62,14 +63,24 @@ export const prerenderMiddleware = remoteEntry => {
       const el =
         initialState !== 'NO STATE' ? (
           <InitialStateProvider store={req.initialStore}>
-            <ReactRouterDom.StaticRouter location="/">
-              <Component {...props}>{`\u200Cchildren\u200C`}</Component>
-            </ReactRouterDom.StaticRouter>
+            <StaticRouter location={pathname || '/'}>
+              <ReactRouterDom.Routes>
+                <ReactRouterDom.Route
+                  path={pattern || '*'}
+                  element={<Component {...props}>{`\u200Cchildren\u200C`}</Component>}
+                />
+              </ReactRouterDom.Routes>
+            </StaticRouter>
           </InitialStateProvider>
         ) : (
-          <ReactRouterDom.StaticRouter location="/">
-            <Component {...props}>{`\u200Cchildren\u200C`}</Component>
-          </ReactRouterDom.StaticRouter>
+          <StaticRouter location={pathname || '/'}>
+            <ReactRouterDom.Routes>
+              <ReactRouterDom.Route
+                path={pattern || '*'}
+                element={<Component {...props}>{`\u200Cchildren\u200C`}</Component>}
+              />
+            </ReactRouterDom.Routes>
+          </StaticRouter>
         )
 
       const {pipe} = renderToPipeableStream(el, {

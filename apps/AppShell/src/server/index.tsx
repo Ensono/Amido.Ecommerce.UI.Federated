@@ -2,11 +2,11 @@
 import path from 'path'
 
 import {Provider as ReduxProvider} from 'react-redux'
-import {StaticRouter} from 'react-router-dom'
 
 import {helmetGuard, htmlMiddleware, httpLogger, renderMiddleware} from '@batman/middlewares'
 import compression from 'compression'
 import express, {NextFunction} from 'express'
+import {StaticRouter} from 'react-router-dom/server'
 
 import ReactApp from '../App'
 import {counterActions, store} from '../store'
@@ -33,7 +33,7 @@ const renderOptionsMiddleware = async (req: any, res: any, next: NextFunction) =
   const initialState = store.getState()
 
   const renderOptions = {
-    app: (location: string) => (
+    app: ({location}: any) => (
       <ReduxProvider store={store}>
         <StaticRouter location={location}>
           <ReactApp />
@@ -51,7 +51,6 @@ const renderOptionsMiddleware = async (req: any, res: any, next: NextFunction) =
 }
 
 app.use('/app', htmlMiddleware, renderOptionsMiddleware, renderMiddleware({errorStatusCode: 206}))
-// TODO: this works in production mode but not dev
 app.use('/', express.static(publicPath))
 
 export default app

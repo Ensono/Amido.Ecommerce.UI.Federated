@@ -4,7 +4,7 @@ import {context} from '@batman/federate-component'
 
 export {context}
 
-const Footer: React.FC = ({children}) => {
+const Footer: React.FC<{children?: React.ReactNode}> = ({children}) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <footer data-testid="module-federated-footer" onClick={() => console.log('ciao mamma footer')}>

@@ -7,7 +7,11 @@ import HeaderCounter from './components/headerCounter'
 
 const REMOTES = getRemoteUrls()
 
-const Navigation = federateComponent('mfe_navigation', './navigation', REMOTES.mfe_navigation)
+const Navigation = federateComponent({
+  remote: 'mfe_navigation',
+  module: './navigation',
+  remoteUrl: REMOTES.mfe_navigation,
+})
 
 /**
  * Example custom hook.
@@ -30,7 +34,7 @@ const usePageBottom = () => {
   return bottom
 }
 
-const Header: React.FC = ({children}) => {
+const Header: React.FC<{children: React.ReactNode}> = ({children}) => {
   // const themeState = useThemeState()
   const [counter, setCounter] = useState(0)
   const isBottom = usePageBottom()

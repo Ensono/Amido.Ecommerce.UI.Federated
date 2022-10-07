@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
 import {Logger} from '@batman/core-logger'
 
@@ -32,7 +33,11 @@ export class ClientApp extends Component<any, {hasError: boolean}> {
     }
     return (
       <ReduxProvider value={{}}>
-        <App {...this.props} />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/app/productDetails/:id" element={<App {...this.props} />} />
+          </Routes>
+        </BrowserRouter>
       </ReduxProvider>
     )
   }

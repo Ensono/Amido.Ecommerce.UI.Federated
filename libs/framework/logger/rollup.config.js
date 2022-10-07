@@ -1,9 +1,9 @@
+const commonjs = require('@rollup/plugin-commonjs')
+const {nodeResolve} = require('@rollup/plugin-node-resolve')
+const del = require('rollup-plugin-delete')
+const {externals} = require('rollup-plugin-node-externals')
 const typescript = require('rollup-plugin-typescript2')
 const localtypescript = require('typescript')
-const {nodeResolve} = require('@rollup/plugin-node-resolve')
-const commonjs = require('@rollup/plugin-commonjs')
-const externals = require('rollup-plugin-node-externals')
-const del = require('rollup-plugin-delete')
 
 /**
  * What is the class's single responsibility?

@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {BrowserRouter} from 'react-router-dom'
 
 import {Logger} from '@batman/core-logger'
 
@@ -32,7 +33,9 @@ export class ClientApp extends Component<any, {hasError: boolean}> {
     }
     return (
       <ReduxProvider value={{}}>
-        <App {...this.props} />
+        <BrowserRouter>
+          <App {...this.props} />
+        </BrowserRouter>
       </ReduxProvider>
     )
   }

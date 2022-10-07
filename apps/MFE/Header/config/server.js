@@ -1,3 +1,4 @@
+const {dependencies: rootDependencies} = require('../../../../package.json')
 const {dependencies} = require('../package.json')
 
 const getFederationConfig = REMOTES => ({
@@ -9,13 +10,12 @@ const getFederationConfig = REMOTES => ({
     './header': './src/Header.tsx',
   },
   shared: {
+    ...rootDependencies,
     ...dependencies,
-    react: {
-      singleton: true,
-      eager: true,
-      requiredVersion: dependencies.react,
-      shareScope: 'default',
-    },
+    react: {singleton: true},
+    'react-router-dom': {singleton: true},
+    'react-dom': {singleton: true},
+    'react-redux': {singleton: true},
   },
 })
 

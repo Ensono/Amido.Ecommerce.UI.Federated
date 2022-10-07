@@ -1,10 +1,13 @@
 /* istanbul ignore file */
 import path from 'path'
 
+import {Route, Routes} from 'react-router-dom'
+
 import {helmetGuard, htmlMiddleware, httpLogger, prerenderMiddleware, renderMiddleware} from '@batman/middlewares'
 import {json} from 'body-parser'
 import compression from 'compression'
 import express from 'express'
+import {StaticRouter} from 'react-router-dom/server'
 
 import ReactApp, {ReduxProvider} from '../App'
 //@ts-ignore
@@ -13,9 +16,13 @@ import remoteEntry from '../remote-entry/remote-entry.cjs'
 const publicPath = path.join(__dirname, '/public')
 const theme = {}
 const renderOptions = {
-  app: (
+  app: ({location}: {location: string}) => (
     <ReduxProvider value={theme}>
-      <ReactApp />
+      <StaticRouter location={location}>
+        <Routes>
+          <Route path="/app/productDetails/:id" element={<ReactApp />} />
+        </Routes>
+      </StaticRouter>
     </ReduxProvider>
   ),
   errorStatusCode: 206,

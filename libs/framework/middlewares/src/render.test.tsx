@@ -49,7 +49,7 @@ jest.useFakeTimers()
 
 describe('render middleware', () => {
   beforeEach(() => {
-    renderToPipeableStream.mockImplementation((el, obj) => {
+    ;(renderToPipeableStream as jest.Mock).mockImplementation((el, obj) => {
       configObjectCache.obj = obj
       return {
         pipe: mockPipe,
