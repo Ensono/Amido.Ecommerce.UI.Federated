@@ -109,6 +109,7 @@ describe('prerender middleware', () => {
       const mockNext = jest.fn()
       const mockContentType = jest.fn()
       const mockWrite = jest.fn()
+      const mockEnd = jest.fn()
 
       await middlewareFunc(
         {
@@ -120,6 +121,7 @@ describe('prerender middleware', () => {
         {
           contentType: mockContentType,
           write: mockWrite,
+          end: mockEnd,
         },
         mockNext,
       )
@@ -133,6 +135,62 @@ describe('prerender middleware', () => {
       expect(mockContentType).toHaveBeenCalled()
       expect(mockWrite).toHaveBeenCalled()
       expect(mockPipe).toHaveBeenCalled()
+    })
+
+    it('prerenderMiddleware constructs serialised object from inputs', async () => {
+      process.env.REMOTE_URLS = '{"mfe_footer": "http://localhost:3003"}'
+      const configObjectCache = {
+        obj: null,
+      }
+
+      const testHtml = '<div className="test">Hello this is a test</div>'
+
+      ;(renderToPipeableStream as jest.Mock).mockImplementation((el, obj) => {
+        configObjectCache.obj = obj
+        return {
+          pipe: (input: any) => {
+            input.html = testHtml
+          },
+        }
+      })
+
+      const mockInit = jest.fn()
+      const middlewareFunc = prerenderMiddleware({
+        init: mockInit,
+        get: () => () => 'div',
+      })
+
+      const mockNext = jest.fn()
+      const mockContentType = jest.fn()
+      const mockWrite = jest.fn()
+      const mockEnd = jest.fn()
+
+      await middlewareFunc(
+        {
+          body: {
+            module: 'foo',
+            props: mockWrite,
+          },
+        },
+        {
+          contentType: mockContentType,
+          write: mockWrite,
+          end: mockEnd,
+        },
+        mockNext,
+      )
+      const {onAllReady} = configObjectCache.obj
+
+      expect(mockInit).toHaveBeenCalled()
+      expect(renderToPipeableStream).toHaveBeenCalled()
+
+      onAllReady()
+
+      expect(mockContentType).toHaveBeenCalled()
+      expect(mockWrite).toHaveBeenNthCalledWith(1, `{"chunks":["http://localhost:3003/remote-entry.js"],"html":"`)
+      expect(mockWrite).toHaveBeenNthCalledWith(2, testHtml)
+      expect(mockWrite).toHaveBeenNthCalledWith(3, `","state":"NO STATE"}`)
+      //      expect(mockPipe).toHaveBeenCalled()
     })
   })
 })

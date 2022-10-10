@@ -9,8 +9,25 @@ import {getServerComponent} from './server'
 
 import {ErrorBoundary} from '.'
 
-const mockData = `["http://localhost:3001/remote-entry.js","http://localhost:3001/remote-entry.css"]--||||--<footer data-testid="moodule-federated-footer">THIS IS THE FOOTER<!-- --><!--$--><div><p data-testid="paragraph-in-header">I am the HEADERRRRR&#x27;&quot;</p>‌children‌<!-- --></div><!--/$--></footer>`
-const mockBadData = `help something went wrong this isn't JSON--||||--<footer data-testid="moodule-federated-footer">THIS IS THE FOOTER<!-- --><!--$--><div><p data-testid="paragraph-in-header">I am the HEADERRRRR&#x27;&quot;</p>‌children‌<!-- --></div><!--/$--></footer>`
+const mockData = {
+  chunks: ['http://localhost:3001/remote-entry.js', 'http://localhost:3001/remote-entry.css'],
+  html: '%3Cfooter%20data-testid%3D%22moodule-federated-footer%22%3ETHIS%20IS%20THE%20FOOTER%3C!--%20--%3E%3C!--%24--%3E%3Cdiv%3E%3Cp%20data-testid%3D%22paragraph-in-header%22%3EI%20am%20the%20HEADERRRRR%26%23x27%3B%26quot%3B%3C%2Fp%3E%E2%80%8Cchildren%E2%80%8C%3C!--%20--%3E%3C%2Fdiv%3E%3C!--%2F%24--%3E%3C%2Ffooter%3E',
+  state: {
+    headerCounter: {
+      value: 0,
+    },
+  },
+}
+
+const mockBadData = {
+  chunks: `help something went wrong this isnt JSON`,
+  html: '%3Cfooter%20data-testid%3D%22moodule-federated-footer%22%3ETHIS%20IS%20THE%20FOOTER%3C!--%20--%3E%3C!--%24--%3E%3Cdiv%3E%3Cp%20data-testid%3D%22paragraph-in-header%22%3EI%20am%20the%20HEADERRRRR%26%23x27%3B%26quot%3B%3C%2Fp%3E%E2%80%8Cchildren%E2%80%8C%3C!--%20--%3E%3C%2Fdiv%3E%3C!--%2F%24--%3E%3C%2Ffooter%3E',
+  state: {
+    headerCounter: {
+      value: 0,
+    },
+  },
+}
 
 jest.mock('axios')
 jest.mock('@batman/core-logger')
