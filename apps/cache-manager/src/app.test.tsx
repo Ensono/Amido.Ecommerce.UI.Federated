@@ -105,4 +105,24 @@ describe('prerender cache manager', () => {
       .set('Content-Language', 'en-GB')
     expect(response.statusCode).toBe(500)
   })
+  it('returns default value for content-language header', async () => {
+    await request(app)
+      .post('/3003/prerender')
+      .send(mockRequestBody)
+      .set('remote-name', 'testRemote')
+      .then(res => {
+        expect(res.headers['content-language']).toBe('en-GB')
+      })
+  })
+
+  it('returns set value for content-language header', async () => {
+    await request(app)
+      .post('/3003/prerender')
+      .send(mockRequestBody)
+      .set('remote-name', 'testRemote')
+      .set('Content-Language', 'de-DE')
+      .then(res => {
+        expect(res.headers['content-language']).toBe('de-DE')
+      })
+  })
 })

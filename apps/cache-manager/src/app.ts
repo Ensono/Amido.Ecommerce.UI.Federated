@@ -19,7 +19,7 @@ app.post('/:port/prerender', async (req, res) => {
 
     const languageHeader = req.headers['content-language'] || 'en-GB'
     const headers = {
-      'Content-Language': languageHeader,
+      'content-language': languageHeader,
       'remote-name': remoteName,
     }
 
