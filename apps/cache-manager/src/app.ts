@@ -21,7 +21,6 @@ app.post('/:port/prerender', async (req, res) => {
     const headers = {
       'Content-Language': languageHeader,
       'remote-name': remoteName,
-      'Content-Type': 'application/json',
     }
 
     try {

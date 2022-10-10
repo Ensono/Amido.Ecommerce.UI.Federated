@@ -39,10 +39,15 @@ beforeEach(() => {
 })
 
 describe('prerender cache manager', () => {
-  const base64Body = Buffer.from(JSON.stringify(mockRequestBody)).toString('base64')
+  const base64Body = Buffer.from(JSON.stringify({...mockRequestBody, language: 'en-GB'})).toString('base64')
 
   it('creates client and requests the item from the cache table', async () => {
-    await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
+    await request(app)
+      .post('/3003/prerender')
+      .send(mockRequestBody)
+      .set('remote-name', 'testRemote')
+      .set('Content-Language', 'en-GB')
+
     expect(mockConnectTableClient).toBeCalledWith(connectionString, tableName)
     expect(mockGetTableItem).toBeCalledWith({}, 'testRemote', base64Body)
   })
@@ -53,7 +58,11 @@ describe('prerender cache manager', () => {
   })
   it('calls api, saves component to cache and responds with the component if it is not found in the cache tables', async () => {
     mockGetTableItem.mockImplementation(() => Promise.resolve(undefined))
-    const response = await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
+    const response = await request(app)
+      .post('/3003/prerender')
+      .send(mockRequestBody)
+      .set('remote-name', 'testRemote')
+      .set('Content-Language', 'en-GB')
     expect(mockGetComponent).toBeCalledWith(mockRequestBody, '3003')
     expect(mockInsertNewItem).toBeCalledWith('testRemote', base64Body, mockApiResponse.data, {})
     expect(response.statusCode).toBe(200)
@@ -61,7 +70,11 @@ describe('prerender cache manager', () => {
   })
   it('recalls api, removes old component, saves new component to cache and responds with the component if cache has surpassed expiry', async () => {
     mockCacheExpired.mockImplementation(() => true)
-    const response = await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
+    const response = await request(app)
+      .post('/3003/prerender')
+      .send(mockRequestBody)
+      .set('remote-name', 'testRemote')
+      .set('Content-Language', 'en-GB')
     expect(mockDeleteTableItem).toBeCalledWith({}, 'test', 'test')
     expect(mockGetComponent).toBeCalledWith(mockRequestBody, '3003')
     expect(mockInsertNewItem).toBeCalledWith('testRemote', base64Body, mockApiResponse.data, {})
@@ -72,7 +85,11 @@ describe('prerender cache manager', () => {
     mockConnectTableClient.mockImplementation(() => {
       throw new Error('test error')
     })
-    const response = await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
+    const response = await request(app)
+      .post('/3003/prerender')
+      .send(mockRequestBody)
+      .set('remote-name', 'testRemote')
+      .set('Content-Language', 'en-GB')
     expect(response.statusCode).toBe(200)
     expect(response.text).toBe(mockApiResponse.data)
   })
@@ -81,7 +98,11 @@ describe('prerender cache manager', () => {
     mockGetComponent.mockImplementation(() => {
       throw new Error('test error')
     })
-    const response = await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
+    const response = await request(app)
+      .post('/3003/prerender')
+      .send(mockRequestBody)
+      .set('remote-name', 'testRemote')
+      .set('Content-Language', 'en-GB')
     expect(response.statusCode).toBe(500)
   })
 })
