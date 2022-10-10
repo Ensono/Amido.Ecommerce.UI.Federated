@@ -17,10 +17,19 @@ app.post('/:port/prerender', async (req, res) => {
 
     const remoteName = req.get('remote-name') || ''
 
+    const languageHeader = req.headers['content-language'] || 'en-GB'
+    const headers = {
+      'Content-Language': languageHeader,
+      'remote-name': remoteName,
+      'Content-Type': 'application/json',
+    }
+
     try {
       const client = await AzureTableStorage.connectTableClient(connectionString, tableName)
 
-      const base64Body = Buffer.from(JSON.stringify(req.body)).toString('base64')
+      const rowKey = {...req.body, language: languageHeader}
+
+      const base64Body = Buffer.from(JSON.stringify(rowKey)).toString('base64')
 
       const tableRes: any = await AzureTableStorage.getTableItem(client, remoteName, base64Body)
 
@@ -41,6 +50,7 @@ app.post('/:port/prerender', async (req, res) => {
       component = response.data
     }
 
+    res.set(headers)
     res.status(200).send(component)
   } catch (err) {
     res.sendStatus(500)
