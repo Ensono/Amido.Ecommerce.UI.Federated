@@ -126,10 +126,10 @@ import coolFunction from 'cool-package-2'
 ## Architecture Diagrams
 
 ### Complete Architecture Example:
-![Complete Architecture Example](/readme/images/Screenshot%202022-04-21%20at%2009.24.02.png)
+![Complete Architecture Example](/images/Screenshot%202022-04-21%20at%2009.24.02.png)
 
 ### Low Level:
-![Low Level](/readme/images/Screenshot%202022-04-21%20at%2009.26.05.png)
+![Low Level](/images/Screenshot%202022-04-21%20at%2009.26.05.png)
 
 ### Daisy Chaining MFE through FC (Federated Component) package:
-![Daisy Chaining MFE through FC (Federated Component) package](/readme/images/Screenshot%202022-04-21%20at%2009.26.31.png)
+![Daisy Chaining MFE through FC (Federated Component) package](/images/Screenshot%202022-04-21%20at%2009.26.31.png)
