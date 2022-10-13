@@ -12,13 +12,10 @@ import {renderToPipeableStream} from 'react-dom/server'
 import {StaticRouter} from 'react-router-dom/server'
 
 class HtmlWritable extends Writable {
-  chunks = []
-
   html = ''
 
   _write(chunk, _, next) {
-    this.chunks.push(chunk)
-    this.html = encodeURIComponent(Buffer.concat(this.chunks).toString())
+    this.html = encodeURIComponent(chunk.toString())
     next()
   }
 }
@@ -120,7 +117,6 @@ export const prerenderMiddleware = remoteEntry => {
           res.end()
         },
         onError(x: Error) {
-          console.log('ERRORED')
           Logger.error(x.message)
           didError = true
           clearTimeout(timeout)
