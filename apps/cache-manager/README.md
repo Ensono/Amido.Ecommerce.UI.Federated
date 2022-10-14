@@ -6,6 +6,24 @@ This app is designed to hold all uilities for the Cache Manager.
 
 ## `Azure Table Storage`
 
+Run from within the `cache-manager` app directory:
+
+```
+npm run azurite:install
+```
+
+This will begin executing a series of scripts that will install:
+
+- Azurite local emulator
+- Microsoft Azure Storage Explorer
+- .env file
+
+These are used for local development to test out CRUD operations against Azure Table Storage.
+
+<br>
+
+Alternatively follow the individual installations linked below.
+
 ### Install [Azurite Local Emulator](https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio)
 
 This is used to enable local development for the Azure cloud. Provides a local DB to run the standard SDK commands.
@@ -37,7 +55,7 @@ when testing operations.
 
 `server` - Runs node server against app config
 
-<br>
+`scripts` - Contains azurite and storage explorer setup script
 
 <br>
 
