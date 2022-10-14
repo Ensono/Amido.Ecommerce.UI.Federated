@@ -17,21 +17,19 @@ app.post('/:port/prerender', async (req, res) => {
 
     const remoteName = req.get('remote-name') || ''
 
-    const languageHeader = req.headers['content-language'] || 'en-GB'
-
-    const splitLanguageHeader = languageHeader.split('-')
-
-    const customHeaders = {'x-language': splitLanguageHeader[0], 'x-territory': splitLanguageHeader[1]}
+    const xLanguage = req.headers['x-language'] || 'en'
+    const xTerritory = req.headers['x-territory'] || 'GB'
 
     const headers = {
+      'x-language': xLanguage,
+      'x-territory': xTerritory,
       'remote-name': remoteName,
-      ...customHeaders,
     }
 
     try {
       const client = await AzureTableStorage.connectTableClient(connectionString, tableName)
 
-      const rowKey = {...req.body, headers: customHeaders}
+      const rowKey = {...req.body, headers}
 
       const base64Body = Buffer.from(JSON.stringify(rowKey)).toString('base64')
 

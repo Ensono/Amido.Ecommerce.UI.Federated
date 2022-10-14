@@ -40,7 +40,10 @@ beforeEach(() => {
 
 describe('prerender cache manager', () => {
   const base64Body = Buffer.from(
-    JSON.stringify({...mockRequestBody, headers: {'x-language': 'en', 'x-territory': 'GB'}}),
+    JSON.stringify({
+      ...mockRequestBody,
+      headers: {'x-language': 'en', 'x-territory': 'GB', 'remote-name': 'testRemote'},
+    }),
   ).toString('base64')
 
   it('creates client and requests the item from the cache table', async () => {
@@ -48,13 +51,19 @@ describe('prerender cache manager', () => {
       .post('/3003/prerender')
       .send(mockRequestBody)
       .set('remote-name', 'testRemote')
-      .set('Content-Language', 'en-GB')
+      .set('x-language', 'en')
+      .set('x-territory', 'GB')
 
     expect(mockConnectTableClient).toBeCalledWith(connectionString, tableName)
     expect(mockGetTableItem).toBeCalledWith({}, 'testRemote', base64Body)
   })
   it('responds with the component if it is found in the cache tables', async () => {
-    const response = await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
+    const response = await request(app)
+      .post('/3003/prerender')
+      .send(mockRequestBody)
+      .set('remote-name', 'testRemote')
+      .set('x-language', 'en')
+      .set('x-territory', 'GB')
     expect(response.statusCode).toBe(200)
     expect(response.text).toBe(mockTableResponse.value)
   })
@@ -64,7 +73,9 @@ describe('prerender cache manager', () => {
       .post('/3003/prerender')
       .send(mockRequestBody)
       .set('remote-name', 'testRemote')
-      .set('Content-Language', 'en-GB')
+      .set('x-language', 'en')
+      .set('x-territory', 'GB')
+
     expect(mockGetComponent).toBeCalledWith(mockRequestBody, '3003')
     expect(mockInsertNewItem).toBeCalledWith('testRemote', base64Body, mockApiResponse.data, {})
     expect(response.statusCode).toBe(200)
@@ -76,7 +87,8 @@ describe('prerender cache manager', () => {
       .post('/3003/prerender')
       .send(mockRequestBody)
       .set('remote-name', 'testRemote')
-      .set('Content-Language', 'en-GB')
+      .set('x-language', 'en')
+      .set('x-territory', 'GB')
     expect(mockDeleteTableItem).toBeCalledWith({}, 'test', 'test')
     expect(mockGetComponent).toBeCalledWith(mockRequestBody, '3003')
     expect(mockInsertNewItem).toBeCalledWith('testRemote', base64Body, mockApiResponse.data, {})
@@ -91,7 +103,8 @@ describe('prerender cache manager', () => {
       .post('/3003/prerender')
       .send(mockRequestBody)
       .set('remote-name', 'testRemote')
-      .set('Content-Language', 'en-GB')
+      .set('x-language', 'en')
+      .set('x-territory', 'GB')
     expect(response.statusCode).toBe(200)
     expect(response.text).toBe(mockApiResponse.data)
   })
@@ -104,7 +117,8 @@ describe('prerender cache manager', () => {
       .post('/3003/prerender')
       .send(mockRequestBody)
       .set('remote-name', 'testRemote')
-      .set('Content-Language', 'en-GB')
+      .set('x-language', 'en')
+      .set('x-territory', 'GB')
     expect(response.statusCode).toBe(500)
   })
   it('returns default value for language and territory headers', async () => {
@@ -119,7 +133,8 @@ describe('prerender cache manager', () => {
       .post('/3003/prerender')
       .send(mockRequestBody)
       .set('remote-name', 'testRemote')
-      .set('content-language', 'de-DE')
+      .set('x-language', 'de')
+      .set('x-territory', 'DE')
 
     expect(response.headers['x-language']).toBe('de')
     expect(response.headers['x-territory']).toBe('DE')
