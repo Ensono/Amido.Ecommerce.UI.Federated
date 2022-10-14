@@ -8,7 +8,7 @@ dotenv.config()
 const app = express()
 app.use(express.json())
 
-app.post('/:port/prerender', async (req, res) => {
+app.post('/:remoteUrl/prerender', async (req, res) => {
   try {
     let component
 
@@ -36,21 +36,23 @@ app.post('/:port/prerender', async (req, res) => {
       const tableRes: any = await AzureTableStorage.getTableItem(client, remoteName, base64Body)
 
       if (tableRes === undefined) {
-        const response = await getComponent(req.body, req.params.port)
+        const response = await getComponent(req.body, req.params.remoteUrl)
         component = response.data
         insertNewItem(remoteName, base64Body, response.data, client)
       } else if (cacheExpired(tableRes.expiryDate)) {
         await AzureTableStorage.deleteTableItem(client, tableRes.partitionKey, tableRes.rowKey)
-        const response = await getComponent(req.body, req.params.port)
+        const response = await getComponent(req.body, req.params.remoteUrl)
         insertNewItem(remoteName, base64Body, response.data, client)
         component = response.data
       } else {
         component = tableRes.value
       }
     } catch (err) {
-      const response = await getComponent(req.body, req.params.port)
+      console.log(err)
+      const response = await getComponent(req.body, req.params.remoteUrl)
       component = response.data
     }
+    console.log(component)
 
     res.set(headers)
     res.status(200).send(component)

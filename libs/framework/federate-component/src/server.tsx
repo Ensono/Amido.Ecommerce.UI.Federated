@@ -27,6 +27,7 @@ export const getServerComponent = (
   module: string,
   props: {[key: string]: any},
   remoteUrl: string,
+  cacheManagerUrl: string,
 ) => {
   // We cache based on properties. This allows us to only
   // do one fetch for multiple references of a remote component.
@@ -39,14 +40,13 @@ export const getServerComponent = (
     return Component
   }
 
-  const [protocol, host, port] = remoteUrl.split(':')
-
-  const cacheManagerUrl = `${protocol}:${host}:9000/${port}`
+  const hostPort = remoteUrl.split('//')[1]
 
   Component = lazy(async () => {
     // Do the post request to pre-render the federated component
+    const requestUrl = cacheManagerUrl ? `${cacheManagerUrl}/${hostPort}/prerender` : `${remoteUrl}/prerender`
     try {
-      const res = await axios(`${cacheManagerUrl}/prerender`, {
+      const res = await axios(requestUrl, {
         method: 'POST',
         data: {
           module,
