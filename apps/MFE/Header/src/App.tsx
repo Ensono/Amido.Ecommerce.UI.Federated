@@ -9,7 +9,7 @@ const ThemeContext = createContext(null)
 export const ThemeProvider = ({children, data}: any) => {
   return <ThemeContext.Provider value={data}>{children}</ThemeContext.Provider>
 }
- // test
+// test
 /**
  * Renders the Header MFE in a standalone page.
  * Not used by consumers of the Header federated module.
