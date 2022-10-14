@@ -2,7 +2,7 @@ const typescript = require('rollup-plugin-typescript2')
 const localtypescript = require('typescript')
 const {nodeResolve} = require('@rollup/plugin-node-resolve')
 const commonjs = require('@rollup/plugin-commonjs')
-const externals = require('rollup-plugin-node-externals')
+const {externals} = require('rollup-plugin-node-externals')
 const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default
 const del = require('rollup-plugin-delete')
 
@@ -19,8 +19,8 @@ const styledComponentsTransformer = pkg =>
  * from typescript source files. it refers to an explicit UI component.
  * @remarks
  *
- * This should be used when bundling a package which source files are .tsx 
- * 
+ * This should be used when bundling a package which source files are .tsx
+ *
  * * This should be used for explicit UI components only.
  *
  *
@@ -28,7 +28,7 @@ const styledComponentsTransformer = pkg =>
  * * esm to import in your consumer application's source code
  * * types to support typescript consumers
  * * cjs to support Jest runs (which do support only cjs)
- * 
+ *
  *
  * @internal
  */
@@ -50,9 +50,9 @@ module.exports = pkg => ({
   plugins: [
     // this line is for deleting the output folder before any build.
     del({targets: 'lib/*'}),
-    // 
+    //
     externals({
-      // we always want the deps and peerDeps not to be bundled in, 
+      // we always want the deps and peerDeps not to be bundled in,
       // the consumer will import at build time and npm will install all the deps from the consumer's build
       deps: true,
       peerDeps: true,
@@ -64,7 +64,7 @@ module.exports = pkg => ({
     }),
     // nodeResolve will traverse the node_modules tree and bundle all deps that are not external (see above)
     nodeResolve(),
-    // commonjs will transpile cjs dependencies into esm for sharing purposes 
+    // commonjs will transpile cjs dependencies into esm for sharing purposes
     commonjs(),
   ],
 })

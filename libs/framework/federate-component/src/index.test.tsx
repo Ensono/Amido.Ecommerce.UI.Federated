@@ -1,5 +1,8 @@
+import {BrowserRouter} from 'react-router-dom'
+
 import {render} from '@testing-library/react'
 import {renderToString} from 'react-dom/server'
+import {StaticRouter} from 'react-router-dom/server'
 
 import {getClientComponent} from './client'
 import {getServerComponent} from './server'
@@ -28,19 +31,16 @@ describe('federateComponent', () => {
 
   describe('on the client', () => {
     it('calls getClientComponent', () => {
-      federateComponent('remote', 'module', 'remoteUrl')(props)
+      const Component = federateComponent({remote: 'remote', module: 'module', remoteUrl: 'remoteUrl'})
+      render(<Component {...props} />, {wrapper: BrowserRouter})
       expect(getClientComponent).toBeCalledTimes(1)
-    })
-
-    it("doesn't call getServerComponent", () => {
-      federateComponent('remote', 'module', 'remoteUrl')(props)
       expect(getServerComponent).not.toBeCalled()
     })
 
     it('returns a component that renders correctly', () => {
-      const Component = federateComponent('remote', 'module', 'remoteUrl')
+      const Component = federateComponent({remote: 'remote', module: 'module', remoteUrl: 'remoteUrl'})
       const clientProps = {...props, env: 'client'}
-      const {container} = render(<Component {...clientProps} />)
+      const {container} = render(<Component {...clientProps} />, {wrapper: BrowserRouter})
       expect(container).toMatchSnapshot()
     })
   })
@@ -57,20 +57,26 @@ describe('federateComponent', () => {
     })
 
     it('calls getServerComponent', () => {
-      federateComponent('remote', 'module', 'remoteUrl')({})
-      expect(getServerComponent).toBeCalledTimes(1)
-    })
+      const Component = federateComponent({remote: 'remote', module: 'module', remoteUrl: 'remoteUrl'})
+      renderToString(
+        <StaticRouter location="/">
+          <Component />
+        </StaticRouter>,
+      )
 
-    it("doesn't call getClientComponent", () => {
-      federateComponent('remote', 'module', 'remoteUrl')({})
+      expect(getServerComponent).toBeCalledTimes(1)
       expect(getClientComponent).not.toBeCalled()
     })
 
     it('returns a component that renders correctly', () => {
-      const Component = federateComponent('remote', 'module', 'remoteUrl')
+      const Component = federateComponent({remote: 'remote', module: 'module', remoteUrl: 'remoteUrl'})
       const serverProps = {...props, env: 'server'}
       // eslint-disable-next-line testing-library/render-result-naming-convention
-      const result = renderToString(<Component {...serverProps} />)
+      const result = renderToString(
+        <StaticRouter location="/">
+          <Component {...serverProps} />
+        </StaticRouter>,
+      )
       expect(result).toMatchSnapshot()
     })
   })

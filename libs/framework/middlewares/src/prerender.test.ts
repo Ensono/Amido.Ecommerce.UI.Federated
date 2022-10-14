@@ -24,17 +24,17 @@ describe('prerender middleware', () => {
 
     const stringifiedResult = JSON.stringify({
       react: {
-        [React.version]: {
+        '18.2.0': {
           get: () => () => React,
         },
       },
       'react-router-dom': {
-        '5.3.1': {
+        '6.4.1': {
           get: () => () => ReactRouterDom,
         },
       },
       'react-redux': {
-        '7.2.8': {
+        '8.0.4': {
           get: () => () => ReactRedux,
         },
       },
@@ -93,7 +93,7 @@ describe('prerender middleware', () => {
 
       const mockPipe = jest.fn()
 
-      renderToPipeableStream.mockImplementation((el, obj) => {
+      ;(renderToPipeableStream as jest.Mock).mockImplementation((el, obj) => {
         configObjectCache.obj = obj
         return {
           pipe: mockPipe,

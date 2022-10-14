@@ -23,9 +23,9 @@ const App: React.FC = () => {
   return (
     <StrictMode>
       <ThemeProvider value={{}}>
-        <Navigation position="top">Positioned top by navigation</Navigation>
+        <Navigation position="top" />
         <Text />
-        <Navigation position="bottom">Positioned bottom by text positioner</Navigation>
+        <Navigation position="bottom" />
       </ThemeProvider>
     </StrictMode>
   )

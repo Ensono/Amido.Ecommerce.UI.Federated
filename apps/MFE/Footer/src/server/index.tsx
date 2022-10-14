@@ -13,7 +13,7 @@ import remoteEntry from '../remote-entry/remote-entry.cjs'
 const publicPath = path.join(__dirname, '/public')
 const theme = {}
 const renderOptions = {
-  app: (
+  app: () => (
     <ReduxProvider value={theme}>
       <ReactApp />
     </ReduxProvider>
@@ -28,7 +28,6 @@ app.use(helmetGuard)
 
 app.use('/app', htmlMiddleware, renderMiddleware(renderOptions))
 app.use('/prerender', json(), prerenderMiddleware(remoteEntry))
-// TODO: this works in production mode but not dev
 app.use('/', express.static(publicPath))
 
 export default app

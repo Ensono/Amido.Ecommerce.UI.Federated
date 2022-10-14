@@ -17,14 +17,7 @@
     "test": "jest src/",
     "tsc": "tsc"
   },
-  "devDependencies": {
-    "@rollup/plugin-dynamic-import-vars": "^1.4.2",
-    "@types/node": "^16.11.13",
-    "jest": "^27.4.3",
-    "typescript": "^4.5.4"
-  },
   "dependencies": {
-    "applicationinsights": "^2.2.2",
-    "react-router-dom": "^5.3.1"
+    "applicationinsights": "^2.2.2"
   }
 }

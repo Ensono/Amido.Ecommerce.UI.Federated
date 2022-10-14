@@ -32,7 +32,6 @@ export const getServerComponent = (
   // We cache based on properties. This allows us to only
   // do one fetch for multiple references of a remote component.
   const id = stringify({remote, module, props})
-
   let Component = ctx[id] as Module
 
   if (Component) {
@@ -99,7 +98,7 @@ export const getServerComponent = (
                 return node?.type === 'tag' && node?.name === __INTERNAL_NODE_TAG
               },
               processNode: (node: any, kids: any) => {
-                return <React.Suspense fallback={React.Fragment}>{kids}</React.Suspense>
+                return <React.Suspense>{kids}</React.Suspense>
               },
             },
             {

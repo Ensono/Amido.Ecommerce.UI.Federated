@@ -1,5 +1,5 @@
 import {FC, StrictMode, createContext} from 'react'
-import {Route} from 'react-router-dom'
+import {Route, Routes} from 'react-router-dom'
 
 import {Text} from '@batman-ui-components/text'
 import {federateComponent} from '@batman/federate-component'
@@ -17,21 +17,31 @@ export const ThemeProvider = ({children, data}: any) => {
 
 const remotesUrls = getRemoteUrls()
 
-const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_header, process.env.CACHE_MANAGER_URL)
-
-const Footer = federateComponent('mfe_footer', './footer', remotesUrls.mfe_footer, process.env.CACHE_MANAGER_URL)
-const ProductListing = federateComponent(
-  'mfe_product_listing',
-  './product-listing',
-  remotesUrls.mfe_product_listing,
-  process.env.CACHE_MANAGER_URL,
-)
-const ProductDetails = federateComponent(
-  'mfe_product_details',
-  './product-details',
-  remotesUrls.mfe_product_details,
-  process.env.CACHE_MANAGER_URL,
-)
+const Header = federateComponent({
+  remote: 'mfe_header',
+  module: './header',
+  remoteUrl: remotesUrls.mfe_header,
+  cacheUrl: process.env.CACHE_MANAGER_URL,
+})
+const Footer = federateComponent({
+  remote: 'mfe_footer',
+  module: './footer',
+  remoteUrl: remotesUrls.mfe_footer,
+  cacheUrl: process.env.CACHE_MANAGER_URL,
+})
+const ProductListing = federateComponent({
+  remote: 'mfe_product_listing',
+  module: './product-listing',
+  remoteUrl: remotesUrls.mfe_product_listing,
+  cacheUrl: process.env.CACHE_MANAGER_URL,
+})
+const ProductDetails = federateComponent({
+  remote: 'mfe_product_details',
+  module: './product-details',
+  remoteUrl: remotesUrls.mfe_product_details,
+  cacheUrl: process.env.CACHE_MANAGER_URL,
+  forwardRoute: true,
+})
 
 /**
  * Host app that consumes micro-front-ends and renders them together
@@ -46,42 +56,38 @@ const App: FC = () => {
         <Header loadingFallback={<div>Loading header...</div>} errorFallback={<div>Error loading header</div>}>
           SSR header!
         </Header>
-        <Route
-          exact
-          path="/app"
-          render={() => (
-            <div className="App">
-              <section className="App-header">
-                {/* eslint-disable-next-line no-console */}
-                <p>Page 1</p>
-                <Counter />
-                <Text />
-              </section>
-            </div>
-          )}
-        />
-        <Route
-          exact
-          path="/app/productListing"
-          render={() => (
-            <ProductListing
-              loadingFallback={<div>Loading product listing...</div>}
-              errorFallback={<div>Error loading product listing</div>}
-            />
-          )}
-        />
-        <Route
-          path="/app/productDetails/:id"
-          render={({match}) => {
-            return (
+        <Routes>
+          <Route
+            path="/app"
+            element={
+              <div className="App">
+                <section className="App-header">
+                  <p>Page 1</p>
+                  <Counter />
+                  <Text />
+                </section>
+              </div>
+            }
+          />
+          <Route
+            path="/app/productListing"
+            element={
+              <ProductListing
+                loadingFallback={<div>Loading product listing...</div>}
+                errorFallback={<div>Error loading product listing</div>}
+              />
+            }
+          />
+          <Route
+            path="/app/productDetails/:id"
+            element={
               <ProductDetails
                 loadingFallback={<div>Loading product details...</div>}
                 errorFallback={<div>Error loading product details</div>}
-                id={match.params?.id}
               />
-            )
-          }}
-        />
+            }
+          />
+        </Routes>
         <Footer loadingFallback={<div>Loading footer...</div>} errorFallback={<div>Error loading footer</div>}>
           SSR footer!
         </Footer>

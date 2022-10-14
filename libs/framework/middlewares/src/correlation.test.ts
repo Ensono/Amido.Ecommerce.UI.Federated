@@ -1,6 +1,8 @@
 import {correlationMiddleware} from './correlation'
 
-jest.mock('uuid/v1', () => () => 'test')
+jest.mock('uuid', () => ({
+  v1: () => 'test',
+}))
 
 describe('correlationMiddleware', () => {
   it('Should return a function', () => {

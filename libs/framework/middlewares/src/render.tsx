@@ -1,7 +1,8 @@
+import React from 'react'
+
 import {Logger} from '@batman/core-logger'
 import {getRemoteUrls} from '@batman/remote-urls'
 import {Handler} from 'express'
-// @ts-ignore
 import {renderToPipeableStream} from 'react-dom/server'
 
 import {AbortRenderToPipe, RenderMiddlewareOptions, StringMap} from '../types'
@@ -10,7 +11,7 @@ const defaultHtmlReplacements: StringMap = {
   INITIAL_STATE: JSON.stringify({}),
   DIRECTION: 'ltr',
   lang: 'lang=en',
-  FAV_ICON_PATH: 'favicon.ico',
+  FAV_ICON_PATH: '/favicon.ico',
   REMOTE_ENTRIES_JS: Object.entries(getRemoteUrls())
     .map(([, entry]) => `<script defer src="${entry}/remote-entry.js"></script>`)
     .join(''),
@@ -25,8 +26,7 @@ export const renderMiddleware = ({app, errorStatusCode, htmlReplacements}: Rende
     // TODO: type this properly
     const unsafeReq = req as any
     let html = unsafeReq.html
-
-    app = app ?? unsafeReq?.renderOptions?.app(req.originalUrl)
+    const App = app ?? unsafeReq?.renderOptions?.app
 
     const mergedHtmlReplacements = {
       ...defaultHtmlReplacements,
@@ -44,7 +44,7 @@ export const renderMiddleware = ({app, errorStatusCode, htmlReplacements}: Rende
     })
     const [first, last] = html.split('__HTML__')
 
-    const {pipe, abort} = renderToPipeableStream(app, {
+    const {pipe, abort} = renderToPipeableStream(<App location={req.originalUrl} />, {
       onAllReady() {
         // If something errored before we started streaming, we set the error code appropriately.
         res.statusCode = didError ? errorStatusCode : 200
