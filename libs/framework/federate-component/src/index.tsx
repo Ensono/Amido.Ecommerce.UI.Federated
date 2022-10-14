@@ -51,13 +51,19 @@ export class ErrorBoundary extends React.Component<any, {hasError: boolean}> {
  *
  * @returns Suspended, federated React component with an error boundary
  */
-export const federateComponent = (remote: string, module: string, remoteUrl: string, shareScope = 'default') => {
+export const federateComponent = (
+  remote: string,
+  module: string,
+  remoteUrl: string,
+  cacheManagerUrl = '',
+  shareScope = 'default',
+) => {
   const FederatedComponent: React.FC<
     {loadingFallback?: JSX.Element; errorFallback?: JSX.Element} | Record<string, any>
   > = ({children, loadingFallback = <> </>, errorFallback = <> </>, ...props}) => {
     const Component: React.FC =
       typeof window === 'undefined'
-        ? getServerComponent(context, remote, module, props, remoteUrl)
+        ? getServerComponent(context, remote, module, props, remoteUrl, cacheManagerUrl)
         : getClientComponent(context, remote, module, shareScope)
 
     return (

@@ -84,8 +84,8 @@ export class AzureTableStorage {
   }
 }
 
-export async function getComponent(data: object, port: string) {
-  const res = await axios(`http://localhost:${port}/prerender`, {
+export async function getComponent(data: object, remoteUrl: string) {
+  const res = await axios(`http://${remoteUrl}/prerender`, {
     method: 'POST',
     data,
     headers: {

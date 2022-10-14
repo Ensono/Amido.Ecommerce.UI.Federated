@@ -17,11 +17,21 @@ export const ThemeProvider = ({children, data}: any) => {
 
 const remotesUrls = getRemoteUrls()
 
-const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_header)
+const Header = federateComponent('mfe_header', './header', remotesUrls.mfe_header, process.env.CACHE_MANAGER_URL)
 
-const Footer = federateComponent('mfe_footer', './footer', remotesUrls.mfe_footer)
-const ProductListing = federateComponent('mfe_product_listing', './product-listing', remotesUrls.mfe_product_listing)
-const ProductDetails = federateComponent('mfe_product_details', './product-details', remotesUrls.mfe_product_details)
+const Footer = federateComponent('mfe_footer', './footer', remotesUrls.mfe_footer, process.env.CACHE_MANAGER_URL)
+const ProductListing = federateComponent(
+  'mfe_product_listing',
+  './product-listing',
+  remotesUrls.mfe_product_listing,
+  process.env.CACHE_MANAGER_URL,
+)
+const ProductDetails = federateComponent(
+  'mfe_product_details',
+  './product-details',
+  remotesUrls.mfe_product_details,
+  process.env.CACHE_MANAGER_URL,
+)
 
 /**
  * Host app that consumes micro-front-ends and renders them together
