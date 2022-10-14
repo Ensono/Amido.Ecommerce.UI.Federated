@@ -17,17 +17,29 @@ export const ThemeProvider = ({children, data}: any) => {
 
 const remotesUrls = getRemoteUrls()
 
-const Header = federateComponent({remote: 'mfe_header', module: './header', remoteUrl: remotesUrls.mfe_header})
-const Footer = federateComponent({remote: 'mfe_footer', module: './footer', remoteUrl: remotesUrls.mfe_footer})
+const Header = federateComponent({
+  remote: 'mfe_header',
+  module: './header',
+  remoteUrl: remotesUrls.mfe_header,
+  cacheUrl: process.env.CACHE_MANAGER_URL,
+})
+const Footer = federateComponent({
+  remote: 'mfe_footer',
+  module: './footer',
+  remoteUrl: remotesUrls.mfe_footer,
+  cacheUrl: process.env.CACHE_MANAGER_URL,
+})
 const ProductListing = federateComponent({
   remote: 'mfe_product_listing',
   module: './product-listing',
   remoteUrl: remotesUrls.mfe_product_listing,
+  cacheUrl: process.env.CACHE_MANAGER_URL,
 })
 const ProductDetails = federateComponent({
   remote: 'mfe_product_details',
   module: './product-details',
   remoteUrl: remotesUrls.mfe_product_details,
+  cacheUrl: process.env.CACHE_MANAGER_URL,
   forwardRoute: true,
 })
 

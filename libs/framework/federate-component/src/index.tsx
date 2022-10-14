@@ -56,6 +56,7 @@ type FederatedComponentFactory = {
   remote: string
   module: string
   remoteUrl: string
+  cacheUrl?: string
   shareScope?: string
   forwardRoute?: boolean
 }
@@ -63,6 +64,7 @@ export const federateComponent = ({
   remote,
   module,
   remoteUrl,
+  cacheUrl = '',
   shareScope = 'default',
   forwardRoute = false,
 }: FederatedComponentFactory) => {
@@ -88,7 +90,7 @@ export const federateComponent = ({
 
     const Component: React.FC<PropsWithChildren<any>> =
       typeof window === 'undefined'
-        ? getServerComponent(context, remote, module, {...props, _ctx}, remoteUrl)
+        ? getServerComponent(context, remote, module, {...props, _ctx}, remoteUrl, cacheUrl)
         : getClientComponent(context, remote, module, shareScope)
 
     return (

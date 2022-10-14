@@ -20,12 +20,14 @@ import {Module, RemotesContext} from './types'
  * @param remoteUrl - host url of prerender endpoint
  * @returns React component with required <script> and <style> tags to load on client-side
  */
+
 export const getServerComponent = (
   ctx: RemotesContext,
   remote: string,
   module: string,
   props: {[key: string]: any},
   remoteUrl: string,
+  cacheManagerUrl: string,
 ) => {
   // We cache based on properties. This allows us to only
   // do one fetch for multiple references of a remote component.
@@ -37,10 +39,13 @@ export const getServerComponent = (
     return Component
   }
 
+  const hostPort = remoteUrl.split('//')[1]
+
   Component = lazy(async () => {
     // Do the post request to pre-render the federated component
+    const requestUrl = cacheManagerUrl ? `${cacheManagerUrl}/${hostPort}/prerender` : `${remoteUrl}/prerender`
     try {
-      const res = await axios(`${remoteUrl}/prerender`, {
+      const res = await axios(requestUrl, {
         method: 'POST',
         data: {
           module,
@@ -48,10 +53,13 @@ export const getServerComponent = (
         },
         headers: {
           'content-type': 'application/json',
+          'remote-name': remote,
         },
       })
       let parsedChunks: Array<any>
       const [chunks, html, state] = res.data.split(constants.SERIALISED_RESPONSE_SEPARATOR)
+
+      Logger.info(res.data)
 
       try {
         parsedChunks = JSON.parse(chunks)
