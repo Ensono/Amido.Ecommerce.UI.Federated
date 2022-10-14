@@ -17,8 +17,15 @@ jest.mock('@batman/core-logger')
 const mockLoggerError = jest.fn()
 Logger.error = mockLoggerError
 
-function renderComponent(context = {}) {
-  const Component = getServerComponent(context, 'coolRemote', 'coolModule', {}, 'coolRemoteUrl')
+function renderComponent(context = {}, cacheManagerUrl = '') {
+  const Component = getServerComponent(
+    context,
+    'coolRemote',
+    'coolModule',
+    {},
+    'http://coolRemoteUrl:3000',
+    cacheManagerUrl,
+  )
   const {container} = render(
     <Suspense fallback="loading">
       <ErrorBoundary>
@@ -41,13 +48,28 @@ describe('getServerComponent', () => {
   })
 
   describe('if the component is not in the supplied context', () => {
+    it('does a POST request to the cache managers prerender endpoint', async () => {
+      renderComponent({}, 'http://coolerRemoteUrl:9000')
+
+      await waitFor(() => {
+        expect(mockGet).toHaveBeenCalledWith('http://coolerRemoteUrl:9000/coolRemoteUrl:3000/prerender', {
+          data: {module: 'coolModule', props: {}},
+          headers: {'content-type': 'application/json', 'remote-name': 'coolRemote'},
+          method: 'POST',
+        })
+
+        // useless assertion stops the test from completing before the render has finished
+        // silences a warning about asserting on suspended data
+        expect(screen.getByTestId('moodule-federated-footer')).toBeInTheDocument()
+      })
+    })
     it("does a POST request to the remote's prerender endpoint", async () => {
       renderComponent()
 
       await waitFor(() => {
-        expect(mockGet).toHaveBeenCalledWith('coolRemoteUrl/prerender', {
+        expect(mockGet).toHaveBeenCalledWith('http://coolRemoteUrl:3000/prerender', {
           data: {module: 'coolModule', props: {}},
-          headers: {'content-type': 'application/json'},
+          headers: {'content-type': 'application/json', 'remote-name': 'coolRemote'},
           method: 'POST',
         })
 
