@@ -39,7 +39,9 @@ beforeEach(() => {
 })
 
 describe('prerender cache manager', () => {
-  const base64Body = Buffer.from(JSON.stringify({...mockRequestBody, language: 'en-GB'})).toString('base64')
+  const base64Body = Buffer.from(
+    JSON.stringify({...mockRequestBody, headers: {'x-language': 'en', 'x-territory': 'GB'}}),
+  ).toString('base64')
 
   it('creates client and requests the item from the cache table', async () => {
     await request(app)
@@ -105,19 +107,21 @@ describe('prerender cache manager', () => {
       .set('Content-Language', 'en-GB')
     expect(response.statusCode).toBe(500)
   })
-  it('returns default value for content-language header', async () => {
+  it('returns default value for language and territory headers', async () => {
     const response = await request(app).post('/3003/prerender').send(mockRequestBody).set('remote-name', 'testRemote')
 
-    expect(response.headers['content-language']).toBe('en-GB')
+    expect(response.headers['x-language']).toBe('en')
+    expect(response.headers['x-territory']).toBe('GB')
   })
 
-  it('returns set value for content-language header', async () => {
+  it('returns set value for language and territory headers', async () => {
     const response = await request(app)
       .post('/3003/prerender')
       .send(mockRequestBody)
       .set('remote-name', 'testRemote')
-      .set('Content-Language', 'de-DE')
+      .set('content-language', 'de-DE')
 
-    expect(response.headers['content-language']).toBe('de-DE')
+    expect(response.headers['x-language']).toBe('de')
+    expect(response.headers['x-territory']).toBe('DE')
   })
 })
