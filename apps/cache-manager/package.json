@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production webpack",
-    "server": "ts-node -T ./src/server.ts",
+    "serve": "ts-node -T ./src/server.ts",
     "azurite:install": "ts-node -T ./src/scripts/install-azurite.ts",
     "azurite:start": "azurite --location ./azurite --debug ./azurite/debug.log",
     "test": "node ../../scripts/test.js --coverage --watchAll=false",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@azure/data-tables": "^13.2.0",
     "@babel/core": "^7.16.0",
+    "@batman/core-logger": "*",
     "@testing-library/jest-dom": "^5.16.1",
     "@types/express": "^4.17.13",
     "@types/node": "^16.11.13",

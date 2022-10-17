@@ -1,3 +1,4 @@
+import {Logger} from '@batman/core-logger'
 import * as dotenv from 'dotenv'
 import express from 'express'
 
@@ -47,12 +48,12 @@ app.post('/:remoteUrl/prerender', async (req, res) => {
       } else {
         component = tableRes.value
       }
-    } catch (err) {
-      console.log(err)
+    } catch (err: any) {
+      Logger.info(err.message)
+
       const response = await getComponent(req.body, req.params.remoteUrl)
       component = response.data
     }
-    console.log(component)
 
     res.set(headers)
     res.status(200).send(component)
