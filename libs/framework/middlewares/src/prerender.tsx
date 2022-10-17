@@ -1,3 +1,5 @@
+import {Writable} from 'stream'
+
 import React from 'react'
 import * as ReactRedux from 'react-redux'
 import * as ReactRouterDom from 'react-router-dom'
@@ -8,6 +10,15 @@ import {getRemoteUrls} from '@batman/remote-urls'
 import {NextFunction} from 'express'
 import {renderToPipeableStream} from 'react-dom/server'
 import {StaticRouter} from 'react-router-dom/server'
+
+class HtmlWritable extends Writable {
+  html = ''
+
+  _write(chunk, _, next) {
+    this.html = encodeURIComponent(chunk.toString())
+    next()
+  }
+}
 
 /**
  * Generates payload of downstream client remote entry files and renders the react module exposed
@@ -52,12 +63,11 @@ export const prerenderMiddleware = remoteEntry => {
       let Component = factory()
       Component = (Component && Component.default) || Component
 
-      const stringifiedChunks = `${JSON.stringify([...REMOTE_ENTRIES])}`
       let didError = false
 
       let timeout
 
-      const initialState = req.initialState ? JSON.stringify(req.initialState) : 'NO STATE'
+      const initialState = req.initialState || 'NO STATE'
       const InitialStateProvider = req.provider
 
       const el =
@@ -83,17 +93,28 @@ export const prerenderMiddleware = remoteEntry => {
           </StaticRouter>
         )
 
-      const {pipe} = renderToPipeableStream(el, {
+      const stream = renderToPipeableStream(el, {
         onAllReady() {
+          const assembledJSON = JSON.stringify({
+            chunks: [...REMOTE_ENTRIES],
+            html: constants.SERIALISED_RESPONSE_SEPARATOR,
+            state: initialState,
+          })
+          const writable = new HtmlWritable()
+          // string split to stream html data 'into' object
+          const splitJSON = assembledJSON.split(constants.SERIALISED_RESPONSE_SEPARATOR)
+
           // If something errored before we started streaming, we set the error code appropriately.
           res.statusCode = didError ? 206 : 200
-          res.contentType('text/plain')
-          res.write(stringifiedChunks)
-          res.write(constants.SERIALISED_RESPONSE_SEPARATOR)
-          pipe(res)
-          res.write(constants.SERIALISED_RESPONSE_SEPARATOR)
-          res.write(initialState)
+          res.contentType('application/json')
+
+          // Reassemble JSON object with encoded HTML inside
+          res.write(splitJSON[0])
+          stream.pipe(writable)
+          res.write(writable.html)
+          res.write(splitJSON[1])
           clearTimeout(timeout)
+          res.end()
         },
         onError(x: Error) {
           Logger.error(x.message)
