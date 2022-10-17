@@ -1,4 +1,5 @@
 import {GetTableEntityResponse, TableClient, TableEntityResult, TableServiceClient} from '@azure/data-tables'
+import {Logger} from '@batman/core-logger'
 import axios from 'axios'
 
 import {UpsertTableItem} from './types'
@@ -9,7 +10,7 @@ export class AzureTableStorage {
     try {
       client = TableClient.fromConnectionString(connectionString, tableName)
     } catch (error) {
-      console.log(`[connectTableClient] The following error occurred ${error}`)
+      Logger.error(`[connectTableClient] The following error occurred ${error}`)
     }
 
     return client
@@ -32,7 +33,7 @@ export class AzureTableStorage {
 
       result = await tableClient?.createEntity(task)
     } catch (error) {
-      console.log(`[createTable] The following error occurred: ${error}`)
+      Logger.error(`[createTable] The following error occurred: ${error}`)
     }
     return result
   }
@@ -44,7 +45,7 @@ export class AzureTableStorage {
 
       result = await tableClient?.deleteTable()
     } catch (error) {
-      console.log(`[deleteTable] The following error occurred: ${error}`)
+      Logger.error(`[deleteTable] The following error occurred: ${error}`)
     }
     return result
   }
@@ -55,7 +56,7 @@ export class AzureTableStorage {
     try {
       tableItem = await client?.getEntity(partitionKey, rowKey)
     } catch (error) {
-      console.log(`[getTableItem] The following error occurred: ${error}`)
+      Logger.error(`[getTableItem] The following error occurred: ${error}`)
     }
 
     return tableItem
@@ -66,7 +67,7 @@ export class AzureTableStorage {
     try {
       tableItem = await client?.upsertEntity(item)
     } catch (error) {
-      console.log(`[upsertTableItem] The following error occurred: ${error}`)
+      Logger.error(`[upsertTableItem] The following error occurred: ${error}`)
     }
 
     return tableItem
@@ -77,7 +78,7 @@ export class AzureTableStorage {
     try {
       tableItem = await client?.deleteEntity(partitionKey, rowKey)
     } catch (error) {
-      console.log(`[deleteTableItem] The following error occurred: ${error}`)
+      Logger.error(`[deleteTableItem] The following error occurred: ${error}`)
     }
 
     return tableItem
@@ -115,7 +116,7 @@ export const insertNewItem = async (
   const upsert = await AzureTableStorage.upsertTableItem(client, tableItem)
 
   if (upsert === undefined) {
-    console.log('cache failed to store')
+    Logger.error('[insertNewItem] Cache failed to store')
   } else {
     return upsert
   }

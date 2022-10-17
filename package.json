@@ -97,6 +97,7 @@
     "./libs/ui-components/Text",
     "./tools/CLI",
     "./apps/AppShell",
+    "./apps/cache-manager",
     "./apps/MFE/Header",
     "./apps/MFE/Footer",
     "./apps/MFE/ProductListing",
